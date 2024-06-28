@@ -91,10 +91,10 @@ paths:
                   timeSpanCount:
                     type: integer
                     example: 4
-                  startTime:
+                  timeStart:
                     type: integer
                     example: 1719059700
-                  endTime:
+                  timeEnd:
                     type: integer
                     example: 1719069700
                   shows:
@@ -108,12 +108,12 @@ paths:
                           previewImage: "https://....",
                           dates: [
                             {
-                              startTime: 1719059700,
-                              endTime: 1719068400
+                              timeStart: 1719059700,
+                              timeEnd: 1719068400
                             },
                             {
-                              startTime: 1719059700,
-                              endTime: 1719068400
+                              timeStart: 1719059700,
+                              timeEnd: 1719068400
                             }
                           ]
                         },
@@ -125,12 +125,12 @@ paths:
                           previewImage: "https://....",
                           dates: [
                             {
-                              startTime: 1719059700,
-                              endTime: 1719068400
+                              timeStart: 1719059700,
+                              timeEnd: 1719068400
                             },
                             {
-                              startTime: 1719059700,
-                              endTime: 1719068400
+                              timeStart: 1719059700,
+                              timeEnd: 1719068400
                             }
                           ]
                         }
@@ -155,8 +155,8 @@ paths:
                     example: "Кухня"
                   assessment:
                     type: number
-                    example: 4.6,
-                  age-limit:
+                    example: 4.6
+                  ageLimit:
                       type: number
                       example: 0
                       description: "
@@ -203,11 +203,11 @@ paths:
                           image: "https:...",
                           dates: [
                             {
-                              startTime: 1719059700,
+                              timeStart: 1719059700,
                               stopTime: 1719068400
                             },
                             {
-                              startTime: 1719059700,
+                              timeStart: 1719059700,
                               stopTime: 1719068400
                             }
                           ]
