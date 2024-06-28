@@ -1,5 +1,6 @@
 package com.limelist.tvHistory.routing
 
+import com.limelist.shared.respondJson
 import com.limelist.tvHistory.services.TvShowsService
 import io.ktor.http.*
 import io.ktor.resources.*
@@ -16,13 +17,13 @@ fun Route.shows(tvShowsService: TvShowsService) {
                 args.limit,
                 args.timeStart,
             )
-            call.respond(shows);
+            call.respondJson(shows);
         }
         get<AllShows.Show>(){ args ->
             val show = tvShowsService.getShowDetails(args.id)
 
             if (show != null) {
-                call.respond(
+                call.respondJson(
                     HttpStatusCode.Found,
                     show
                 )

@@ -18,6 +18,5 @@ fun Application.module() {
     val services = configureServices();
 
     configureHTTP()
-    configureSerialization()
     configureRouting(services)
 }

@@ -1,5 +1,6 @@
 package com.limelist.tvHistory.routing
 
+import com.limelist.shared.respondJson
 import com.limelist.tvHistory.services.TvChannelsService
 import io.ktor.http.*
 import io.ktor.resources.*
@@ -8,6 +9,8 @@ import io.ktor.server.resources.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import java.util.*
 
 fun Route.channels(tvChannelsService: TvChannelsService) {
@@ -17,7 +20,7 @@ fun Route.channels(tvChannelsService: TvChannelsService) {
                 args.limit,
                 args.offset,
             )
-            call.respond(channels);
+            call.respondJson(channels);
         }
 
         get<AllChannels.Channel>(){ args ->
@@ -26,7 +29,7 @@ fun Route.channels(tvChannelsService: TvChannelsService) {
             )
 
             if (channel != null) {
-                call.respond(
+                call.respondJson(
                     HttpStatusCode.Found,
                     channel
                 );

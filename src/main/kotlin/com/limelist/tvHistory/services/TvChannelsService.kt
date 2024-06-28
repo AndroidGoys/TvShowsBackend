@@ -13,7 +13,7 @@ class TvChannelsService (
     suspend fun getAllChannels(
         limit: Int?,
         offset: Int?
-    ):TvChannels<TvChannelPreviewModel> {
+    ):TvChannels {
         val limit = limit ?: 0
         val offset = offset ?: 0
 

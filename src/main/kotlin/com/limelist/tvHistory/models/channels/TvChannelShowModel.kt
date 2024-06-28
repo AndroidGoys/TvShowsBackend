@@ -3,7 +3,9 @@ package com.limelist.tvHistory.models.channels
 import com.limelist.tvHistory.models.AgeLimit
 import com.limelist.tvHistory.models.TvTimeSpan
 import com.limelist.tvHistory.models.shows.TvShow
+import kotlinx.serialization.Serializable
 
+@Serializable
 class TvChannelShowModel(
     private val channelId: Int,
     override val id: Int,

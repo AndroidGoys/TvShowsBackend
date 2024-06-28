@@ -93,7 +93,7 @@ class TvShowsSqliteRepository(
 //
     }
 
-    override suspend fun getShowChannels(showId: Int) : TvChannels<TvShowChannelModel> {
+    override suspend fun getShowChannels(showId: Int) : TvChannels {
         TODO("Not yet implemented")
     }
 }

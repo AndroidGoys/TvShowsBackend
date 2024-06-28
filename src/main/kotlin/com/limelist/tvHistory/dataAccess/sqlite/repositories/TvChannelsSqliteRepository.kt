@@ -8,8 +8,6 @@ import com.limelist.tvHistory.dataAccess.interfaces.TvChannelsRepository
 import com.limelist.tvHistory.models.channels.TvChannelDetailsModel
 import com.limelist.tvHistory.models.channels.TvChannelShows
 import kotlinx.coroutines.sync.withLock
-import java.sql.SQLException
-import java.util.*
 
 class TvChannelsSqliteRepository(
     connection: Connection,
@@ -20,7 +18,7 @@ class TvChannelsSqliteRepository(
         override suspend fun getAllChannels(
             limit: Int,
             offset: Int
-        ): Iterable<TvChannelPreviewModel> = mutex.withLock {
+        ): List<TvChannelPreviewModel> = mutex.withLock {
             val queryLimit = if (limit > 0) "LIMIT $limit" else "";
             val queryOffset = if (offset > 0) "OFFSET $offset" else "";
 
@@ -33,7 +31,7 @@ class TvChannelsSqliteRepository(
             """)
 
             val set = statement.executeQuery()
-            val channels = LinkedList<TvChannelPreviewModel>()
+            val channels = mutableListOf<TvChannelPreviewModel>()
 
             while (set.next()){
                 val id = set.getInt("id")
@@ -47,7 +45,7 @@ class TvChannelsSqliteRepository(
             }
 
             statement.close()
-            return@withLock channels
+            return@withLock channels.toList()
     }
 
     override suspend fun getChannelDetails(id: Int): TvChannelDetailsModel? {

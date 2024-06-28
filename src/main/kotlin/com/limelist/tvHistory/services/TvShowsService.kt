@@ -13,7 +13,7 @@ class TvShowsService(
     suspend fun getAllShows(
         limit: Int?,
         timeStart: Long?
-    ): TvShows<TvShowPreviewModel> {
+    ): TvShows {
         val timeStart = timeStart ?: 0
         val limit = limit ?: 0
 
@@ -33,7 +33,7 @@ class TvShowsService(
 
     suspend fun getShowChannels(
         showId: Int
-    ) : TvChannels<TvShowChannelModel> {
+    ) : TvChannels {
         return tvShows.getShowChannels(showId)
     }
 }

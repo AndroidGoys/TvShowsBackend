@@ -26,6 +26,9 @@ paths:
               schema:
                 type: object
                 properties:
+                  leftAmount:
+                    type: integer
+                    example: 512
                   channels:
                     type: array
                     example: [
