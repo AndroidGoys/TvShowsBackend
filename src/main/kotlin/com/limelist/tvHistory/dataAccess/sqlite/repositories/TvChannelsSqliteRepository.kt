@@ -8,9 +8,10 @@ import com.limelist.tvHistory.dataAccess.interfaces.TvChannelsRepository
 import com.limelist.tvHistory.models.channels.TvChannelDetailsModel
 import com.limelist.tvHistory.models.channels.TvChannelShows
 import kotlinx.coroutines.sync.withLock
+import java.sql.SQLException
 import java.util.*
 
-class SqliteTvChannelsRepository(
+class TvChannelsSqliteRepository(
     connection: Connection,
     mutex: Mutex
 ) : BaseSqliteTvRepository(connection, mutex, channelsTabelName),
@@ -34,10 +35,6 @@ class SqliteTvChannelsRepository(
             val set = statement.executeQuery()
             val channels = LinkedList<TvChannelPreviewModel>()
 
-            if (set.) {
-                return@withLock channels
-            }
-
             while (set.next()){
                 val id = set.getInt("id")
                 val name = set.getString("name")
@@ -49,6 +46,7 @@ class SqliteTvChannelsRepository(
                 ))
             }
 
+            statement.close()
             return@withLock channels
     }
 

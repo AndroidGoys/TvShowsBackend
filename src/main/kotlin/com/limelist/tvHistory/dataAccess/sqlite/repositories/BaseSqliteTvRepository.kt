@@ -14,12 +14,15 @@ abstract class BaseSqliteTvRepository(
     }
 
     override suspend fun count(): Int = mutex.withLock {
-        val statement = connection.createStatement();
-        return statement.executeQuery("""
+        val statement = connection.prepareStatement("""
            SELECT COUNT(*) FROM $tableName;
-        """).use { resultSet ->
-            resultSet.getInt(0)
-       }
+        """);
+
+        val set = statement.executeQuery();
+        if (!set.next())
+            return@withLock -1;
+
+        return@withLock set.getInt(1);
     }
 
 
