@@ -34,7 +34,11 @@ class SqliteTvChannelsRepository(
             val set = statement.executeQuery()
             val channels = LinkedList<TvChannelPreviewModel>()
 
-            while(set.next()) {
+            if (set.) {
+                return@withLock channels
+            }
+
+            while (set.next()){
                 val id = set.getInt("id")
                 val name = set.getString("name")
                 val imageUrl = set.getString("image_url")

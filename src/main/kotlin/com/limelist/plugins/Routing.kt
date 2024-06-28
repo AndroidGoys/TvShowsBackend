@@ -10,6 +10,8 @@ import com.limelist.tvHistory.routing.useTvHistory;
 fun Application.configureRouting(services: ApplicationServices) {
     install(Resources)
     routing {
-        useTvHistory("/", services.tvHistoryServices)
+        route("/api"){
+            useTvHistory("/", services.tvHistoryServices)
+        }
     }
 }
