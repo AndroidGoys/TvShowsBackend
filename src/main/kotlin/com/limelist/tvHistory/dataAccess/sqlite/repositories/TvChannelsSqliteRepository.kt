@@ -48,38 +48,63 @@ class TvChannelsSqliteRepository(
             return@withLock channels.toList()
     }
 
-    override suspend fun getChannelDetails(id: Int): TvChannelDetailsModel? {
-        throw NotImplementedError("Изменены модели")
+    override suspend fun getChannelDetails(
+        id: Int
+    ): TvChannelDetailsModel? = mutex.withLock {
+        val statement = connection.prepareStatement("""
+            SELECT 
+                channels.id as id, 
+                channels.name as name, 
+                channels.image_url as image_url,
+                channels.description as description,
+                channel_view_urls.url as view_url
+            FROM channels
+            LEFT JOIN channel_view_urls
+            ON channels.id = channel_view_urls.channel_id
+            WHERE channels.id == $id;
+        """)
 
-//        return mutex.withLock {
-//
-//            return@withLock connection.prepareStatement("""
-//                    SELECT channels.id, channels.name, channels.description,(
-//                        SELECT GROUP_CONCAT(url, ',')
-//                        FROM channel_view_urls
-//                        WHERE channel_view_urls.channel_id = channels.id
-//                    ) AS view_urls
-//                    FROM channels
-//                    WHERE channels.id = ?
-//                """).use { statement ->
-//                statement.setInt(1, id)
-//                statement.executeQuery().use { resultSet ->
-//                    if (resultSet.next()) {
-//                        TvChannelFullModel(
-//                            id = resultSet.getInt("id"),
-//                            name = resultSet.getString("name"),
-//                            description = resultSet.getString("description"),
-//                            channelViewUrls = resultSet.getString("channel_view_urls")?.split(",")?.toList() ?: emptyList()
-//                        )
-//                    } else {
-//                        null
-//                    }
-//                }
-//            }
-//        }
+        val set = statement.executeQuery();
+
+        if (!set.next())
+            return null;
+
+        val id = set.getInt("id")
+        val name = set.getString("name")
+        val imageUrl = set.getString("image_url")
+        val desc = set.getString("description")
+        val viewUrls = mutableListOf(set.getString("view_url"))
+
+        while(set.next()) {
+            viewUrls.add(set.getString("url"))
+        }
+
+        statement.close()
+        return TvChannelDetailsModel(
+            id = id,
+            name = name,
+            imageUrl = imageUrl,
+            description = desc,
+            viewUrls = viewUrls
+        )
     }
 
     override suspend fun getChannelShows(channelId: Int): TvChannelShows {
+        val statement = connection.prepareStatement("""
+            SELECT 
+                shows.*,
+                show_dates.time_start as time_start,
+                show_dates.time_end as time_end
+                
+            FROM channels 
+            LEFT JOIN show_dates
+                ON channels.id = show_dates.channel_id
+            LEFT JOIN shows 
+                ON shows.id = show_dates.show_id
+            WHERE channels.id = $channelId
+            ORDER BY show_dates.time_start
+        """)
+
         TODO("Not yet implemented")
     }
 }
