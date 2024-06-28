@@ -1,0 +1,218 @@
+openapi: "3.0.3"
+info:
+  title: "TvHistoryApi"
+  description: "Управление каналами и списком телепередачь"
+  version: "1.0.0"
+servers:
+  - url: "http://127.0.0.1:8080"
+
+paths:
+  /api/channels:
+    get:
+      description: "Получить список каналов"
+      parameters:
+        - name: "limit"
+          required: false
+          in: "query"
+
+        - name: "offset"
+          required: false
+          in: "query"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            text/json:
+              schema:
+                type: object
+                properties:
+                  channels:
+                    type: array
+                    example: [
+                      {
+                        id: 123,
+                        name: "Первый канал",
+                        image: "https:...",
+                      }
+                    ]
+
+
+  /api/channels/{id}:
+    get:
+      description: "Получение подробностей о канале"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            text/json:
+              schema:
+                type: "object"
+                properties:
+                  id:
+                    type: integer
+                    example: 123
+                  name:
+                    type: string
+                    example: "Первый канал"
+                  image:
+                    type: string
+                    example: "https:..."
+                  description:
+                    type: string
+                    example: "https:..."
+                  view_urls:
+                        type: array
+                        example: [
+                          "https:...",
+                          "https:...",
+                          "https:...",
+                          "https:..."
+                        ]
+
+  /api/channels/{id}/shows:
+    get:
+      description: "Получение списка телепередачь на канале"
+      parameters:
+        - name: "limit"
+          required: false
+          in: "query"
+
+        - name: "start-time"
+          required: false
+          in: "query"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            text/json:
+              schema:
+                type: "object"
+                properties:
+                  timeSpanCount:
+                    type: integer
+                    example: 4
+                  startTime:
+                    type: integer
+                    example: 1719059700
+                  endTime:
+                    type: integer
+                    example: 1719069700
+                  shows:
+                    type: array
+                    example: [
+                        {
+                          id: 123,
+                          name: "Они сражались за Родину",
+                          assessment: 4.6,
+                          age-limit: 0,
+                          previewImage: "https://....",
+                          dates: [
+                            {
+                              startTime: 1719059700,
+                              endTime: 1719068400
+                            },
+                            {
+                              startTime: 1719059700,
+                              endTime: 1719068400
+                            }
+                          ]
+                        },
+                        {
+                          id: 321,
+                          name: "Кухня",
+                          assessment: 4.6,
+                          age-limit: 0,
+                          previewImage: "https://....",
+                          dates: [
+                            {
+                              startTime: 1719059700,
+                              endTime: 1719068400
+                            },
+                            {
+                              startTime: 1719059700,
+                              endTime: 1719068400
+                            }
+                          ]
+                        }
+                      ]
+
+  /api/shows/{id}:
+    get:
+      description: "Получение подробностей о телепередаче"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            text/json:
+              schema:
+                type: "object"
+                properties:
+                  id:
+                    type: integer
+                    example: 123
+                  name:
+                    type: string
+                    example: "Кухня"
+                  assessment:
+                    type: number
+                    example: 4.6,
+                  age-limit:
+                      type: number
+                      example: 0
+                      description: "
+                        0 - наш сибирский (как пример 0+ (0b0000) 6+ (0b0001) 12+ (0b0010) 18+ (0b0011))\n
+                        1 - их пендоский (G (0b1000) PG (0b1001) PG-13 (0b1010) R (0b1011) NC-17 (0b1100))
+                      "
+
+                  previewImage:
+                    type: string
+                    example: "https:..."
+                  description:
+                    type: string
+                    example: "1-й сезон. На кухне модного московского ресторана «Клод Моне» появляется новый повар — Максим Лавров.
+                      2-й сезон. Отношения Макса и Вики заходят в тупик. Этому способствует сближение Макса и официантки Саши.
+                      3-й сезон. Макс начинает свою работу в качестве официанта.
+                      5-й сезон. Команде Виктора Баринова придётся уйти работать в другой ресторан.
+                      6-й сезон. В заключительном шестом сезоне шеф принимает судьбоносное решение, выбирая между жизнью и смертью."
+
+  /api/shows/{id}/channels:
+    get:
+      description: "Получение списка телепередачь на канале"
+      parameters:
+        - name: "limit"
+          required: false
+          in: "query"
+
+        - name: "start-time"
+          required: false
+          in: "query"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            text/json:
+              schema:
+                type: "object"
+                properties:
+                  channels:
+                    type: array
+                    example: [
+                        {
+                          id: 123,
+                          name: "Первый канал",
+                          image: "https:...",
+                          dates: [
+                            {
+                              startTime: 1719059700,
+                              stopTime: 1719068400
+                            },
+                            {
+                              startTime: 1719059700,
+                              stopTime: 1719068400
+                            }
+                          ]
+                        }
+                      ]
+
+components:
+  schemas: { }
