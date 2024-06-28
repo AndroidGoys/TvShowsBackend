@@ -34,6 +34,7 @@ abstract class BaseSqliteTvRepository(
                 CREATE TABLE IF NOT EXISTS $channelsTabelName (
                     id SERIAL PRIMARY KEY,
                     name VARCHAR(50) NOT NULL,
+                    image_url TEXT NOT NULL,
                     description TEXT NOT NULL
                 );
             """)
@@ -42,6 +43,7 @@ abstract class BaseSqliteTvRepository(
                 CREATE TABLE IF NOT EXISTS $showsTabelName (
                     id SERIAL PRIMARY KEY,
                     name VARCHAR(50) NOT NULL,
+                    
                     description TEXT NOT NULL,  
                     preview_url TEXT NOT NULL
                 );

@@ -7,6 +7,8 @@ import java.sql.Connection
 import com.limelist.tvHistory.dataAccess.interfaces.TvChannelsRepository
 import com.limelist.tvHistory.models.channels.TvChannelDetailsModel
 import com.limelist.tvHistory.models.channels.TvChannelShows
+import kotlinx.coroutines.sync.withLock
+import java.util.*
 
 class SqliteTvChannelsRepository(
     connection: Connection,
@@ -14,34 +16,36 @@ class SqliteTvChannelsRepository(
 ) : BaseSqliteTvRepository(connection, mutex, channelsTabelName),
     TvChannelsRepository {
 
-        override suspend fun getAllChannels(limit: Int, offset: Int): Iterable<TvChannelPreviewModel> {
-            throw NotImplementedError("Изменены модели")
+        override suspend fun getAllChannels(
+            limit: Int,
+            offset: Int
+        ): Iterable<TvChannelPreviewModel> = mutex.withLock {
+            val queryLimit = if (limit > 0) "LIMIT $limit" else "";
+            val queryOffset = if (offset > 0) "OFFSET $offset" else "";
 
-//        return mutex.withLock {
-//            val statement = connection.prepareStatement("""
-//            SELECT id, name, description
-//            FROM channels
-//            LIMIT ?
-//            OFFSET ?
-//        """)
-//
-//            statement.setInt(1, limit ?: Int.MAX_VALUE)
-//            statement.setInt(2, offset)
-//
-//            val resultSet = statement.executeQuery()
-//
-//            return@withLock buildList {
-//                while (resultSet.next()) {
-//                    add(
-//                        TvChannelModel(
-//                            id = resultSet.getInt("id"),
-//                            name = resultSet.getString("name"),
-//                            shows = listOf()
-//                        )
-//                    )
-//                }
-//            }
-//        }
+            val statement = connection.prepareStatement("""
+                SELECT id, name, image_url 
+                FROM channels
+                ORDER BY id
+                $queryLimit
+                $queryOffset
+            """)
+
+            val set = statement.executeQuery()
+            val channels = LinkedList<TvChannelPreviewModel>()
+
+            while(set.next()) {
+                val id = set.getInt("id")
+                val name = set.getString("name")
+                val imageUrl = set.getString("image_url")
+                channels.add(TvChannelPreviewModel(
+                    id = id,
+                    name = name,
+                    imageUrl = imageUrl
+                ))
+            }
+
+            return@withLock channels
     }
 
     override suspend fun getChannelDetails(id: Int): TvChannelDetailsModel? {

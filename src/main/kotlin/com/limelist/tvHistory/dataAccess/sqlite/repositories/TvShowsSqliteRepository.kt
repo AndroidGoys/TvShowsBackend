@@ -14,7 +14,7 @@ class TvShowsSqliteRepository(
     mutex: Mutex
 ) : BaseSqliteTvRepository(connection, mutex, showsTabelName),
     ТvShowsRepository {
-    override suspend fun getAllShows(limit: Int?, startTime: Long): Iterable<TvShowPreviewModel> {
+    override suspend fun getAllShows(limit: Int?, timeStart: Long): Iterable<TvShowPreviewModel> {
         throw NotImplementedError("Изменены модели")
 
 
