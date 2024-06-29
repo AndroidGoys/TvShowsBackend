@@ -18,6 +18,8 @@ fun Application.configureServices() : ApplicationServices {
 }
 
 fun Application.configureTvHistoryServices(): TvHistoryServices {
+
+
     val conn = DriverManager.getConnection("jdbc:sqlite:tvHisotry.sql")
     val mutex = Mutex()
 
@@ -27,5 +29,10 @@ fun Application.configureTvHistoryServices(): TvHistoryServices {
     val tvChannelsService = TvChannelsService(channels);
     val tvShowsService = TvShowsService(shows);
 
+    this.environment.monitor.subscribe(ApplicationStopped) { application ->
+        conn.close()
+        //чертово колдунство, как это вообще работает
+        application.environment.monitor.unsubscribe(ApplicationStopped) {}
+    }
     return TvHistoryServices(tvChannelsService, tvShowsService)
 }
