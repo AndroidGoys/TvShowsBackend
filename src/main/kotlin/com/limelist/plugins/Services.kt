@@ -18,8 +18,6 @@ fun Application.configureServices() : ApplicationServices {
 }
 
 fun Application.configureTvHistoryServices(): TvHistoryServices {
-
-
     val conn = DriverManager.getConnection("jdbc:sqlite:tvHisotry.sql")
     val mutex = Mutex()
 
