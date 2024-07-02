@@ -14,5 +14,11 @@ enum class AgeLimit(val flag: Int) {
     ParentalGuidanceSuggested(0b1001), // PG Детям рекомендуется смотреть фильм с родителями
     ParentsStronglyCautioned(0b1010), // PG-13 Просмотр не желателен детям до 13 лет.
     Restricted(0b1011),  // R Лица, не достигшие 17-летнего возраста, допускаются на фильм только в сопровождении одного из родителей
-    NoOne17AndUnderAdmitted(0b1100) // NC-17 Лица 17-летнего возраста и младше на фильм не допускаются
- }
+    NoOne17AndUnderAdmitted(0b1100); // NC-17 Лица 17-летнего возраста и младше на фильм не допускаются;
+
+    companion object {
+        fun fromInt(ageLimitValue: Int): AgeLimit {
+            return values().firstOrNull { it.flag == ageLimitValue }?: throw IllegalArgumentException("Invalid age limit value")
+        }
+    }
+}
