@@ -6,7 +6,20 @@ import com.limelist.tvHistory.services.models.channels.TvChannels
 import com.limelist.tvHistory.services.models.releases.TvChannelReleases
 
 interface TvChannelsServiceInterface {
-    suspend fun getAllChannels(limit: Int?, offset: Int?, filter: TvChannelsFilter): TvChannels<TvChannelPreviewModel>
-    suspend fun getChannelDetails(id: Int): TvChannelDetailsModel?
-    suspend fun getChannelReleases(channelId: Int, limit: Int?, timeStart: Long?): TvChannelReleases
+    suspend fun getAllChannels(
+        limit: Int?,
+        offset: Int?,
+        filter: TvChannelsFilter
+    ): TvChannels<TvChannelPreviewModel>
+
+    suspend fun getChannelDetails(
+        id: Int
+    ): TvChannelDetailsModel?
+
+    suspend fun getChannelReleases(
+        channelId: Int,
+        limit: Int?,
+        timeStart: Long?,
+        timeZone: Float?
+    ): TvChannelReleases
 }

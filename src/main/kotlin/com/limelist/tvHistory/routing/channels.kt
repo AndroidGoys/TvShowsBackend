@@ -45,7 +45,8 @@ fun Route.channels(
             val releases = tvChannelsService.getChannelReleases(
                 args.channel.id,
                 args.limit,
-                args.timeStart
+                args.timeStart,
+                args.timeZone
             )
             call.respondJson(releases)
         }
@@ -70,7 +71,7 @@ data class AllChannels(
             val channel: Channel,
             val limit: Int? = null,
             val timeStart: Long? = null,
-            val timeZone: Int? = null
+            val timeZone: Float? = null
         )
     }
 }

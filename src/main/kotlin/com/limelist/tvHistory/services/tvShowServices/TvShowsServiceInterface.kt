@@ -14,6 +14,7 @@ interface TvShowsServiceInterface {
         channelsLimit: Int?,
         channelsOffset: Int?,
         releasesLimit: Int?,
-        releasesTimeStart: Long?
+        releasesTimeStart: Long?,
+        timeZone: Float?
     ): TvChannels<TvShowChannelModel>
 }

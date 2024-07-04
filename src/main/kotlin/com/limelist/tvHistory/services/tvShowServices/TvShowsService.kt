@@ -1,5 +1,6 @@
 package com.limelist.tvHistory.services.tvShowServices
 
+import com.limelist.shared.normalizeUnixSecondsTime
 import com.limelist.tvHistory.services.models.shows.TvShows
 import com.limelist.tvHistory.services.models.shows.TvShowDetailsModel
 import com.limelist.tvHistory.dataAccess.interfaces.TvShowsRepository
@@ -10,62 +11,51 @@ import com.limelist.tvHistory.services.models.shows.TvShowPreviewModel
 class TvShowsService(
     private val tvShows: TvShowsRepository
 ) : TvShowsServiceInterface {
-//    suspend fun getAllShows(
-//        limit: Int?,
-//        timeStart: Long?
-//    ): TvShows<TvShowPreviewModel> {
-//        val timeStart = timeStart ?: 0
-//        val limit = limit ?: -1
-//
-//        return  tvShows.getAllShows(
-//            limit,
-//            timeStart
-//        )
-//
-//    }
 
-    override suspend fun getAllShows(limit: Int?, offset: Int?, filter: TvShowsFilter): TvShows<TvShowPreviewModel> {
-        TODO("Not yet implemented")
+    override suspend fun getAllShows(
+        limit: Int?,
+        offset: Int?,
+        filter: TvShowsFilter
+    ): TvShows<TvShowPreviewModel> {
+        if (filter.name != null)
+            return tvShows.searchByName(
+                filter.name,
+                limit ?: -1,
+                offset ?: 0,
+            )
+
+        return tvShows.getAllShows(
+            limit ?: -1,
+            offset ?: 0,
+        )
     }
 
-    override suspend fun getShowDetails(id: Int): TvShowDetailsModel? {
-        TODO("Not yet implemented")
+    override suspend fun getShowDetails(
+        id: Int
+    ): TvShowDetailsModel? {
+        return tvShows.getShowDetails(id)
     }
-
-//    suspend fun getShowDetails(
-//        showId: Int
-//    ): TvShowDetailsModel? {
-//        return tvShows.getShowDetails(showId);
-//    }
 
     override suspend fun getShowChannels(
         showId: Int,
         channelsLimit: Int?,
         channelsOffset: Int?,
         releasesLimit: Int?,
-        releasesTimeStart: Long?
+        releasesTimeStart: Long?,
+        timeZone: Float?
     ): TvChannels<TvShowChannelModel> {
-        TODO("Not yet implemented")
+        val normalizedReleasesTimeStart = releasesTimeStart
+            ?.normalizeUnixSecondsTime(
+                timeZone?: 0.0f
+            )
+
+        return tvShows.getShowChannels(
+            showId,
+            channelsLimit ?: -1,
+            channelsOffset ?: 0,
+            releasesLimit ?: -1,
+            normalizedReleasesTimeStart ?: 0,
+        )
     }
 
-//    suspend fun getShowChannels(
-//        showId: Int,
-//        channelsLimit: Int?,
-//        channelsOffset: Int?,
-//        releasesTimeStart: Long?,
-//        releasesLimit: Int?
-//    ) : TvChannels<TvShowChannelModel> {
-//        val channelsLimit = channelsLimit ?: -1
-//        val channelsOffset = channelsOffset ?: 0
-//        val releasesLimit = releasesLimit ?: -1
-//        val releasesTimeStart = releasesTimeStart?: 0
-//
-//        return tvShows.getShowChannels(
-//            showId,
-//            channelsLimit,
-//            channelsOffset,
-//            releasesLimit,
-//            releasesTimeStart
-//        )
-//    }
 }

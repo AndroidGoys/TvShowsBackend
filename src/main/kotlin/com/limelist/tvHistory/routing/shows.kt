@@ -43,7 +43,8 @@ fun Route.shows(tvShowsService: TvShowsServiceInterface) {
                 args.channelsLimit,
                 args.channelsOffset,
                 args.releasesLimit,
-                args.releasesStart
+                args.releasesStart,
+                args.timeZone
             )
 
             call.respondJson(
@@ -74,7 +75,7 @@ data class AllShows(
             val channelsOffset: Int? = null,
             val releasesLimit: Int? = null,
             val releasesStart: Long? = null,
-            val timeZone: Int? = null
+            val timeZone: Float? = null
         )
     }
 }
