@@ -1,4 +1,4 @@
-package com.limelist.tvHistory.models.channels
+package com.limelist.tvHistory.services.models.channels
 
 import kotlinx.serialization.Serializable
 

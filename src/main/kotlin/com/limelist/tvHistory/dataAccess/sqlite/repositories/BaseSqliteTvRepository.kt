@@ -29,6 +29,7 @@ abstract class BaseSqliteTvRepository(
     companion object {
         val channelsTabelName = "channels"
         val showsTabelName = "shows"
+        val releasesTableName = "releases"
 
         fun initialize(connection: Connection) {
             val statement = connection.createStatement();
@@ -73,10 +74,11 @@ abstract class BaseSqliteTvRepository(
             """)
 
             statement.execute("""
-                CREATE TABLE IF NOT EXISTS show_dates (
+                CREATE TABLE IF NOT EXISTS $releasesTableName (
                     id SERIAL PRIMARY KEY,
                     show_id INTEGER REFERENCES shows,
                     channel_id INTEGER REFERENCES channels,
+                    description TEXT NOT NULL,
                     time_start REAL,
                     time_stop REAL
                 );

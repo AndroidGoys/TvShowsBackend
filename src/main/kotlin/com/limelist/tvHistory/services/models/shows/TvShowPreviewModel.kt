@@ -1,6 +1,6 @@
-package com.limelist.tvHistory.models.shows
+package com.limelist.tvHistory.services.models.shows
 
-import com.limelist.tvHistory.models.AgeLimit
+import com.limelist.tvHistory.services.models.AgeLimit
 import kotlinx.serialization.Serializable
 
 @Serializable

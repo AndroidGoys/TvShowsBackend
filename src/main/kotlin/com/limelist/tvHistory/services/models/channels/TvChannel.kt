@@ -1,6 +1,6 @@
-package com.limelist.tvHistory.models.channels
+package com.limelist.tvHistory.services.models.channels
 
-import com.limelist.tvHistory.models.TvModel
+import com.limelist.tvHistory.services.models.TvModel
 import kotlinx.serialization.Serializable
 
 interface TvChannel : TvModel {

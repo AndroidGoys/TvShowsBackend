@@ -1,9 +1,11 @@
 package com.limelist.tvHistory.services
 
-import com.limelist.tvHistory.models.TvShows
-import com.limelist.tvHistory.models.shows.TvShowDetailsModel
+import com.limelist.tvHistory.services.models.shows.TvShows
+import com.limelist.tvHistory.services.models.shows.TvShowDetailsModel
 import com.limelist.tvHistory.dataAccess.interfaces.TvShowsRepository
-import com.limelist.tvHistory.models.TvChannels
+import com.limelist.tvHistory.services.models.channels.TvChannels
+import com.limelist.tvHistory.services.models.shows.TvShowChannelModel
+import com.limelist.tvHistory.services.models.shows.TvShowPreviewModel
 
 class TvShowsService(
     private val tvShows: TvShowsRepository
@@ -11,16 +13,15 @@ class TvShowsService(
     suspend fun getAllShows(
         limit: Int?,
         timeStart: Long?
-    ): TvShows {
+    ): TvShows<TvShowPreviewModel> {
         val timeStart = timeStart ?: 0
-        val limit = limit ?: 0
+        val limit = limit ?: -1
 
-        val shows = tvShows.getAllShows(limit, timeStart)
-        val totalCount = tvShows.count();
-
-        return TvShows(
-            shows
+        return  tvShows.getAllShows(
+            limit,
+            timeStart
         )
+
     }
 
     suspend fun getShowDetails(
@@ -30,9 +31,23 @@ class TvShowsService(
     }
 
     suspend fun getShowChannels(
-        showId: Int
-    ) : TvChannels {
-        TODO("Not implemented")
-        //return tvShows.getShowChannels(showId)
+        showId: Int,
+        channelsLimit: Int?,
+        channelsOffset: Int?,
+        releasesTimeStart: Long?,
+        releasesLimit: Int?
+    ) : TvChannels<TvShowChannelModel> {
+        val channelsLimit = channelsLimit ?: -1
+        val channelsOffset = channelsOffset ?: 0
+        val releasesLimit = releasesLimit ?: -1
+        val releasesTimeStart = releasesTimeStart?: 0
+
+        return tvShows.getShowChannels(
+            showId,
+            channelsLimit,
+            channelsOffset,
+            releasesLimit,
+            releasesTimeStart
+        )
     }
 }

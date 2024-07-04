@@ -1,4 +1,4 @@
-package com.limelist.tvHistory.models
+package com.limelist.tvHistory.services.models
 
 import kotlinx.serialization.Serializable
 
@@ -18,7 +18,8 @@ enum class AgeLimit(val flag: Int) {
 
     companion object {
         fun fromInt(ageLimitValue: Int): AgeLimit {
-            return values().firstOrNull { it.flag == ageLimitValue }?: throw IllegalArgumentException("Invalid age limit value")
+            return values().firstOrNull { it.flag == ageLimitValue }
+                ?: throw IllegalArgumentException("Invalid age limit value")
         }
     }
 }
