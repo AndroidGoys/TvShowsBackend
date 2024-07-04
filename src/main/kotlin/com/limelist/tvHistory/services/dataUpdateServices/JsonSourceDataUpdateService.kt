@@ -4,12 +4,13 @@ import com.limelist.tvHistory.dataAccess.interfaces.TvChannelsRepository
 import com.limelist.tvHistory.dataAccess.interfaces.TvReleasesRepository
 
 import com.limelist.tvHistory.dataAccess.interfaces.TvShowsRepository
-import com.limelist.tvHistory.dataAccess.models.TvReleaseDataModel
+import com.limelist.tvHistory.dataAccess.models.TvChannelCreateModel
+import com.limelist.tvHistory.dataAccess.models.TvReleaseCreateModel
+import com.limelist.tvHistory.dataAccess.models.TvShowCreateModel
 import com.limelist.tvHistory.services.dataUpdateServices.source.models.SourceChannel
 import com.limelist.tvHistory.services.dataUpdateServices.source.models.SourceDataSet
 import com.limelist.tvHistory.services.dataUpdateServices.source.models.SourceRelease
 import com.limelist.tvHistory.services.dataUpdateServices.source.models.SourceShow
-import com.limelist.tvHistory.services.models.channels.TvChannelDetailsModel
 import com.limelist.tvHistory.services.models.shows.TvShowDetailsModel
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
@@ -31,14 +32,20 @@ class JsonSourceDataUpdateService(
         return Json.decodeFromStream<SourceDataSet>(stream)
     }
 
-    private suspend fun findTvShowDetails(show: SourceShow): TvShowDetailsModel{
-        TODO("Not implemented")
+    private suspend fun findTvShowDetails(show: SourceShow): TvShowCreateModel{
+        return  TvShowCreateModel(
+            show.id,
+            show.name,
+            0,
+            "https://mur-mur.top/cat2/uploads/posts/2024-01/1706006784_mur-mur-top-p-kobaladze-tamara-davidovna-den-rozhdeniya-43.jpg",
+            "NONE"
+        )
     }
 
     private fun convertToTvChannel(
         channel: SourceChannel
-    ): TvChannelDetailsModel{
-        return TvChannelDetailsModel(
+    ): TvChannelCreateModel {
+        return TvChannelCreateModel(
             channel.id,
             channel.name,
             channel.image,
@@ -49,8 +56,8 @@ class JsonSourceDataUpdateService(
 
     private fun convertToTvRelease(
         release: SourceRelease
-    ):TvReleaseDataModel {
-        return TvReleaseDataModel(
+    ):TvReleaseCreateModel {
+        return TvReleaseCreateModel(
             id = -1,
             release.channelId,
             release.showId,
@@ -63,9 +70,13 @@ class JsonSourceDataUpdateService(
     override suspend fun start() {
         val data: SourceDataSet = loadDataSet()
         //data.shows
+        val channelsData = data.channels.map { convertToTvChannel(it) }
+        val releasesData = data.releases.map { convertToTvRelease(it) }
+        val showsData = data.shows.map { findTvShowDetails(it) }
 
-
-        println(data.shows)
+        channels.updateMany(channelsData);
+        releases.updateMany(releasesData);
+        shows.updateMany(showsData)
     }
 
     override suspend fun stop() {

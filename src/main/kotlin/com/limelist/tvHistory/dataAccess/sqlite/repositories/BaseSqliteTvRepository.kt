@@ -1,5 +1,6 @@
 package com.limelist.tvHistory.dataAccess.sqlite.repositories
 import com.limelist.tvHistory.dataAccess.interfaces.TvRepository
+import io.ktor.server.plugins.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import java.sql.Connection
@@ -13,14 +14,15 @@ abstract class BaseSqliteTvRepository(
         initialize(connection)
     }
 
-    override suspend fun count(): Int = mutex.withLock {
-        val statement = connection.prepareStatement("""
-           SELECT COUNT(*) FROM $tableName;
-        """);
+    val getCountStatement = connection.prepareStatement("""
+           SELECT COUNT(*) as count FROM $tableName;
+    """);
 
-        val set = statement.executeQuery();
+    override suspend fun count(): Int = mutex.withLock {
+        val set = getCountStatement.executeQuery();
+
         if (!set.next())
-            return@withLock -1;
+            throw NotFoundException();
 
         return@withLock set.getInt(1);
     }

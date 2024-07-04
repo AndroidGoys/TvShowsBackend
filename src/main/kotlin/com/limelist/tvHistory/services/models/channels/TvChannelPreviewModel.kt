@@ -6,5 +6,6 @@ import kotlinx.serialization.Serializable
 data class TvChannelPreviewModel(
     override val id: Int,
     override val name: String,
-    override val imageUrl: String
+    override val imageUrl: String,
+    override val assessment: Float,
 ) : TvChannel

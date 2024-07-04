@@ -6,9 +6,10 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 class TvShowChannelModel(
-    private val showId: Int,
     override val id: Int,
+    private val showId: Int,
     override val name: String,
     override val imageUrl: String,
-    val releases: TvChannelReleases
+    override val assessment: Float,
+    val releases: TvChannelReleases,
 ) : TvChannel

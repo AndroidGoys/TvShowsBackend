@@ -1,7 +1,7 @@
 package com.limelist.tvHistory.dataAccess.sqlite.repositories
 
 import com.limelist.tvHistory.dataAccess.interfaces.TvReleasesRepository
-import com.limelist.tvHistory.dataAccess.models.TvReleaseDataModel
+import com.limelist.tvHistory.dataAccess.models.TvReleaseCreateModel
 import kotlinx.coroutines.sync.Mutex
 import java.sql.Connection
 
@@ -12,7 +12,7 @@ class TvReleasesSqliteRepository(
     BaseSqliteTvRepository(connection, mutex, releasesTableName),
     TvReleasesRepository {
 
-    override suspend fun updateMany(releases: List<TvReleaseDataModel>) {
+    override suspend fun updateMany(releases: List<TvReleaseCreateModel>) {
         TODO("Not yet implemented")
     }
 }

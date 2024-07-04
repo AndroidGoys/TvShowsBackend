@@ -6,6 +6,7 @@ import kotlinx.coroutines.sync.Mutex
 import java.sql.Connection
 
 import com.limelist.tvHistory.dataAccess.interfaces.TvShowsRepository
+import com.limelist.tvHistory.dataAccess.models.TvShowCreateModel
 import com.limelist.tvHistory.services.models.channels.TvChannels
 import com.limelist.tvHistory.services.models.shows.TvShows
 import com.limelist.tvHistory.services.models.shows.TvShowChannelModel
@@ -84,7 +85,7 @@ class TvShowsSqliteRepository(
 //            WHERE show_dates.show_id = ?
 //        """)
 //        statement.setInt(1, showId)
-//
+//`
 //        val set = statement.executeQuery()
 //        val channels = mutableListOf<TvShowChannelModel>()
 //
@@ -129,7 +130,7 @@ class TvShowsSqliteRepository(
         TODO("Not yet implemented")
     }
 
-    override suspend fun updateMany(shows: List<TvShowDetailsModel>) {
+    override suspend fun updateMany(shows: List<TvShowCreateModel>) {
         TODO("Not yet implemented")
     }
 }

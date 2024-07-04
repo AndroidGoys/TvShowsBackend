@@ -5,14 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="90c853c6-c64c-4142-9064-ff9deb980f22" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/shared/UnixTimeExtensions.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/dataAccess/models/TvChannelCreateModel.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/dataAccess/models/TvShowCreateModel.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/routing/channels.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/routing/channels.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/routing/shows.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/routing/shows.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/dataAccess/interfaces/TvChannelsRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/dataAccess/interfaces/TvChannelsRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/dataAccess/interfaces/TvReleasesRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/dataAccess/interfaces/TvReleasesRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/dataAccess/interfaces/TvShowsRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/dataAccess/interfaces/TvShowsRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/dataAccess/models/TvReleaseDataModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/dataAccess/models/TvReleaseCreateModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/dataAccess/sqlite/repositories/BaseSqliteTvRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/dataAccess/sqlite/repositories/BaseSqliteTvRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/dataAccess/sqlite/repositories/TvChannelsSqliteRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/dataAccess/sqlite/repositories/TvChannelsSqliteRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/dataAccess/sqlite/repositories/TvReleasesSqliteRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/dataAccess/sqlite/repositories/TvReleasesSqliteRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/dataAccess/sqlite/repositories/TvShowsSqliteRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/dataAccess/sqlite/repositories/TvShowsSqliteRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/services/dataUpdateServices/JsonSourceDataUpdateService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/services/dataUpdateServices/JsonSourceDataUpdateService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/services/models/channels/TvChannel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/services/models/channels/TvChannel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/services/models/channels/TvChannelDetailsModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/services/models/channels/TvChannelDetailsModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/services/models/channels/TvChannelPreviewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/services/models/channels/TvChannelPreviewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/services/models/shows/TvShowChannelModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/services/models/shows/TvShowChannelModel.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/services/tvChannelServices/TvChannelsService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/services/tvChannelServices/TvChannelsService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/services/tvChannelServices/TvChannelsServiceInterface.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/services/tvChannelServices/TvChannelsServiceInterface.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/services/tvShowServices/TvShowsService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/services/tvShowServices/TvShowsService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/services/tvShowServices/TvShowsServiceInterface.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/services/tvShowServices/TvShowsServiceInterface.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +73,7 @@
   "keyToString": {
     "Downloaded.Files.Path.Enabled": "false",
     "HTTP Request.requests | #1.executor": "Run",
-    "Kotlin.ApplicationKt.executor": "Debug",
+    "Kotlin.ApplicationKt.executor": "Run",
     "Repository.Attach.Annotations": "false",
     "Repository.Attach.JavaDocs": "false",
     "Repository.Attach.Sources": "false",
@@ -142,7 +151,7 @@
       <workItem from="1719899373910" duration="5347000" />
       <workItem from="1719999361101" duration="8388000" />
       <workItem from="1720072910530" duration="3231000" />
-      <workItem from="1720110910089" duration="2708000" />
+      <workItem from="1720110910089" duration="12877000" />
     </task>
     <task id="LOCAL-00001" summary="Fixing sql queries">
       <option name="closed" value="true" />
@@ -178,7 +187,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/services/tvChannelServices/TvChannelsService.kt</url>
-          <line>48</line>
+          <line>47</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
