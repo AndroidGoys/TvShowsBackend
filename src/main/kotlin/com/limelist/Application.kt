@@ -39,14 +39,16 @@ fun Application.registerBackgroundServices(
 
     this.environment.monitor.subscribe(ApplicationStarted) {
         backgroundService.map {
-            it.start()
+            GlobalScope.launch { it.start() }
         }
+        log.info("Background services started")
     }
 
     this.environment.monitor.subscribe(ApplicationStopped) {
         backgroundService.map {
-            it.stop()
+            GlobalScope.launch { it.start() }
         }
+        log.info("Background services stopped")
     }
 
 }

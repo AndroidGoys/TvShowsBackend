@@ -5,15 +5,14 @@ import com.limelist.tvHistory.models.shows.TvShowPreviewModel
 import kotlinx.coroutines.sync.Mutex
 import java.sql.Connection
 
-import com.limelist.tvHistory.dataAccess.interfaces.ТvShowsRepository
+import com.limelist.tvHistory.dataAccess.interfaces.TvShowsRepository
 import com.limelist.tvHistory.models.TvChannels
-import com.limelist.tvHistory.models.shows.TvShowChannelModel
 
 class TvShowsSqliteRepository(
     connection: Connection,
     mutex: Mutex
 ) : BaseSqliteTvRepository(connection, mutex, showsTabelName),
-    ТvShowsRepository {
+    TvShowsRepository {
     override suspend fun getAllShows(limit: Int?, timeStart: Long): Iterable<TvShowPreviewModel> {
         throw NotImplementedError("Изменены модели")
 

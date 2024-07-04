@@ -1,9 +1,9 @@
 package com.limelist
 
-import com.limelist.shared.IHostedService
+import com.limelist.shared.HostedService
 import com.limelist.tvHistory.TvHistoryServices
 
 class ApplicationServices(
     val tvHistoryServices: TvHistoryServices,
-    val backgroundServices: Iterable<IHostedService>
+    val backgroundServices: Iterable<HostedService>
 )

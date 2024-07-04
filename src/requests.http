@@ -1,0 +1,3 @@
+GET https://limehd.tv/api/v4/playlist?page=1&limit=37&onlyavailable=0&epg=1&epgcnt=0&tz=3&installts=1720004658
+method: GET
+Accept:application/json

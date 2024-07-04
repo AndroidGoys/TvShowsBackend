@@ -2,13 +2,11 @@ package com.limelist.tvHistory.services
 
 import com.limelist.tvHistory.models.TvShows
 import com.limelist.tvHistory.models.shows.TvShowDetailsModel
-import com.limelist.tvHistory.dataAccess.interfaces.ТvShowsRepository
+import com.limelist.tvHistory.dataAccess.interfaces.TvShowsRepository
 import com.limelist.tvHistory.models.TvChannels
-import com.limelist.tvHistory.models.shows.TvShowChannelModel
-import com.limelist.tvHistory.models.shows.TvShowPreviewModel
 
 class TvShowsService(
-    private val tvShows: ТvShowsRepository
+    private val tvShows: TvShowsRepository
 ) {
     suspend fun getAllShows(
         limit: Int?,
