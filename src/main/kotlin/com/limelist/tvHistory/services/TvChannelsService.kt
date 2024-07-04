@@ -2,9 +2,7 @@ package com.limelist.tvHistory.services
 
 import com.limelist.tvHistory.dataAccess.interfaces.TvChannelsRepository
 import com.limelist.tvHistory.models.TvChannels
-import com.limelist.tvHistory.models.TvShows
 import com.limelist.tvHistory.models.channels.TvChannelDetailsModel
-import com.limelist.tvHistory.models.channels.TvChannelPreviewModel
 import com.limelist.tvHistory.models.channels.TvChannelShows
 
 class TvChannelsService (
