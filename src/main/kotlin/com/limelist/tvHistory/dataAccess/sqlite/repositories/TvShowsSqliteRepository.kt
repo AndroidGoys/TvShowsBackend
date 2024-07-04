@@ -16,9 +16,13 @@ class TvShowsSqliteRepository(
     connection: Connection,
     mutex: Mutex
 ) : BaseSqliteTvRepository(connection, mutex, showsTabelName),
-    ТvShowsRepository {
-    override suspend fun getAllShows(limit: Int?, timeStart: Long): Iterable<TvShowPreviewModel> {
-        throw NotImplementedError("Изменены модели")
+    TvShowsRepository {
+    override suspend fun getAllShows(
+        limit: Int?,
+        timeStart: Long
+    ): Iterable<TvShowPreviewModel> = mutex.withLock{
+        val queryLimit = if (limit!! > 0) "LIMIT $limit" else "";
+        val querytimeStart = if(timeStart > 0) "TIMESTART $timeStart" else "";
 
         val statement = connection.prepareStatement("""
            SELECT id, name, assessment, ageLimit, previewUrl
@@ -74,13 +78,13 @@ class TvShowsSqliteRepository(
 
     override suspend fun getShowChannels(
         showId: Int
-    ) : TvChannels = mutex.withLock{
+    ) : Iterable<TvShowChannelModel> = mutex.withLock{
         val statement = connection.prepareStatement("""
-        SELECT channels.id, channels.name, channels.imageUrl, show_dates.time_start
-        FROM show_dates
-        JOIN channels ON show_dates.show_channel_id = channels.id
-        WHERE show_dates.show_id = ?
-    """)
+            SELECT channels.id, channels.name, channels.imageUrl, show_dates.time_start
+            FROM show_dates
+            JOIN channels ON show_dates.show_channel_id = channels.id
+            WHERE show_dates.show_id = ?
+        """)
         statement.setInt(1, showId)
 
         val set = statement.executeQuery()
@@ -103,9 +107,6 @@ class TvShowsSqliteRepository(
             )
         }
         statement.close()
-        return TvChannels(
-            leftAmount = channels.size,
-            channels = channels
-        )
+        return channels
     }
 }

@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class DataSet(
-    val channels: Iterable<Channel>,
-    val releases: Iterable<Release>,
-    val shows: Iterable<Show>,
+    val channels: List<Channel>,
+    val releases: List<Release>,
+    val shows: List<Show>,
 )

@@ -9,7 +9,6 @@ import com.limelist.tvHistory.TvHistoryServices
 import com.limelist.tvHistory.dataAccess.sqlite.repositories.TvChannelsSqliteRepository
 import com.limelist.tvHistory.dataAccess.sqlite.repositories.TvShowsSqliteRepository
 import com.limelist.tvHistory.services.TvChannelsService;
-import com.limelist.tvHistory.services.TvDataUpdateHostedService
 import com.limelist.tvHistory.services.TvShowsService;
 import com.limelist.tvHistory.services.dataUpdateServices.JsonSourceDataUpdateService
 import kotlin.time.Duration
@@ -34,7 +33,10 @@ fun Application.configureTvHistoryServices(): TvHistoryServices {
     val tvChannelsService = TvChannelsService(channels);
     val tvShowsService = TvShowsService(shows);
 
-    val dataUpdateService = JsonSourceDataUpdateService();
+    val dataUpdateService = JsonSourceDataUpdateService(
+        channels,
+        shows
+    );
 
     this.environment.monitor.subscribe(ApplicationStopped) { application ->
         conn.close()
