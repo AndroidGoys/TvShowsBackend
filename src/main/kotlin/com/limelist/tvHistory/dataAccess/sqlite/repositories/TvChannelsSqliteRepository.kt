@@ -115,6 +115,10 @@ class TvChannelsSqliteRepository(
         TODO("Not yet implemented")
     }
 
+    override suspend fun searchByName(name: String, limit: Int, offset: Int): TvChannels<TvChannelPreviewModel> {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun getChannelReleases(channelId: Int, limit: Int, timeStart: Long): TvChannelReleases {
         TODO("Not yet implemented")
     }

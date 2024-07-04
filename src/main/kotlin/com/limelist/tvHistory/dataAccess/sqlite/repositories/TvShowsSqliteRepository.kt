@@ -107,11 +107,15 @@ class TvShowsSqliteRepository(
 //        statement.close()
 //        return channels
 //    }
-    override suspend fun getAllShows(limit: Int, timeStart: Long): TvShows<TvShowPreviewModel> {
+    override suspend fun getAllShows(limit: Int, offset: Int): TvShows<TvShowPreviewModel> {
         TODO("Not yet implemented")
     }
 
     override suspend fun getShowDetails(id: Int): TvShowDetailsModel? {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun searchByName(name: String, limit: Int, offset: Int): TvShows<TvShowPreviewModel> {
         TODO("Not yet implemented")
     }
 

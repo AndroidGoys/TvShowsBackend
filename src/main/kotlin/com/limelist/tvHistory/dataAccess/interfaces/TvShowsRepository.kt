@@ -7,8 +7,9 @@ import com.limelist.tvHistory.services.models.shows.TvShowDetailsModel
 import com.limelist.tvHistory.services.models.shows.TvShowPreviewModel
 
 interface TvShowsRepository : TvRepository {
-    suspend fun getAllShows(limit: Int, timeStart: Long): TvShows<TvShowPreviewModel>
+    suspend fun getAllShows(limit: Int, offset: Int): TvShows<TvShowPreviewModel>
     suspend fun getShowDetails(id: Int): TvShowDetailsModel?
+    suspend fun searchByName(name: String, limit: Int, offset: Int): TvShows<TvShowPreviewModel>
     suspend fun updateMany(shows: List<TvShowDetailsModel>)
     suspend fun getShowChannels(
         showId: Int,

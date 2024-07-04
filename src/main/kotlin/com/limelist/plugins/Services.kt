@@ -7,13 +7,11 @@ import kotlinx.coroutines.sync.Mutex
 import com.limelist.ApplicationServices
 import com.limelist.tvHistory.TvHistoryServices
 import com.limelist.tvHistory.dataAccess.sqlite.repositories.TvChannelsSqliteRepository
+import com.limelist.tvHistory.dataAccess.sqlite.repositories.TvReleasesSqliteRepository
 import com.limelist.tvHistory.dataAccess.sqlite.repositories.TvShowsSqliteRepository
-import com.limelist.tvHistory.services.TvChannelsService;
-import com.limelist.tvHistory.services.TvShowsService;
+import com.limelist.tvHistory.services.tvChannelServices.TvChannelsService;
+import com.limelist.tvHistory.services.tvShowServices.TvShowsService;
 import com.limelist.tvHistory.services.dataUpdateServices.JsonSourceDataUpdateService
-import kotlin.time.Duration
-import kotlin.time.Duration.Companion.minutes
-import kotlin.time.ExperimentalTime
 
 
 fun Application.configureServices() : ApplicationServices {
@@ -29,13 +27,15 @@ fun Application.configureTvHistoryServices(): TvHistoryServices {
 
     val channels = TvChannelsSqliteRepository(conn, mutex)
     val shows = TvShowsSqliteRepository(conn, mutex)
+    val releases = TvReleasesSqliteRepository(conn, mutex);
 
     val tvChannelsService = TvChannelsService(channels);
     val tvShowsService = TvShowsService(shows);
 
     val dataUpdateService = JsonSourceDataUpdateService(
         channels,
-        shows
+        shows,
+        releases
     );
 
     this.environment.monitor.subscribe(ApplicationStopped) { application ->

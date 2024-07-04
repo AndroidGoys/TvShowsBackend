@@ -3,10 +3,10 @@ package com.limelist.tvHistory.services.dataUpdateServices.source.models
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Release(
+data class SourceRelease(
     val channelId: Int,
     val showId: Int,
-    val timestart: Int,
-    val timestop: Int,
+    val timestart: Long,
+    val timestop: Long,
     val description: String,
 )

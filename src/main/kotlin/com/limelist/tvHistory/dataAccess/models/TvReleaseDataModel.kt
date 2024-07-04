@@ -9,5 +9,5 @@ data class TvReleaseDataModel(
     val showId: Int,
     val description: String,
     val timeStart:Long,
-    val timeEnd:Long
+    val timeStop:Long
 )
