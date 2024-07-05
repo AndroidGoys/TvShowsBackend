@@ -6,6 +6,7 @@ import com.limelist.tvHistory.services.models.channels.TvChannelDetailsModel
 import com.limelist.tvHistory.services.models.channels.TvChannelPreviewModel
 import com.limelist.tvHistory.services.models.releases.TvChannelReleases
 import com.limelist.shared.normalizeUnixSecondsTime
+import com.limelist.tvHistory.services.models.releases.TvChannelShowRelease
 
 class TvChannelsService (
     private val tvChannels: TvChannelsRepository
@@ -40,7 +41,7 @@ class TvChannelsService (
         limit: Int?,
         timeStart: Long?,
         timeZone: Float?
-    ): TvChannelReleases {
+    ): TvChannelReleases<TvChannelShowRelease> {
         val normalizedTimeStart = timeStart?.normalizeUnixSecondsTime(
             timeZone ?: 0.0f
         )

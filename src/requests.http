@@ -1,3 +1,29 @@
-GET https://limehd.tv/api/v4/playlist?page=1&limit=37&onlyavailable=0&epg=1&epgcnt=0&tz=3&installts=1720004658
+GET http://127.0.0.1:8080/api/channels
+method: GET
+Accept:application/json
+
+###
+GET http://127.0.0.1:8080/api/channels/15569
+method: GET
+Accept:application/json
+
+###
+GET http://127.0.0.1:8080/api/channels/15569/releases
+method: GET
+Accept:application/json
+
+
+###
+GET http://127.0.0.1:8080/api/shows
+method: GET
+Accept:application/json
+
+###
+GET http://127.0.0.1:8080/api/shows/1013351
+method: GET
+Accept:application/json
+
+###
+GET http://127.0.0.1:8080/api/shows/1013351/channels
 method: GET
 Accept:application/json

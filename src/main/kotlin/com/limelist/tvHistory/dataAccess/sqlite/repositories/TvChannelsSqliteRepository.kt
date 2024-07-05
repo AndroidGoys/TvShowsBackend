@@ -82,7 +82,7 @@ class TvChannelsSqliteRepository(
             ON channel_reviews.channel_id = channel.id
         LEFT JOIN channel_view_urls
             ON channel_view_urls.channel_id = channel.id    
-        GROUP BY channel.id, channel_view_urls.url
+        GROUP BY channel.id
     """)
 
     override suspend fun getChannelDetails(id: Int): TvChannelDetailsModel? {
@@ -100,8 +100,10 @@ class TvChannelsSqliteRepository(
         val description = set.getString("description")
         val assessment = set.getFloat("assessment")
 
-        val viewUrls = buildList<String> {
-            add(set.getString("view_url"))
+        val viewUrls = mutableListOf(set.getString("view_url"))
+
+        while (set.next()) {
+            viewUrls.add(set.getString("view_url"))
         }
 
         return TvChannelDetailsModel(
@@ -148,7 +150,7 @@ class TvChannelsSqliteRepository(
             return@run executeQuery()
         }
 
-        val channels = buildList<TvChannelPreviewModel> {
+        val channels = buildList {
             while (set.next()){
                 add(TvChannelPreviewModel(
                     set.getInt("id"),
@@ -189,16 +191,16 @@ class TvChannelsSqliteRepository(
         channelId: Int,
         limit: Int,
         timeStart: Long
-    ): TvChannelReleases = mutex.withLock {
+    ): TvChannelReleases<TvChannelShowRelease> = mutex.withLock {
 
         val set = getChannelReleasesStatement.run{
             setInt(1, channelId)
-            setInt(2, timeStart.toInt())
+            setLong(2, timeStart)
             setInt(3, limit)
             return@run executeQuery()
         }
 
-        val releases = buildList<TvChannelShowRelease> {
+        val releases = buildList {
             while (set.next()){
                 add(TvChannelShowRelease(
                     set.getInt("id"),
@@ -221,8 +223,31 @@ class TvChannelsSqliteRepository(
         )
     }
 
-    override suspend fun updateMany(channels: List<TvChannelCreateModel>) {
-        TODO("Not yet implemented")
+
+    private val updateChennelStatement = connection.prepareStatement("""
+        INSERT INTO channels
+          (id, name, image_url, description)
+        VALUES
+          (?, ?, ?, ?)
+        ON CONFLICT(id) DO UPDATE
+            SET name = EXCLUDED.name, 
+                image_url = EXCLUDED.image_url, 
+                description = EXCLUDED.description
+            
+    """)
+
+    override suspend fun updateMany(
+        channels: List<TvChannelCreateModel>
+    ) = mutex.withLock {
+        for (channel in channels) {
+            updateChennelStatement.run {
+                setInt(1, channel.id);
+                setString(2, channel.name);
+                setString(3, channel.image);
+                setString(4, channel.description);
+                executeUpdate()
+            }
+        }
     }
 
 }

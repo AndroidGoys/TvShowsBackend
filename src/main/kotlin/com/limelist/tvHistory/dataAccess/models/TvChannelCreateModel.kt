@@ -1,9 +1,10 @@
 package com.limelist.tvHistory.dataAccess.models
 
 class TvChannelCreateModel(
-    id: Int,
-    name: String,
-    image: String,
-    description: String,
-    view_urls: List<String>) {
+    val id: Int,
+    val name: String,
+    val image: String,
+    val description: String,
+    val view_urls: List<String>
+) {
 }

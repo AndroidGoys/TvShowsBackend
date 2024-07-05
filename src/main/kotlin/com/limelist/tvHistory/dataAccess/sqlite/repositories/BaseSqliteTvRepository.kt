@@ -49,7 +49,7 @@ abstract class BaseSqliteTvRepository(
                 CREATE TABLE IF NOT EXISTS $showsTabelName (
                     id SERIAL PRIMARY KEY,
                     name VARCHAR(50) NOT NULL,
-                    
+                    age_limit INTEGER,
                     description TEXT NOT NULL,  
                     preview_url TEXT NOT NULL
                 );
