@@ -12,7 +12,6 @@ GET http://127.0.0.1:8080/api/channels/15569/releases
 method: GET
 Accept:application/json
 
-
 ###
 GET http://127.0.0.1:8080/api/shows
 method: GET

@@ -38,7 +38,7 @@ class JsonSourceDataUpdateService(
             show.name,
             0,
             "https://mur-mur.top/cat2/uploads/posts/2024-01/1706006784_mur-mur-top-p-kobaladze-tamara-davidovna-den-rozhdeniya-43.jpg",
-            "NONE"
+            ""
         )
     }
 
@@ -74,7 +74,7 @@ class JsonSourceDataUpdateService(
         val releasesData = data.releases.map { convertToTvRelease(it) }
         val showsData = data.shows.map { findTvShowDetails(it) }
 
-//        channels.updateMany(channelsData);
+        channels.updateMany(channelsData);
 //        shows.updateMany(showsData)
 //        releases.updateMany(releasesData);
     }

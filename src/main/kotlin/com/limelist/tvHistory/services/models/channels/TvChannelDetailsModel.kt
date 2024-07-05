@@ -9,5 +9,5 @@ data class TvChannelDetailsModel(
     override val imageUrl: String,
     override val assessment: Float,
     val description: String,
-    val viewUrls: Iterable<String>
+    val viewUrls: List<String>
 ) : TvChannel

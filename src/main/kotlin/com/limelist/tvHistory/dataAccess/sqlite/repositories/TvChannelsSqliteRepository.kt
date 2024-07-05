@@ -11,6 +11,7 @@ import com.limelist.tvHistory.services.models.channels.TvChannels
 import com.limelist.tvHistory.services.models.channels.TvChannelDetailsModel
 import com.limelist.tvHistory.services.models.releases.TvChannelReleases
 import com.limelist.tvHistory.services.models.releases.TvChannelShowRelease
+import com.typesafe.config.ConfigException.Null
 import kotlinx.coroutines.sync.withLock
 
 class TvChannelsSqliteRepository(
@@ -100,11 +101,13 @@ class TvChannelsSqliteRepository(
         val description = set.getString("description")
         val assessment = set.getFloat("assessment")
 
-        val viewUrls = mutableListOf(set.getString("view_url"))
+        val viewUrls = mutableListOf<String>()
 
-        while (set.next()) {
-            viewUrls.add(set.getString("view_url"))
-        }
+        do {
+            val url: String? = set.getString("view_url")
+            if (url != null)
+                viewUrls.add(url)
+        } while (set.next())
 
         return TvChannelDetailsModel(
             id,
@@ -224,7 +227,7 @@ class TvChannelsSqliteRepository(
     }
 
 
-    private val updateChennelStatement = connection.prepareStatement("""
+    private val updateChannelStatement = connection.prepareStatement("""
         INSERT INTO channels
           (id, name, image_url, description)
         VALUES
@@ -236,16 +239,37 @@ class TvChannelsSqliteRepository(
             
     """)
 
+    private val clearViewUrlsStatement = connection.prepareStatement("""
+        DELETE FROM channel_view_urls
+    """.trimIndent())
+
+    private val updateChannelViewUrlsStatement = connection.prepareStatement("""
+        INSERT INTO channel_view_urls 
+            (channel_id, url)
+        VALUES 
+            (?, ?)
+    """)
+
     override suspend fun updateMany(
         channels: List<TvChannelCreateModel>
     ) = mutex.withLock {
+        clearViewUrlsStatement.executeUpdate()
+
         for (channel in channels) {
-            updateChennelStatement.run {
-                setInt(1, channel.id);
-                setString(2, channel.name);
-                setString(3, channel.image);
-                setString(4, channel.description);
+            updateChannelStatement.run {
+                setInt(1, channel.id)
+                setString(2, channel.name)
+                setString(3, channel.image)
+                setString(4, channel.description)
                 executeUpdate()
+            }
+
+            for (url in channel.view_urls){
+                updateChannelViewUrlsStatement.run{
+                    setInt(1, channel.id)
+                    setString(2, url)
+                    executeUpdate()
+                }
             }
         }
     }
