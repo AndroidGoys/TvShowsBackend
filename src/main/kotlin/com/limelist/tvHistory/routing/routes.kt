@@ -13,17 +13,5 @@ fun Route.useTvHistory(rootRoute: String, services: TvHistoryServices) {
     route(rootRoute) {
         channels(services.tvChannelsService)
         shows(services.tvShowsService)
-
-        get("/") {
-            call.respondText("Hello World!")
-        }
-        get<Articles> { article ->
-            // Get all articles ...
-            call.respond("List of articles sorted starting from ${article.sort}")
-        }
     }
 }
-
-@Serializable
-@Resource("/articles")
-class Articles(val sort: String? = "new")

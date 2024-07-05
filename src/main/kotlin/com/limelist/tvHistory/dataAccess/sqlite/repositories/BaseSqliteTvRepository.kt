@@ -1,5 +1,6 @@
 package com.limelist.tvHistory.dataAccess.sqlite.repositories
 import com.limelist.tvHistory.dataAccess.interfaces.TvRepository
+import io.ktor.server.plugins.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import java.sql.Connection
@@ -13,19 +14,24 @@ abstract class BaseSqliteTvRepository(
         initialize(connection)
     }
 
+    val getCountStatement = connection.prepareStatement("""
+           SELECT COUNT(*) as count FROM $tableName;
+    """);
+
     override suspend fun count(): Int = mutex.withLock {
-        val statement = connection.createStatement();
-        return statement.executeQuery("""
-           SELECT COUNT(*) FROM $tableName;
-        """).use { resultSet ->
-            resultSet.getInt(0)
-       }
+        val set = getCountStatement.executeQuery();
+
+        if (!set.next())
+            throw NotFoundException();
+
+        return@withLock set.getInt(1);
     }
 
 
     companion object {
         val channelsTabelName = "channels"
         val showsTabelName = "shows"
+        val releasesTableName = "releases"
 
         fun initialize(connection: Connection) {
             val statement = connection.createStatement();
@@ -34,6 +40,7 @@ abstract class BaseSqliteTvRepository(
                 CREATE TABLE IF NOT EXISTS $channelsTabelName (
                     id SERIAL PRIMARY KEY,
                     name VARCHAR(50) NOT NULL,
+                    image_url TEXT NOT NULL,
                     description TEXT NOT NULL
                 );
             """)
@@ -42,6 +49,7 @@ abstract class BaseSqliteTvRepository(
                 CREATE TABLE IF NOT EXISTS $showsTabelName (
                     id SERIAL PRIMARY KEY,
                     name VARCHAR(50) NOT NULL,
+                    age_limit INTEGER,
                     description TEXT NOT NULL,  
                     preview_url TEXT NOT NULL
                 );
@@ -68,10 +76,11 @@ abstract class BaseSqliteTvRepository(
             """)
 
             statement.execute("""
-                CREATE TABLE IF NOT EXISTS show_dates (
+                CREATE TABLE IF NOT EXISTS $releasesTableName (
                     id SERIAL PRIMARY KEY,
                     show_id INTEGER REFERENCES shows,
                     channel_id INTEGER REFERENCES channels,
+                    description TEXT NOT NULL,
                     time_start REAL,
                     time_stop REAL
                 );
