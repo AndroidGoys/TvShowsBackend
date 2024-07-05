@@ -6,6 +6,7 @@ import java.sql.Connection
 
 import com.limelist.tvHistory.dataAccess.interfaces.TvChannelsRepository
 import com.limelist.tvHistory.dataAccess.models.TvChannelCreateModel
+import com.limelist.tvHistory.services.models.AgeLimit
 import com.limelist.tvHistory.services.models.channels.TvChannel
 import com.limelist.tvHistory.services.models.channels.TvChannels
 import com.limelist.tvHistory.services.models.channels.TvChannelDetailsModel
@@ -174,7 +175,10 @@ class TvChannelsSqliteRepository(
     private val getChannelReleasesStatement = connection.prepareStatement("""
         SELECT 
             releases.*,
-            shows.name as name,
+            shows.id as show_id,
+            shows.name as show_name,
+            shows.assessment as show_assessment,
+            shows.age_limit as show_age_limit,
             shows.preview_url as preview_url
         FROM ( 
             SELECT releases.* 
@@ -183,7 +187,20 @@ class TvChannelsSqliteRepository(
                 AND time_stop > ?
         ) as  releases
         
-        LEFT JOIN shows
+        INNER JOIN (
+            SELECT 
+                shows.id as id, 
+                shows.name as name, 
+                shows.age_limit as age_limit,
+                shows.preview_url as preview_url,
+                AVG(show_reviews.assessment) as assessment
+            FROM shows
+            LEFT JOIN show_reviews
+                ON show_reviews.show_id = shows.id
+                
+            GROUP BY shows.id
+            ORDER BY shows.id
+        ) as shows
             ON shows.id = releases.show_id
         ORDER BY releases.time_stop
         
@@ -206,8 +223,10 @@ class TvChannelsSqliteRepository(
         val releases = buildList {
             while (set.next()){
                 add(TvChannelShowRelease(
-                    set.getInt("id"),
-                    set.getString("name"),
+                    set.getInt("show_id"),
+                    set.getString("show_name"),
+                    set.getFloat("show_assessment"),
+                    AgeLimit.fromInt(set.getInt("show_age_limit")),
                     set.getString("preview_url"),
                     set.getString("description"),
                     set.getLong("time_start"),
