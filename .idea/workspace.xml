@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="tvshows:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="90c853c6-c64c-4142-9064-ff9deb980f22" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/dataset.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/dataAccess/sqlite/repositories/TvChannelsSqliteRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/dataAccess/sqlite/repositories/TvChannelsSqliteRepository.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/services/dataUpdateServices/JsonSourceDataUpdateService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/services/dataUpdateServices/JsonSourceDataUpdateService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/services/models/channels/TvChannelDetailsModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/services/models/channels/TvChannelDetailsModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/requests.http" beforeDir="false" afterPath="$PROJECT_DIR$/src/requests.http" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/requests.http" beforeDir="false" afterPath="$PROJECT_DIR$/requests.http" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,12 +65,16 @@
   "keyToString": {
     "Downloaded.Files.Path.Enabled": "false",
     "HTTP Request.requests | #1.executor": "Run",
+    "HTTP Request.requests | #2 (1).executor": "Run",
     "HTTP Request.requests | #2.executor": "Run",
     "HTTP Request.requests | #3.executor": "Run",
+    "HTTP Request.requests | #4 (1).executor": "Run",
     "HTTP Request.requests | #4.executor": "Run",
     "HTTP Request.requests | #5.executor": "Run",
     "HTTP Request.requests | #6.executor": "Run",
-    "Kotlin.ApplicationKt.executor": "Debug",
+    "Kotlin.ApplicationKt.executor": "Run",
+    "Maven.tvshows [-v].executor": "Run",
+    "Maven.tvshows [package].executor": "Run",
     "Repository.Attach.Annotations": "false",
     "Repository.Attach.JavaDocs": "false",
     "Repository.Attach.Sources": "false",
@@ -80,8 +87,8 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.0",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "vue.rearranger.settings.migration": "true"
   },
@@ -93,6 +100,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Junk\Solutions\Pet\TvShowsBackend" />
       <recent name="C:\Junk\Solutions\Pet\TvShowsBackend\src\main\resources" />
     </key>
     <key name="CreateKotlinClassDialog.RecentsKey">
@@ -108,20 +116,26 @@
       <recent name="com.limelist.tvHistory.services.interfaces" />
     </key>
   </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn -v" />
+      <command value="mvn package" />
+    </option>
+  </component>
   <component name="RunManager" selected="Kotlin.ApplicationKt">
-    <configuration name="requests | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/src/requests.http" requestIdentifier="#1" runType="Run single request">
+    <configuration name="requests | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/requests.http" requestIdentifier="#1" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="requests | #2 (1)" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/requests.http" index="2" requestIdentifier="#2" runType="Run single request">
       <method v="2" />
     </configuration>
     <configuration name="requests | #2" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/src/requests.http" index="2" requestIdentifier="#2" runType="Run single request">
       <method v="2" />
     </configuration>
-    <configuration name="requests | #4" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/src/requests.http" index="4" requestIdentifier="#4" runType="Run single request">
+    <configuration name="requests | #3" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/requests.http" index="3" requestIdentifier="#3" runType="Run single request">
       <method v="2" />
     </configuration>
-    <configuration name="requests | #5" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/src/requests.http" index="5" requestIdentifier="#5" runType="Run single request">
-      <method v="2" />
-    </configuration>
-    <configuration name="requests | #6" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/src/requests.http" index="6" requestIdentifier="#6" runType="Run single request">
+    <configuration name="requests | #4 (1)" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/requests.http" index="4" requestIdentifier="#4" runType="Run single request">
       <method v="2" />
     </configuration>
     <configuration name="ApplicationKt" type="JetRunConfigurationType" nameIsGenerated="true">
@@ -134,11 +148,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="HTTP Request.requests | #2" />
-        <item itemvalue="HTTP Request.requests | #5" />
-        <item itemvalue="HTTP Request.requests | #6" />
-        <item itemvalue="HTTP Request.requests | #4" />
+        <item itemvalue="HTTP Request.requests | #3" />
+        <item itemvalue="HTTP Request.requests | #2 (1)" />
         <item itemvalue="HTTP Request.requests | #1" />
+        <item itemvalue="HTTP Request.requests | #4 (1)" />
+        <item itemvalue="HTTP Request.requests | #2" />
       </list>
     </recent_temporary>
   </component>
@@ -169,7 +183,8 @@
       <workItem from="1720110910089" duration="13091000" />
       <workItem from="1720153985725" duration="8438000" />
       <workItem from="1720162584953" duration="12571000" />
-      <workItem from="1720176363074" duration="1035000" />
+      <workItem from="1720176363074" duration="2623000" />
+      <workItem from="1720179729416" duration="5167000" />
     </task>
     <task id="LOCAL-00001" summary="Fixing sql queries">
       <option name="closed" value="true" />
@@ -207,11 +222,6 @@
           <properties class="org.sqlite.SQLiteException" package="org.sqlite" />
           <option name="timeStamp" value="10" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/com/limelist/tvHistory/dataAccess/sqlite/repositories/TvChannelsSqliteRepository.kt</url>
-          <line>108</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

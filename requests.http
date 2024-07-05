@@ -1,0 +1,33 @@
+#@baseUrl=http://127.0.0.1:8080
+@baseUrl=http://176.109.106.211:8080
+
+GET {{baseUrl}}/api/channels
+method: GET
+Accept:application/json
+
+###
+GET {{baseUrl}}/api/channels/15569
+method: GET
+Accept:application/json
+
+###
+GET {{baseUrl}}/api/channels/15569/releases
+method: GET
+Accept:application/json
+
+###
+GET {{baseUrl}}/api/shows
+method: GET
+Accept:application/json
+
+###
+GET {{baseUrl}}/api/shows/1013351
+method: GET
+Accept:application/json
+
+###
+GET {{baseUrl}}/api/shows/1013351/channels
+method: GET
+Accept:application/json
+
+

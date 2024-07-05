@@ -74,7 +74,7 @@ class JsonSourceDataUpdateService(
         val releasesData = data.releases.map { convertToTvRelease(it) }
         val showsData = data.shows.map { findTvShowDetails(it) }
 
-        channels.updateMany(channelsData);
+//        channels.updateMany(channelsData);
 //        shows.updateMany(showsData)
 //        releases.updateMany(releasesData);
     }
