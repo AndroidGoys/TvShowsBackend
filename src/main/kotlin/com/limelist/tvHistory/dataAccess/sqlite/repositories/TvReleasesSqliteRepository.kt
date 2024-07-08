@@ -2,6 +2,9 @@ package com.limelist.tvHistory.dataAccess.sqlite.repositories
 
 import com.limelist.tvHistory.dataAccess.interfaces.TvReleasesRepository
 import com.limelist.tvHistory.dataAccess.models.TvReleaseCreateModel
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import java.sql.Connection
@@ -33,22 +36,24 @@ class TvReleasesSqliteRepository(
     override suspend fun updateMany(
         releases: List<TvReleaseCreateModel>
     ) = mutex.withLock {
+        coroutineScope {
+            clearTableStatement.executeUpdate()
+            var count = 0;
 
-        clearTableStatement.executeUpdate()
-        var count = 0;
-
-        for (release in releases) {
-            updateReleasesStatement.run {
-                count++;
-                setInt(1, count)
-                setInt(2, release.showId)
-                setInt(3, release.channelId)
-                setString(4, release.description)
-                setLong(5, release.timeStart)
-                setLong(6, release.timeStop)
-                executeUpdate()
+            for (release in releases) {
+                if (!isActive)
+                    throw CancellationException();
+                updateReleasesStatement.run {
+                    count++;
+                    setInt(1, count)
+                    setInt(2, release.showId)
+                    setInt(3, release.channelId)
+                    setString(4, release.description)
+                    setLong(5, release.timeStart)
+                    setLong(6, release.timeStop)
+                    executeUpdate()
+                }
             }
         }
-
     }
 }

@@ -9,21 +9,31 @@ import com.limelist.tvHistory.TvHistoryServices
 import com.limelist.tvHistory.dataAccess.sqlite.repositories.TvChannelsSqliteRepository
 import com.limelist.tvHistory.dataAccess.sqlite.repositories.TvReleasesSqliteRepository
 import com.limelist.tvHistory.dataAccess.sqlite.repositories.TvShowsSqliteRepository
+import com.limelist.tvHistory.dataAccess.sqlite.repositories.TvSqliteDbLifeCycle
 import com.limelist.tvHistory.services.tvChannelServices.TvChannelsService;
 import com.limelist.tvHistory.services.tvShowServices.TvShowsService;
 import com.limelist.tvHistory.services.dataUpdateServices.JsonSourceDataUpdateService
+import kotlinx.coroutines.CoroutineScope
+import kotlin.coroutines.CoroutineContext
 
 
-fun Application.configureServices() : ApplicationServices {
-    val tvHistoryServices = configureTvHistoryServices()
+fun Application.configureServices(
+    coroutineContext: CoroutineContext
+) : ApplicationServices {
+    val tvHistoryServices = configureTvHistoryServices(coroutineContext)
     return ApplicationServices(
         tvHistoryServices,
-        tvHistoryServices.backgroundServices)
+        tvHistoryServices.backgroundServices,
+        tvHistoryServices.databases)
 }
 
-fun Application.configureTvHistoryServices(): TvHistoryServices {
+fun Application.configureTvHistoryServices(
+    coroutineContext: CoroutineContext
+): TvHistoryServices {
     val conn = DriverManager.getConnection("jdbc:sqlite:tvHisotry.sql")
     val mutex = Mutex()
+
+    val dbLifeCycle = TvSqliteDbLifeCycle(conn, mutex)
 
     val channels = TvChannelsSqliteRepository(conn, mutex)
     val shows = TvShowsSqliteRepository(conn, mutex)
@@ -35,17 +45,14 @@ fun Application.configureTvHistoryServices(): TvHistoryServices {
     val dataUpdateService = JsonSourceDataUpdateService(
         channels,
         shows,
-        releases
+        releases,
+        coroutineContext
     );
 
-    this.environment.monitor.subscribe(ApplicationStopped) { application ->
-        conn.close()
-        //чертово колдунство, как это вообще работает
-        application.environment.monitor.unsubscribe(ApplicationStopped) {}
-    }
     return TvHistoryServices(
         tvChannelsService,
         tvShowsService,
-        listOf(dataUpdateService)
+        listOf(dataUpdateService),
+        listOf(dbLifeCycle)
     )
 }

@@ -6,8 +6,9 @@ import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import kotlinx.coroutines.*
 import java.util.concurrent.TimeUnit
+import kotlin.coroutines.CoroutineContext
 
-fun main(){
+suspend fun main(){
     val application = embeddedServer(
         Netty,
         port = 8080,
@@ -22,33 +23,49 @@ fun main(){
     application.start(wait = true)
 }
 
-
 fun Application.module() {
-    val services = configureServices();
-    registerBackgroundServices(services);
+    val backgroundServicesContext: CoroutineContext = Dispatchers.Default
+    val services = configureServices(
+        backgroundServicesContext
+    );
+    registerBackgroundServices(
+        services,
+        backgroundServicesContext
+    );
 
     configureHTTP()
     configureRouting(services)
 }
 
-@OptIn(DelicateCoroutinesApi::class)
 fun Application.registerBackgroundServices(
-    services: ApplicationServices
+    services: ApplicationServices,
+    coroutineContext: CoroutineContext
 ) {
-    val backgroundService = services.backgroundServices;
+    val backgroundServices = services.backgroundServices
+    val dataBases = services.databases
+    val servicesScope = CoroutineScope(coroutineContext)
 
     this.environment.monitor.subscribe(ApplicationStarted) {
-        backgroundService.map {
-            GlobalScope.launch { it.start() }
+        servicesScope.launch {
+            dataBases.forEach { it.start() }
+
+            val jobs = backgroundServices.map {
+                launch { it.start() }
+            }
+            jobs.joinAll()
+            log.info("Background services started")
         }
-        log.info("Background services started")
     }
 
     this.environment.monitor.subscribe(ApplicationStopped) {
-        backgroundService.map {
-            GlobalScope.launch { it.start() }
+        servicesScope.launch {
+            val jobs = backgroundServices.map {
+                launch { it.stop() }
+            }
+            jobs.joinAll()
+            dataBases.forEach { it.stop() }
+            log.info("Background services stopped")
         }
-        log.info("Background services stopped")
     }
 
 }

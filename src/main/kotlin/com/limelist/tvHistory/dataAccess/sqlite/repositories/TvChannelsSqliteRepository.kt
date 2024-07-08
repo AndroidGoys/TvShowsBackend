@@ -13,7 +13,10 @@ import com.limelist.tvHistory.services.models.channels.TvChannelDetailsModel
 import com.limelist.tvHistory.services.models.releases.TvChannelReleases
 import com.limelist.tvHistory.services.models.releases.TvChannelShowRelease
 import com.typesafe.config.ConfigException.Null
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.sync.withLock
+import kotlin.coroutines.cancellation.CancellationException
 
 class TvChannelsSqliteRepository(
     connection: Connection,
@@ -273,21 +276,25 @@ class TvChannelsSqliteRepository(
         channels: List<TvChannelCreateModel>
     ) = mutex.withLock {
         clearViewUrlsStatement.executeUpdate()
+        coroutineScope{
+            for (channel in channels) {
+                if (!isActive)
+                    throw CancellationException()
 
-        for (channel in channels) {
-            updateChannelStatement.run {
-                setInt(1, channel.id)
-                setString(2, channel.name)
-                setString(3, channel.image)
-                setString(4, channel.description)
-                executeUpdate()
-            }
-
-            for (url in channel.view_urls){
-                updateChannelViewUrlsStatement.run{
+                updateChannelStatement.run {
                     setInt(1, channel.id)
-                    setString(2, url)
+                    setString(2, channel.name)
+                    setString(3, channel.image)
+                    setString(4, channel.description)
                     executeUpdate()
+                }
+
+                for (url in channel.view_urls){
+                    updateChannelViewUrlsStatement.run{
+                        setInt(1, channel.id)
+                        setString(2, url)
+                        executeUpdate()
+                    }
                 }
             }
         }

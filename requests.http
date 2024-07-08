@@ -2,32 +2,56 @@
 #@baseUrl=http://176.109.106.211:8080
 
 GET {{baseUrl}}/api/channels
-method: GET
 Accept:application/json
 
 ###
 GET {{baseUrl}}/api/channels/15569
-method: GET
 Accept:application/json
 
 ###
 GET {{baseUrl}}/api/channels/15569/releases
-method: GET
 Accept:application/json
 
 ###
 GET {{baseUrl}}/api/shows
-method: GET
 Accept:application/json
 
 ###
 GET {{baseUrl}}/api/shows/1013351
-method: GET
 Accept:application/json
 
 ###
 GET {{baseUrl}}/api/shows/1013351/channels
-method: GET
 Accept:application/json
 
+###
+GET https://limehd.tv/favicon.ico
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: ru,en;q=0.9
+Cookie: spid=1720273787134_49f20a8f3a5003ea2258450b682ef2e9_kf4sx0di5ubjou20; spsc=1720273787134_d6b506387613d4a61dacf287a85172ef_2dc4c47e5beb4aae25be080fa9d16c8093e7e989cef732b63b8bada59af3d7da
+Priority:u=1, i
+Referer: https://limehd.tv/api/v4/playlist?page=1&limit=37&onlyavailable=0&epg=1&epgcnt=0&tz=3&installts=1720273660
+Sec-Ch-Ua: "Chromium";v="124", "YaBrowser";v="24.6", "Not-A.Brand";v="99", "Yowser";v="2.5"
+Sec-Ch-Ua-Mobile: ?0
+Sec-Ch-Ua-Platform: "Windows"
+Sec-Fetch-Dest: image
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Site: same-origin
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 YaBrowser/24.6.0.0 Safari/537.36
 
+###
+GET https://limehd.tv/api/v4/playlist?page=1&limit=37&onlyavailable=0&epg=1&epgcnt=0&tz=3&installts=1720273660
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language:  ru,en;q=0.9
+Cache-Control: max-age=0
+Priority: u=0, i
+Sec-Ch-Ua: "Chromium";v="124", "YaBrowser";v="24.6", "Not-A.Brand";v="99", "Yowser";v="2.5"
+Sec-Ch-Ua-Mobile: ?0
+Sec-Ch-Ua-Platform: "Windows"
+Sec-Fetch-Dest: document
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Site: none
+Sec-Fetch-User: ?1
+Upgrade-Insecure-Requests: 1

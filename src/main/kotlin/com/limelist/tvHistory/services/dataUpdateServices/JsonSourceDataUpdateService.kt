@@ -12,16 +12,23 @@ import com.limelist.tvHistory.services.dataUpdateServices.source.models.SourceDa
 import com.limelist.tvHistory.services.dataUpdateServices.source.models.SourceRelease
 import com.limelist.tvHistory.services.dataUpdateServices.source.models.SourceShow
 import com.limelist.tvHistory.services.models.shows.TvShowDetailsModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import java.io.FileNotFoundException
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.EmptyCoroutineContext
 
 class JsonSourceDataUpdateService(
     private val channels: TvChannelsRepository,
     private val shows: TvShowsRepository,
-    private val releases: TvReleasesRepository
+    private val releases: TvReleasesRepository,
+    private val coroutineContext: CoroutineContext = EmptyCoroutineContext
 ) : DataUpdateService {
+    private val loadLoopScope = CoroutineScope(coroutineContext)
 
     @OptIn(ExperimentalSerializationApi::class)
     private fun loadDataSet(): SourceDataSet {
@@ -68,18 +75,20 @@ class JsonSourceDataUpdateService(
     }
 
     override suspend fun start() {
-        val data: SourceDataSet = loadDataSet()
-        //data.shows
-        val channelsData = data.channels.map { convertToTvChannel(it) }
-        val releasesData = data.releases.map { convertToTvRelease(it) }
-        val showsData = data.shows.map { findTvShowDetails(it) }
+        loadLoopScope.launch {
+            val data: SourceDataSet = loadDataSet()
+            //data.shows
+            val channelsData = data.channels.map { convertToTvChannel(it) }
+            val releasesData = data.releases.map { convertToTvRelease(it) }
+            val showsData = data.shows.map { findTvShowDetails(it) }
 
-        channels.updateMany(channelsData);
-        shows.updateMany(showsData)
-        releases.updateMany(releasesData);
+            channels.updateMany(channelsData);
+            shows.updateMany(showsData)
+            releases.updateMany(releasesData);
+        }
     }
 
     override suspend fun stop() {
-        return;
+        loadLoopScope.cancel();
     }
 }

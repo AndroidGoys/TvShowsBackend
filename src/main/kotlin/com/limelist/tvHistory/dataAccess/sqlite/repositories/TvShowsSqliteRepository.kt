@@ -14,7 +14,10 @@ import com.limelist.tvHistory.services.models.releases.TvChannelReleases
 import com.limelist.tvHistory.services.models.releases.TvShowRelease
 import com.limelist.tvHistory.services.models.shows.TvShows
 import com.limelist.tvHistory.services.models.shows.TvShowChannelModel
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.sync.withLock
+import kotlin.coroutines.cancellation.CancellationException
 
 class TvShowsSqliteRepository(
     connection: Connection,
@@ -316,14 +319,18 @@ class TvShowsSqliteRepository(
 
 
     override suspend fun updateMany(shows: List<TvShowCreateModel>) {
-        for (show in shows) {
-            updateShowsStatement.run {
-                setInt(1, show.id)
-                setString(2, show.name)
-                setInt(3, show.ageLimit)
-                setString(4, show.previewUrl)
-                setString(5, show.description)
-                executeUpdate()
+        coroutineScope {
+            for (show in shows) {
+                if (!isActive)
+                    throw CancellationException()
+                updateShowsStatement.run {
+                    setInt(1, show.id)
+                    setString(2, show.name)
+                    setInt(3, show.ageLimit)
+                    setString(4, show.previewUrl)
+                    setString(5, show.description)
+                    executeUpdate()
+                }
             }
         }
     }
