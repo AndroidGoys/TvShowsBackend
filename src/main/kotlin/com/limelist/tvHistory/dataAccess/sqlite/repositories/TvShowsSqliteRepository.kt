@@ -306,7 +306,60 @@ class TvShowsSqliteRepository(
         return TvChannels(-1, channels)
     }
 
-    private val updateShowsStatement = connection.prepareStatement("""
+    private val getWithoutImageShows = connection.prepareStatement(
+        """
+        SELECT 
+            shows.*,
+            AVG(show_reviews.assessment) as assessment
+        FROM ( 
+            SELECT *
+                FROM shows      
+                WHERE shows.preview_url IS NULL
+        ) as shows
+        
+        LEFT JOIN show_reviews
+            ON show_reviews.show_id = shows.id
+            
+        GROUP BY shows.id
+        ORDER BY shows.id
+
+        LIMIT ?
+        OFFSET ?
+    """
+    )
+
+    override suspend fun getWithoutImageShows(
+        limit: Int,
+        offset: Int
+    ): TvShows<TvShowDetailsModel> = mutex.withLock {
+        val set = getWithoutImageShows.run {
+            setInt(1, limit)
+            setInt(2, offset)
+            return@run executeQuery()
+        }
+
+        val shows = buildList{
+            while (set.next()){
+                add(
+                    TvShowDetailsModel(
+                        set.getInt("id"),
+                        set.getString("name"),
+                        set.getFloat("assessment"),
+                        AgeLimit.fromInt(set.getInt("age_limit")),
+                        set.getString("preview_url"),
+                        set.getString("description"),
+                    )
+                )
+            }
+        }
+
+        return@withLock TvShows(
+            -1,
+            shows
+        )
+    }
+
+    private val updateShowsStatementWithPreview = connection.prepareStatement("""
         INSERT INTO shows
             (id, name, age_limit, preview_url, description)
         VALUES
@@ -317,21 +370,60 @@ class TvShowsSqliteRepository(
                 description = EXCLUDED.description
     """)
 
+    private val updateShowsStatementWithoutPreview = connection.prepareStatement("""
+        INSERT INTO shows
+            (id, name, age_limit, description)
+        VALUES
+          (?, ?, ?, ?)
+        ON CONFLICT(id) DO UPDATE
+            SET name = EXCLUDED.name, 
+                description = EXCLUDED.description
+    """)
+
+    private val addShowImage = connection.prepareStatement("""
+        INSERT INTO show_frames
+            (show_id, url)
+        VALUES 
+            (?, ?)
+    """)
 
     override suspend fun updateMany(shows: List<TvShowCreateModel>) {
         coroutineScope {
             for (show in shows) {
                 if (!isActive)
-                    throw CancellationException()
-                updateShowsStatement.run {
+                    break
+
+                val statement =
+                    if (show.previewUrl != null)
+                        updateShowsStatementWithPreview
+                    else
+                        updateShowsStatementWithoutPreview
+
+                 statement.run {
                     setInt(1, show.id)
                     setString(2, show.name)
                     setInt(3, show.ageLimit)
-                    setString(4, show.previewUrl)
-                    setString(5, show.description)
+                    if (show.previewUrl != null ) {
+                        setString(4, show.previewUrl)
+                        setString(5, show.description)
+                    }
+                    else{
+                        setString(4, show.description)
+                    }
                     executeUpdate()
                 }
+
+                show.images?.forEach { image ->
+                    addShowImage.run {
+                        setInt(1, show.id)
+                        setString(2, image.url)
+                        executeUpdate()
+                    }
+                }
             }
+            connection.commit()
+            if (!isActive)
+                throw CancellationException()
         }
     }
 }

@@ -1,23 +1,19 @@
 package com.limelist.tvHistory.services.dataUpdateServices
 
-import com.limelist.tvHistory.dataAccess.interfaces.TvChannelsRepository
-import com.limelist.tvHistory.dataAccess.interfaces.TvReleasesRepository
+import com.limelist.tvHistory.dataAccess.interfaces.*
+import com.limelist.tvHistory.dataAccess.models.*
+import com.limelist.tvHistory.services.dataUpdateServices.source.models.*
+import com.limelist.tvHistory.services.dataUpdateServices.yandex.api.imageParams.ImagesSearchParams
+import com.limelist.tvHistory.services.dataUpdateServices.yandex.api.YandexSearchApiClient
 
-import com.limelist.tvHistory.dataAccess.interfaces.TvShowsRepository
-import com.limelist.tvHistory.dataAccess.models.TvChannelCreateModel
-import com.limelist.tvHistory.dataAccess.models.TvReleaseCreateModel
-import com.limelist.tvHistory.dataAccess.models.TvShowCreateModel
-import com.limelist.tvHistory.services.dataUpdateServices.source.models.SourceChannel
-import com.limelist.tvHistory.services.dataUpdateServices.source.models.SourceDataSet
-import com.limelist.tvHistory.services.dataUpdateServices.source.models.SourceRelease
-import com.limelist.tvHistory.services.dataUpdateServices.source.models.SourceShow
-import com.limelist.tvHistory.services.models.shows.TvShowDetailsModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
+
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
+
 import java.io.FileNotFoundException
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
@@ -26,9 +22,19 @@ class JsonSourceDataUpdateService(
     private val channels: TvChannelsRepository,
     private val shows: TvShowsRepository,
     private val releases: TvReleasesRepository,
-    private val coroutineContext: CoroutineContext = EmptyCoroutineContext
+    private val config: JsonSourceDataUpdateServiceConfig,
+    coroutineContext: CoroutineContext = EmptyCoroutineContext
 ) : DataUpdateService {
     private val loadLoopScope = CoroutineScope(coroutineContext)
+
+    private val yandex =
+        if (config.findShowImages)
+            YandexSearchApiClient(
+                config.folderId ?: throw IllegalArgumentException("folderId is missing"),
+                config.apiKey ?: throw IllegalArgumentException("apiKey is missing")
+            )
+        else
+            null
 
     @OptIn(ExperimentalSerializationApi::class)
     private fun loadDataSet(): SourceDataSet {
@@ -39,13 +45,21 @@ class JsonSourceDataUpdateService(
         return Json.decodeFromStream<SourceDataSet>(stream)
     }
 
-    private suspend fun findTvShowDetails(show: SourceShow): TvShowCreateModel{
-        return  TvShowCreateModel(
+    private fun convertToTvShow(
+        show: SourceShow,
+        releases: List<SourceRelease>
+    ): TvShowCreateModel{
+        val description = releases.find {
+            release -> release.showId == show.id
+        }?.description ?: ""
+
+        return TvShowCreateModel(
             show.id,
             show.name,
             0,
-            "https://mur-mur.top/cat2/uploads/posts/2024-01/1706006784_mur-mur-top-p-kobaladze-tamara-davidovna-den-rozhdeniya-43.jpg",
-            ""
+            null,
+            null,
+            description
         )
     }
 
@@ -65,7 +79,6 @@ class JsonSourceDataUpdateService(
         release: SourceRelease
     ):TvReleaseCreateModel {
         return TvReleaseCreateModel(
-            id = -1,
             release.channelId,
             release.showId,
             release.description,
@@ -74,19 +87,53 @@ class JsonSourceDataUpdateService(
         )
     }
 
+    private suspend fun findImagesForShows(){
+        yandex?: throw NullPointerException("Yandex should not be null")
+        yandex.init()
+        val limit = 1000;
+        val withoutImageShows = shows.getWithoutImageShows(limit, 0)
+
+        withoutImageShows.shows.forEach { show ->
+            val searchParams = ImagesSearchParams("Фильм сериал ${show.name}")
+            val images = yandex.searchImages(searchParams)
+
+            if (images.isEmpty())
+                return@forEach
+
+            shows.updateMany(listOf(
+                TvShowCreateModel(
+                    show.id,
+                    show.name,
+                    show.ageLimit.flag,
+                    images.first().url,
+                    images.subList(1, images.size),
+                    show.description,
+                )
+            ))
+        }
+    }
+
     override suspend fun start() {
         loadLoopScope.launch {
             val data: SourceDataSet = loadDataSet()
             //data.shows
-            val channelsData = data.channels.map { convertToTvChannel(it) }
-            val releasesData = data.releases.map { convertToTvRelease(it) }
-            val showsData = data.shows.map { findTvShowDetails(it) }
+            if (config.reloadDataSet) {
+                val channelsData = data.channels.map { convertToTvChannel(it) }
+                channels.updateMany(channelsData)
 
-            channels.updateMany(channelsData);
-            shows.updateMany(showsData)
-            releases.updateMany(releasesData);
+                val showsData = data.shows.map { convertToTvShow(it, data.releases) }
+                shows.updateMany(showsData)
+
+                val releasesData = data.releases.map { convertToTvRelease(it) }
+                releases.updateMany(releasesData)
+            }
+
+            if (config.findShowImages && yandex != null){
+                findImagesForShows()
+            }
         }
     }
+
 
     override suspend fun stop() {
         loadLoopScope.cancel();

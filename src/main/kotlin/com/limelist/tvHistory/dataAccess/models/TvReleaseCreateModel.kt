@@ -4,7 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class TvReleaseCreateModel(
-    val id: Int,
     val channelId: Int,
     val showId: Int,
     val description: String,

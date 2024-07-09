@@ -42,7 +42,7 @@ class TvReleasesSqliteRepository(
 
             for (release in releases) {
                 if (!isActive)
-                    throw CancellationException();
+                    break;
                 updateReleasesStatement.run {
                     count++;
                     setInt(1, count)
@@ -54,6 +54,9 @@ class TvReleasesSqliteRepository(
                     executeUpdate()
                 }
             }
+            connection.commit()
+            if (!isActive)
+                throw CancellationException();
         }
     }
 }

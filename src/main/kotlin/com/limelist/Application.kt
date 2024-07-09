@@ -5,6 +5,10 @@ import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import kotlinx.coroutines.*
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.decodeFromStream
+import java.io.FileNotFoundException
 import java.util.concurrent.TimeUnit
 import kotlin.coroutines.CoroutineContext
 
@@ -25,8 +29,10 @@ suspend fun main(){
 
 fun Application.module() {
     val backgroundServicesContext: CoroutineContext = Dispatchers.Default
+    val applicationConfig = loadConfig()
     val services = configureServices(
-        backgroundServicesContext
+        backgroundServicesContext,
+        applicationConfig
     );
     registerBackgroundServices(
         services,
@@ -36,6 +42,15 @@ fun Application.module() {
     configureHTTP()
     configureRouting(services)
 }
+
+@OptIn(ExperimentalSerializationApi::class)
+fun loadConfig(): ApplicationConfig {
+    val classLoader = Thread.currentThread().contextClassLoader;
+    val resourceStream = classLoader.getResourceAsStream("ApplicationConfig.json")
+    resourceStream ?: throw FileNotFoundException("ApplicationConfig.json")
+    return Json.decodeFromStream<ApplicationConfig>(resourceStream);
+}
+
 
 fun Application.registerBackgroundServices(
     services: ApplicationServices,

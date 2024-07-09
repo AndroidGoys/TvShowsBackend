@@ -1,10 +1,12 @@
 package com.limelist.plugins
 
+import com.limelist.ApplicationConfig
 import java.sql.DriverManager;
 import io.ktor.server.application.*
 import kotlinx.coroutines.sync.Mutex
 
 import com.limelist.ApplicationServices
+import com.limelist.tvHistory.TvHistoryConfig
 import com.limelist.tvHistory.TvHistoryServices
 import com.limelist.tvHistory.dataAccess.sqlite.repositories.TvChannelsSqliteRepository
 import com.limelist.tvHistory.dataAccess.sqlite.repositories.TvReleasesSqliteRepository
@@ -18,9 +20,13 @@ import kotlin.coroutines.CoroutineContext
 
 
 fun Application.configureServices(
-    coroutineContext: CoroutineContext
+    coroutineContext: CoroutineContext,
+    config: ApplicationConfig
 ) : ApplicationServices {
-    val tvHistoryServices = configureTvHistoryServices(coroutineContext)
+    val tvHistoryServices = configureTvHistoryServices(
+        coroutineContext,
+        config.tvHistoryConfig
+    )
     return ApplicationServices(
         tvHistoryServices,
         tvHistoryServices.backgroundServices,
@@ -28,7 +34,8 @@ fun Application.configureServices(
 }
 
 fun Application.configureTvHistoryServices(
-    coroutineContext: CoroutineContext
+    coroutineContext: CoroutineContext,
+    config: TvHistoryConfig
 ): TvHistoryServices {
     val conn = DriverManager.getConnection("jdbc:sqlite:tvHisotry.sql")
     val mutex = Mutex()
@@ -46,6 +53,7 @@ fun Application.configureTvHistoryServices(
         channels,
         shows,
         releases,
+        config.dataUpdateConfig,
         coroutineContext
     );
 

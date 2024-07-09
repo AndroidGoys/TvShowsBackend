@@ -279,7 +279,7 @@ class TvChannelsSqliteRepository(
         coroutineScope{
             for (channel in channels) {
                 if (!isActive)
-                    throw CancellationException()
+                    break
 
                 updateChannelStatement.run {
                     setInt(1, channel.id)
@@ -297,6 +297,10 @@ class TvChannelsSqliteRepository(
                     }
                 }
             }
+
+            connection.commit()
+            if (!isActive)
+                throw CancellationException("Operation cancelled")
         }
     }
 

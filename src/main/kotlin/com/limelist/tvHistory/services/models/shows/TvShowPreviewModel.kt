@@ -9,5 +9,5 @@ class TvShowPreviewModel(
     override val name: String,
     override val assessment: Float,
     override val ageLimit: AgeLimit,
-    override val previewUrl: String
+    override val previewUrl: String?
 ) : TvShow

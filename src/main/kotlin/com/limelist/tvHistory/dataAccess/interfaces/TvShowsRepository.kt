@@ -19,4 +19,6 @@ interface TvShowsRepository : TvRepository {
         releasesLimit: Int,
         releasesTimeStart: Long
     ): TvChannels<TvShowChannelModel>
+
+    suspend fun getWithoutImageShows(limit: Int, offset: Int): TvShows<TvShowDetailsModel>
 }

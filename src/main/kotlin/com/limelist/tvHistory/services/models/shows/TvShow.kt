@@ -7,5 +7,5 @@ interface TvShow : TvModel {
     val name: String
     val assessment: Float
     val ageLimit:  AgeLimit
-    val previewUrl: String
+    val previewUrl: String?
 }

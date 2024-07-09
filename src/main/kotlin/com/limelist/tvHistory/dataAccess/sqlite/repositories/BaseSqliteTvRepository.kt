@@ -17,6 +17,7 @@ abstract class BaseSqliteTvRepository(
     }
 
     init {
+        connection.autoCommit = false
         val statement = connection.createStatement();
 
         statement.execute("""
@@ -34,14 +35,14 @@ abstract class BaseSqliteTvRepository(
                 name VARCHAR(50) NOT NULL,
                 age_limit INTEGER,
                 description TEXT NOT NULL,  
-                preview_url TEXT NOT NULL
+                preview_url TEXT DEFAULT NULL
             );
         """)
 
         statement.execute("""
             CREATE TABLE IF NOT EXISTS show_reviews (
                 id SERIAL PRIMARY KEY,
-                show_id INTEGER REFERENCES tv_shows,
+                show_id INTEGER REFERENCES shows,
                 date INTEGER,  
                 comment TEXT,
                 assessment INTEGER
@@ -74,6 +75,15 @@ abstract class BaseSqliteTvRepository(
             CREATE TABLE IF NOT EXISTS channel_view_urls (
                 id SERIAL PRIMARY KEY,
                 channel_id INTEGER REFERENCES channels,
+                url TEXT NOT NULL
+            );
+        """)
+
+
+        statement.execute("""
+            CREATE TABLE IF NOT EXISTS show_frames (
+                id SERIAL PRIMARY KEY,
+                show_id INTEGER REFERENCES shows,
                 url TEXT NOT NULL
             );
         """)
