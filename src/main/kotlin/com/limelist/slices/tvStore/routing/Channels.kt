@@ -10,6 +10,7 @@ import io.ktor.server.resources.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.SerialName
 
 fun Route.channels(
     tvChannelsService: TvChannelsServiceInterface
@@ -69,7 +70,9 @@ data class AllChannels(
         data class Releases(
             val channel: Channel,
             val limit: Int? = null,
+            @SerialName("time-start")
             val timeStart: Long? = null,
+            @SerialName("time-zone")
             val timeZone: Float? = null
         )
     }

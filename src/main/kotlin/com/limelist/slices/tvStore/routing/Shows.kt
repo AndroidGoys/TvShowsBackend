@@ -9,6 +9,7 @@ import io.ktor.server.application.*
 import io.ktor.server.resources.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 fun Route.shows(tvShowsService: TvShowsServiceInterface) {
@@ -69,10 +70,15 @@ data class AllShows(
         @Resource("channels")
         data class Channels(
             val show: Show,
+            @SerialName("channels-limit")
             val channelsLimit: Int? = null,
+            @SerialName("channels-offset")
             val channelsOffset: Int? = null,
+            @SerialName("releases-limit")
             val releasesLimit: Int? = null,
+            @SerialName("releases-start")
             val releasesStart: Long? = null,
+            @SerialName("time-zone")
             val timeZone: Float? = null
         )
     }
