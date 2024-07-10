@@ -178,6 +178,10 @@ paths:
   /api/shows/{id}:
     get:
       description: "Получение подробностей о телепередаче"
+      parameters:
+        - name: "id"
+          required: false
+          in: path
       responses:
         "200":
           description: "OK"
