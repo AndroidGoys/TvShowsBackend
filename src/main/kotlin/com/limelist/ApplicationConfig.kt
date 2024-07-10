@@ -1,6 +1,6 @@
 package com.limelist
 
-import com.limelist.tvStore.TvStoreConfig
+import com.limelist.slices.tvStore.TvStoreConfig
 import kotlinx.serialization.Serializable
 
 @Serializable

@@ -1,8 +1,8 @@
 package com.limelist
 
-import com.limelist.shared.DbLifeCycle
-import com.limelist.shared.HostedService
-import com.limelist.tvStore.TvStoreServices
+import com.limelist.slices.shared.DbLifeCycle
+import com.limelist.slices.shared.HostedService
+import com.limelist.slices.tvStore.TvStoreServices
 
 class ApplicationServices(
     val tvStoreServices: TvStoreServices,

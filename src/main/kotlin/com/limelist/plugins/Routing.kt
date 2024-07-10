@@ -5,7 +5,7 @@ import io.ktor.server.application.*
 import io.ktor.server.resources.Resources
 import io.ktor.server.routing.*
 
-import com.limelist.tvStore.routing.useTvHistory;
+import com.limelist.slices.tvStore.routing.useTvHistory;
 
 fun Application.configureRouting(services: ApplicationServices) {
     install(Resources)

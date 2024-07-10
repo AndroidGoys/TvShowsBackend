@@ -6,15 +6,15 @@ import io.ktor.server.application.*
 import kotlinx.coroutines.sync.Mutex
 
 import com.limelist.ApplicationServices
-import com.limelist.tvStore.TvStoreConfig
-import com.limelist.tvStore.TvStoreServices
-import com.limelist.tvStore.dataAccess.sqlite.repositories.TvChannelsSqliteRepository
-import com.limelist.tvStore.dataAccess.sqlite.repositories.TvReleasesSqliteRepository
-import com.limelist.tvStore.dataAccess.sqlite.repositories.TvShowsSqliteRepository
-import com.limelist.tvStore.dataAccess.sqlite.repositories.TvSqliteDbLifeCycle
-import com.limelist.tvStore.services.tvChannelServices.TvChannelsService;
-import com.limelist.tvStore.services.tvShowServices.TvShowsService;
-import com.limelist.tvStore.services.dataUpdateServices.JsonSourceDataUpdateService
+import com.limelist.slices.tvStore.TvStoreConfig
+import com.limelist.slices.tvStore.TvStoreServices
+import com.limelist.slices.tvStore.dataAccess.sqlite.repositories.TvChannelsSqliteRepository
+import com.limelist.slices.tvStore.dataAccess.sqlite.repositories.TvReleasesSqliteRepository
+import com.limelist.slices.tvStore.dataAccess.sqlite.repositories.TvShowsSqliteRepository
+import com.limelist.slices.tvStore.dataAccess.sqlite.repositories.TvSqliteDbLifeCycle
+import com.limelist.slices.tvStore.services.tvChannelServices.TvChannelsService;
+import com.limelist.slices.tvStore.services.tvShowServices.TvShowsService;
+import com.limelist.slices.tvStore.services.dataUpdateServices.JsonSourceDataUpdateService
 import kotlin.coroutines.CoroutineContext
 
 
