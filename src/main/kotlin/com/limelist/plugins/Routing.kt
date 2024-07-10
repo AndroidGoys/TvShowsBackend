@@ -5,13 +5,13 @@ import io.ktor.server.application.*
 import io.ktor.server.resources.Resources
 import io.ktor.server.routing.*
 
-import com.limelist.tvHistory.routing.useTvHistory;
+import com.limelist.tvStore.routing.useTvHistory;
 
 fun Application.configureRouting(services: ApplicationServices) {
     install(Resources)
     routing {
         route("/api"){
-            useTvHistory("/", services.tvHistoryServices)
+            useTvHistory("/", services.tvStoreServices)
         }
     }
 }

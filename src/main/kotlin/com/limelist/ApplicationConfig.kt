@@ -1,9 +1,9 @@
 package com.limelist
 
-import com.limelist.tvHistory.TvHistoryConfig
+import com.limelist.tvStore.TvStoreConfig
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class ApplicationConfig(
-    val tvHistoryConfig: TvHistoryConfig,
+    val tvStoreConfig: TvStoreConfig,
 )

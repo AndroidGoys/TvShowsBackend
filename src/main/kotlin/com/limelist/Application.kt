@@ -63,7 +63,6 @@ fun Application.registerBackgroundServices(
     this.environment.monitor.subscribe(ApplicationStarted) {
         servicesScope.launch {
             dataBases.forEach { it.start() }
-
             val jobs = backgroundServices.map {
                 launch { it.start() }
             }

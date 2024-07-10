@@ -6,16 +6,15 @@ import io.ktor.server.application.*
 import kotlinx.coroutines.sync.Mutex
 
 import com.limelist.ApplicationServices
-import com.limelist.tvHistory.TvHistoryConfig
-import com.limelist.tvHistory.TvHistoryServices
-import com.limelist.tvHistory.dataAccess.sqlite.repositories.TvChannelsSqliteRepository
-import com.limelist.tvHistory.dataAccess.sqlite.repositories.TvReleasesSqliteRepository
-import com.limelist.tvHistory.dataAccess.sqlite.repositories.TvShowsSqliteRepository
-import com.limelist.tvHistory.dataAccess.sqlite.repositories.TvSqliteDbLifeCycle
-import com.limelist.tvHistory.services.tvChannelServices.TvChannelsService;
-import com.limelist.tvHistory.services.tvShowServices.TvShowsService;
-import com.limelist.tvHistory.services.dataUpdateServices.JsonSourceDataUpdateService
-import kotlinx.coroutines.CoroutineScope
+import com.limelist.tvStore.TvStoreConfig
+import com.limelist.tvStore.TvStoreServices
+import com.limelist.tvStore.dataAccess.sqlite.repositories.TvChannelsSqliteRepository
+import com.limelist.tvStore.dataAccess.sqlite.repositories.TvReleasesSqliteRepository
+import com.limelist.tvStore.dataAccess.sqlite.repositories.TvShowsSqliteRepository
+import com.limelist.tvStore.dataAccess.sqlite.repositories.TvSqliteDbLifeCycle
+import com.limelist.tvStore.services.tvChannelServices.TvChannelsService;
+import com.limelist.tvStore.services.tvShowServices.TvShowsService;
+import com.limelist.tvStore.services.dataUpdateServices.JsonSourceDataUpdateService
 import kotlin.coroutines.CoroutineContext
 
 
@@ -25,7 +24,7 @@ fun Application.configureServices(
 ) : ApplicationServices {
     val tvHistoryServices = configureTvHistoryServices(
         coroutineContext,
-        config.tvHistoryConfig
+        config.tvStoreConfig
     )
     return ApplicationServices(
         tvHistoryServices,
@@ -35,8 +34,8 @@ fun Application.configureServices(
 
 fun Application.configureTvHistoryServices(
     coroutineContext: CoroutineContext,
-    config: TvHistoryConfig
-): TvHistoryServices {
+    config: TvStoreConfig
+): TvStoreServices {
     val conn = DriverManager.getConnection("jdbc:sqlite:tvHisotry.sql")
     val mutex = Mutex()
 
@@ -57,7 +56,7 @@ fun Application.configureTvHistoryServices(
         coroutineContext
     );
 
-    return TvHistoryServices(
+    return TvStoreServices(
         tvChannelsService,
         tvShowsService,
         listOf(dataUpdateService),
