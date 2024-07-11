@@ -384,6 +384,7 @@ class TvShowsSqliteRepository(
           (?, ?, ?, ?, ?)
         ON CONFLICT(id) DO UPDATE
             SET name = EXCLUDED.name, 
+                age_limit = EXCLUDED.age_limit,
                 preview_url = EXCLUDED.preview_url, 
                 description = EXCLUDED.description
     """)
@@ -395,6 +396,7 @@ class TvShowsSqliteRepository(
           (?, ?, ?, ?)
         ON CONFLICT(id) DO UPDATE
             SET name = EXCLUDED.name, 
+                age_limit = EXCLUDED.age_limit,
                 description = EXCLUDED.description
     """)
 

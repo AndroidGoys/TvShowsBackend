@@ -8,6 +8,7 @@ import com.limelist.slices.tvStore.dataAccess.models.create.TvTagCreateModel
 import com.limelist.slices.tvStore.services.dataUpdateServices.source.models.*
 import com.limelist.slices.tvStore.services.dataUpdateServices.yandex.api.imageParams.ImagesSearchParams
 import com.limelist.slices.tvStore.services.dataUpdateServices.yandex.api.YandexSearchApiClient
+import com.limelist.slices.tvStore.services.models.AgeLimit
 import com.limelist.slices.tvStore.services.models.tags.TvTag
 
 import kotlinx.coroutines.CoroutineScope
@@ -50,18 +51,29 @@ class JsonSourceDataUpdateService(
         return Json.decodeFromStream<SourceDataSet>(file.inputStream())
     }
 
+    private fun matchAgeLimit(
+        years: Int
+    ) = when(years) {
+        0 -> AgeLimit.NoRestrictions.flag
+        6 -> AgeLimit.OverSixYearsOld.flag
+        12 -> AgeLimit.OverTwelveYearsOld.flag
+        16 -> AgeLimit.OverSixYearsOld.flag
+        18 -> AgeLimit.OverEighteenYearsOld.flag
+        else -> AgeLimit.NoRestrictions.flag
+    }
+
     private fun convertToTvShow(
         show: SourceShow,
         releases: List<SourceRelease>
     ): TvShowCreateModel {
         val description = releases.find {
             release -> release.showId == show.id
-        }?.description ?: ""
+        }?.description
 
         return TvShowCreateModel(
             show.id,
             show.name,
-            0,
+            matchAgeLimit(show.ageLimit),
             null,
             null,
             description
