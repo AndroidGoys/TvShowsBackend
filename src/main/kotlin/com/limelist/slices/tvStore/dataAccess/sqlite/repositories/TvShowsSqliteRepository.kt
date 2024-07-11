@@ -17,6 +17,7 @@ import com.limelist.slices.tvStore.services.models.shows.TvShowChannelModel
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.sync.withLock
+import java.util.*
 import kotlin.coroutines.cancellation.CancellationException
 
 class TvShowsSqliteRepository(
@@ -116,7 +117,7 @@ class TvShowsSqliteRepository(
 
 
     val searchByNameStatement = connection.prepareStatement("""
-       SELECT 
+        SELECT 
             shows.id as id, 
             shows.name as name, 
             shows.preview_url as preview_url,
@@ -142,8 +143,8 @@ class TvShowsSqliteRepository(
         limit: Int,
         offset: Int
     ): TvShows<TvShowPreviewModel> = mutex.withLock {
-        val set = getShowDetailsStatement.run {
-            setString(1, name)
+        val set = searchByNameStatement.run {
+            setString(1, "%${name}%")
             setInt(2, limit)
             setInt(3, offset)
             return@run executeQuery()

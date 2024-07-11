@@ -21,6 +21,10 @@ abstract class BaseSqliteTvRepository(
         val statement = connection.createStatement();
 
         statement.execute("""
+            PRAGMA case_sensitive_like=OFF;
+        """.trimIndent())
+
+        statement.execute("""
             CREATE TABLE IF NOT EXISTS $channelsTabelName (
                 id SERIAL PRIMARY KEY,
                 name VARCHAR(50) NOT NULL,
@@ -88,6 +92,8 @@ abstract class BaseSqliteTvRepository(
             );
         """)
         statement.close()
+
+        connection.commit()
     }
 
     val getCountStatement = connection.prepareStatement("""
