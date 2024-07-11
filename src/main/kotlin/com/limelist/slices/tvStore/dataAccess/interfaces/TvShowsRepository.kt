@@ -1,6 +1,6 @@
 package com.limelist.slices.tvStore.dataAccess.interfaces
 
-import com.limelist.slices.tvStore.dataAccess.models.TvShowCreateModel
+import com.limelist.slices.tvStore.dataAccess.models.create.TvShowCreateModel
 import com.limelist.slices.tvStore.services.models.channels.TvChannels
 import com.limelist.slices.tvStore.services.models.shows.TvShows
 import com.limelist.slices.tvStore.services.models.shows.TvShowChannelModel

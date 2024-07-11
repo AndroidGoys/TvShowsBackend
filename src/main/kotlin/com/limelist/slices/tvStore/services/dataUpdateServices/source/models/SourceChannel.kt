@@ -8,5 +8,6 @@ data class SourceChannel(
     val address: String,
     val name: String,
     val image: String,
-    val description: String
+    val description: String,
+    val isFederal: Boolean
 )

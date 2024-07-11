@@ -11,5 +11,6 @@ class TvShowDetailsModel(
     override val ageLimit: AgeLimit,
     override val previewUrl: String?,
     val frames: List<String>,
+    val tags: List<String>,
     val description: String
 ) : TvShow

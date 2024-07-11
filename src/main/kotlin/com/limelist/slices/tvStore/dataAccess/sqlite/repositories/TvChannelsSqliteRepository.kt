@@ -5,7 +5,7 @@ import kotlinx.coroutines.sync.Mutex
 import java.sql.Connection
 
 import com.limelist.slices.tvStore.dataAccess.interfaces.TvChannelsRepository
-import com.limelist.slices.tvStore.dataAccess.models.TvChannelCreateModel
+import com.limelist.slices.tvStore.dataAccess.models.create.TvChannelCreateModel
 import com.limelist.slices.tvStore.services.models.AgeLimit
 import com.limelist.slices.tvStore.services.models.channels.TvChannels
 import com.limelist.slices.tvStore.services.models.channels.TvChannelDetailsModel
@@ -14,7 +14,6 @@ import com.limelist.slices.tvStore.services.models.releases.TvChannelShowRelease
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.sync.withLock
-import java.util.*
 import kotlin.coroutines.cancellation.CancellationException
 
 class TvChannelsSqliteRepository(
@@ -118,6 +117,7 @@ class TvChannelsSqliteRepository(
             imageUrl,
             assessment,
             description,
+            listOf(),
             viewUrls,
         )
     }

@@ -1,4 +1,4 @@
-package com.limelist.slices.tvStore.dataAccess.models
+package com.limelist.slices.tvStore.dataAccess.models.create
 
 import kotlinx.serialization.Serializable
 import java.sql.ResultSet

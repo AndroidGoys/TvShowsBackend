@@ -7,7 +7,7 @@ import com.limelist.slices.auth.services.models.RefreshToken
 
 interface AuthService {
     suspend fun login(data: LoginData): Result<AuthenticationTokens>
-    suspend fun signup(data: LoginData): Result<AuthenticationTokens>
     suspend fun refresh(refreshToken: RefreshToken): Result<AccessToken>
-    suspend fun updateLoginData(oldData:LoginData, newData:LoginData): Result<Unit>
+    suspend fun addNewUser(id: Int, data: LoginData): Result<AuthenticationTokens>
+    suspend fun updateLoginData(oldData: LoginData, newData: LoginData): Result<Unit>
 }

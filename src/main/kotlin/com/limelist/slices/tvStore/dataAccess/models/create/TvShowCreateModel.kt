@@ -1,4 +1,4 @@
-package com.limelist.slices.tvStore.dataAccess.models
+package com.limelist.slices.tvStore.dataAccess.models.create
 
 import com.limelist.slices.tvStore.services.dataUpdateServices.yandex.api.YandexImage
 

@@ -6,8 +6,8 @@ import kotlinx.coroutines.sync.Mutex
 import java.sql.Connection
 
 import com.limelist.slices.tvStore.dataAccess.interfaces.TvShowsRepository
-import com.limelist.slices.tvStore.dataAccess.models.TvShowChannelsDataModel
-import com.limelist.slices.tvStore.dataAccess.models.TvShowCreateModel
+import com.limelist.slices.tvStore.dataAccess.models.create.TvShowChannelsDataModel
+import com.limelist.slices.tvStore.dataAccess.models.create.TvShowCreateModel
 import com.limelist.slices.tvStore.services.models.AgeLimit
 import com.limelist.slices.tvStore.services.models.channels.TvChannels
 import com.limelist.slices.tvStore.services.models.releases.TvChannelReleases
@@ -17,7 +17,6 @@ import com.limelist.slices.tvStore.services.models.shows.TvShowChannelModel
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.sync.withLock
-import java.util.*
 import kotlin.coroutines.cancellation.CancellationException
 
 class TvShowsSqliteRepository(
@@ -96,6 +95,7 @@ class TvShowsSqliteRepository(
         ) as shows 
         LEFT JOIN show_frames
         ON shows.id == show_frames.show_id
+        
     """)
 
 
@@ -126,7 +126,7 @@ class TvShowsSqliteRepository(
         }
 
         return TvShowDetailsModel(
-            id, name, assessment, ageLimit, previewUrl, frames, description
+            id, name, assessment, ageLimit, previewUrl, frames, listOf(), description
         )
     }
 

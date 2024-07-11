@@ -14,6 +14,7 @@ abstract class BaseSqliteTvRepository(
         val channelsTabelName = "channels"
         val showsTabelName = "shows"
         val releasesTableName = "releases"
+        val tagsTableName = "tags"
     }
 
     init {
@@ -40,6 +41,30 @@ abstract class BaseSqliteTvRepository(
                 age_limit INTEGER,
                 description TEXT NOT NULL,  
                 preview_url TEXT DEFAULT NULL
+            );
+        """)
+
+        statement.execute("""
+            CREATE TABLE IF NOT EXISTS tags (
+                id SERIAL PRIMARY KEY,
+                name VARCHAR(50) NOT NULL,
+                belong INTEGER
+            );
+        """)
+
+        statement.execute("""
+            CREATE TABLE IF NOT EXISTS channel_tags(
+                channel_id INTEGER REFERENCES channels,
+                tag_id INTEGER REFERENCES tags,
+                CONSTRAINT id PRIMARY KEY (channel_id, tag_id)
+            );
+        """)
+
+        statement.execute("""
+            CREATE TABLE IF NOT EXISTS show_tags(
+                show_id INTEGER REFERENCES shows,
+                tag_id INTEGER REFERENCES tags,
+                CONSTRAINT id PRIMARY KEY (show_id, tag_id)
             );
         """)
 

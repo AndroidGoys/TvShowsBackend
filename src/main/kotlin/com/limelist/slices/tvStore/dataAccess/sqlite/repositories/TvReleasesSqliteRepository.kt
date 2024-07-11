@@ -1,7 +1,7 @@
 package com.limelist.slices.tvStore.dataAccess.sqlite.repositories
 
 import com.limelist.slices.tvStore.dataAccess.interfaces.TvReleasesRepository
-import com.limelist.slices.tvStore.dataAccess.models.TvReleaseCreateModel
+import com.limelist.slices.tvStore.dataAccess.models.create.TvReleaseCreateModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.isActive

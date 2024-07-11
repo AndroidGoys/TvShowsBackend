@@ -9,20 +9,29 @@ import com.limelist.slices.auth.services.models.RefreshToken
 class KtorAuthService(
     val config: AuthConfig
 ) : AuthService {
-    override suspend fun login(data: LoginData): Result<AuthenticationTokens> {
+    override suspend fun login(
+        data: LoginData
+    ): Result<AuthenticationTokens> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun signup(data: LoginData): Result<AuthenticationTokens> {
+    override suspend fun refresh(
+        refreshToken: RefreshToken
+    ): Result<AccessToken> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun refresh(refreshToken: RefreshToken): Result<AccessToken> {
+    override suspend fun addNewUser(
+        id: Int,
+        data: LoginData
+    ): Result<AuthenticationTokens> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun updateLoginData(oldData: LoginData, newData: LoginData): Result<Unit> {
-        TODO("Not yet implemented")
+    override suspend fun updateLoginData(
+        oldData: LoginData,
+        newData: LoginData
+    ): Result<Unit> {
+        TODO()
     }
-
 }

@@ -6,4 +6,5 @@ import kotlinx.serialization.Serializable
 data class SourceShow(
     val id: Int,
     val name: String,
+    val ageLimit: Int
 )

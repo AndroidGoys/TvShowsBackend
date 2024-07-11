@@ -1,7 +1,9 @@
 package com.limelist.slices.tvStore.services.dataUpdateServices
 
 import com.limelist.slices.tvStore.dataAccess.interfaces.*
-import com.limelist.slices.tvStore.dataAccess.models.*
+import com.limelist.slices.tvStore.dataAccess.models.create.TvChannelCreateModel
+import com.limelist.slices.tvStore.dataAccess.models.create.TvReleaseCreateModel
+import com.limelist.slices.tvStore.dataAccess.models.create.TvShowCreateModel
 import com.limelist.slices.tvStore.services.dataUpdateServices.source.models.*
 import com.limelist.slices.tvStore.services.dataUpdateServices.yandex.api.imageParams.ImagesSearchParams
 import com.limelist.slices.tvStore.services.dataUpdateServices.yandex.api.YandexSearchApiClient
@@ -48,7 +50,7 @@ class JsonSourceDataUpdateService(
     private fun convertToTvShow(
         show: SourceShow,
         releases: List<SourceRelease>
-    ): TvShowCreateModel{
+    ): TvShowCreateModel {
         val description = releases.find {
             release -> release.showId == show.id
         }?.description ?: ""
@@ -77,7 +79,7 @@ class JsonSourceDataUpdateService(
 
     private fun convertToTvRelease(
         release: SourceRelease
-    ):TvReleaseCreateModel {
+    ): TvReleaseCreateModel {
         return TvReleaseCreateModel(
             release.channelId,
             release.showId,

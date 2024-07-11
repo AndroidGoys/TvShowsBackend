@@ -1,4 +1,4 @@
-package com.limelist.slices.tvStore.dataAccess.models
+package com.limelist.slices.tvStore.dataAccess.models.create
 
 class TvChannelCreateModel(
     val id: Int,
