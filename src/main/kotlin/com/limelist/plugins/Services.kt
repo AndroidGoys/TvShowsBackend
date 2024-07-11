@@ -8,10 +8,7 @@ import kotlinx.coroutines.sync.Mutex
 import com.limelist.ApplicationServices
 import com.limelist.slices.tvStore.TvStoreConfig
 import com.limelist.slices.tvStore.TvStoreServices
-import com.limelist.slices.tvStore.dataAccess.sqlite.repositories.TvChannelsSqliteRepository
-import com.limelist.slices.tvStore.dataAccess.sqlite.repositories.TvReleasesSqliteRepository
-import com.limelist.slices.tvStore.dataAccess.sqlite.repositories.TvShowsSqliteRepository
-import com.limelist.slices.tvStore.dataAccess.sqlite.repositories.TvSqliteDbLifeCycle
+import com.limelist.slices.tvStore.dataAccess.sqlite.repositories.*
 import com.limelist.slices.tvStore.services.tvChannelServices.TvChannelsService;
 import com.limelist.slices.tvStore.services.tvShowServices.TvShowsService;
 import com.limelist.slices.tvStore.services.dataUpdateServices.JsonSourceDataUpdateService
@@ -44,6 +41,7 @@ fun Application.configureTvHistoryServices(
     val channels = TvChannelsSqliteRepository(conn, mutex)
     val shows = TvShowsSqliteRepository(conn, mutex)
     val releases = TvReleasesSqliteRepository(conn, mutex);
+    val tags = TvTagsSqliteRepository(conn, mutex);
 
     val tvChannelsService = TvChannelsService(channels);
     val tvShowsService = TvShowsService(shows);
@@ -52,6 +50,7 @@ fun Application.configureTvHistoryServices(
         channels,
         shows,
         releases,
+        tags,
         config.dataUpdateConfig,
         coroutineContext
     );

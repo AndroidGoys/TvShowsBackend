@@ -262,13 +262,19 @@ class TvChannelsSqliteRepository(
 
     private val clearViewUrlsStatement = connection.prepareStatement("""
         DELETE FROM channel_view_urls
-    """.trimIndent())
+    """)
 
     private val updateChannelViewUrlsStatement = connection.prepareStatement("""
         INSERT INTO channel_view_urls 
             (channel_id, url)
         VALUES 
             (?, ?)
+    """)
+
+    private val addTagsStatement = connection.prepareStatement("""
+        INSERT OR IGNORE INTO channel_tags 
+            (channel_id, tag_id)
+        VALUES (?, ?)
     """)
 
     override suspend fun updateMany(
@@ -292,6 +298,14 @@ class TvChannelsSqliteRepository(
                     updateChannelViewUrlsStatement.run{
                         setInt(1, channel.id)
                         setString(2, url)
+                        executeUpdate()
+                    }
+                }
+
+                for (tag in channel.tagIds){
+                    addTagsStatement.run {
+                        setInt(1, channel.id)
+                        setInt(2, tag)
                         executeUpdate()
                     }
                 }

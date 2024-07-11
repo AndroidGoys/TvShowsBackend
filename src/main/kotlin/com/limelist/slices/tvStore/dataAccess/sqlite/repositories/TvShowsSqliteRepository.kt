@@ -364,6 +364,7 @@ class TvShowsSqliteRepository(
                         AgeLimit.fromInt(set.getInt("age_limit")),
                         set.getString("preview_url"),
                         listOf(),
+                        listOf(),
                         set.getString("description"),
                     )
                 )

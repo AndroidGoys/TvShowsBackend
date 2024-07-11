@@ -5,6 +5,7 @@ import com.limelist.slices.tvStore.dataAccess.models.create.TvTagCreateModel
 import com.limelist.slices.tvStore.services.models.tags.TvTag
 import com.limelist.slices.tvStore.services.models.tags.TvTagBelong
 import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import java.sql.Connection
 import java.sql.ResultSet
 import java.sql.Statement
@@ -31,10 +32,11 @@ class TvTagsSqliteRepository(
         SELECT *
             FROM tags
         WHERE id = ?
-        LIMIT 1
     """)
 
-    override suspend fun createIfNotExists(tvTag: TvTagCreateModel): TvTag {
+    override suspend fun createIfNotExists(
+        tvTag: TvTagCreateModel
+    ): TvTag = mutex.withLock {
         var set = searchByNameStatement.run {
             setString(1, "%${tvTag.name}%");
             return@run executeQuery()
@@ -49,8 +51,10 @@ class TvTagsSqliteRepository(
             setInt(2, tvTag.belong)
             return@run executeUpdate()
         }
+        connection.commit()
+
         set = insertTagStatement.generatedKeys
-        if (set.next())
+        if (!set.next())
             throw UnknownError()
 
         val id =  set.getInt(1)
@@ -60,9 +64,10 @@ class TvTagsSqliteRepository(
             return@run executeQuery()
         }
 
-        if (set.next())
-            return parseTag(set)
-        else throw UnknownError()
+        if (!set.next())
+            throw UnknownError()
+
+        return parseTag(set)
     }
 
     private fun parseTag(set: ResultSet) = TvTag(

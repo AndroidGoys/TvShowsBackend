@@ -27,7 +27,7 @@ abstract class BaseSqliteTvRepository(
 
         statement.execute("""
             CREATE TABLE IF NOT EXISTS $channelsTabelName (
-                id SERIAL PRIMARY KEY,
+                id INTEGER PRIMARY KEY,
                 name VARCHAR(50) NOT NULL,
                 image_url TEXT NOT NULL,
                 description TEXT NOT NULL
@@ -36,7 +36,7 @@ abstract class BaseSqliteTvRepository(
 
         statement.execute("""
             CREATE TABLE IF NOT EXISTS $showsTabelName (
-                id SERIAL PRIMARY KEY,
+                id INTEGER PRIMARY KEY,
                 name VARCHAR(50) NOT NULL,
                 age_limit INTEGER,
                 description TEXT NOT NULL,  
@@ -45,8 +45,8 @@ abstract class BaseSqliteTvRepository(
         """)
 
         statement.execute("""
-            CREATE TABLE IF NOT EXISTS tags (
-                id SERIAL PRIMARY KEY,
+            CREATE TABLE IF NOT EXISTS $tagsTableName (
+                id INTEGER PRIMARY KEY  ,
                 name VARCHAR(50) NOT NULL,
                 belong INTEGER
             );
@@ -70,7 +70,7 @@ abstract class BaseSqliteTvRepository(
 
         statement.execute("""
             CREATE TABLE IF NOT EXISTS show_reviews (
-                id SERIAL PRIMARY KEY,
+                id INTEGER PRIMARY KEY,
                 show_id INTEGER REFERENCES shows,
                 date INTEGER,  
                 comment TEXT,
@@ -80,7 +80,7 @@ abstract class BaseSqliteTvRepository(
 
         statement.execute("""
             CREATE TABLE IF NOT EXISTS channel_reviews (
-                id SERIAL PRIMARY KEY,
+                id INTEGER PRIMARY KEY,
                 channel_id INTEGER REFERENCES shows,
                 date INTEGER,  
                 comment TEXT,
@@ -90,7 +90,7 @@ abstract class BaseSqliteTvRepository(
 
         statement.execute("""
             CREATE TABLE IF NOT EXISTS $releasesTableName (
-                id SERIAL PRIMARY KEY,
+                id INTEGER PRIMARY KEY,
                 show_id INTEGER REFERENCES shows,
                 channel_id INTEGER REFERENCES channels,
                 description TEXT NOT NULL,
@@ -102,7 +102,7 @@ abstract class BaseSqliteTvRepository(
 
         statement.execute("""
             CREATE TABLE IF NOT EXISTS channel_view_urls (
-                id SERIAL PRIMARY KEY,
+                id INTEGER PRIMARY KEY,
                 channel_id INTEGER REFERENCES channels,
                 url TEXT NOT NULL
             );
@@ -111,7 +111,7 @@ abstract class BaseSqliteTvRepository(
 
         statement.execute("""
             CREATE TABLE IF NOT EXISTS show_frames (
-                id SERIAL PRIMARY KEY,
+                id INTEGER PRIMARY KEY,
                 show_id INTEGER REFERENCES shows,
                 url TEXT NOT NULL
             );

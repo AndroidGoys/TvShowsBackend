@@ -4,9 +4,11 @@ import com.limelist.slices.tvStore.dataAccess.interfaces.*
 import com.limelist.slices.tvStore.dataAccess.models.create.TvChannelCreateModel
 import com.limelist.slices.tvStore.dataAccess.models.create.TvReleaseCreateModel
 import com.limelist.slices.tvStore.dataAccess.models.create.TvShowCreateModel
+import com.limelist.slices.tvStore.dataAccess.models.create.TvTagCreateModel
 import com.limelist.slices.tvStore.services.dataUpdateServices.source.models.*
 import com.limelist.slices.tvStore.services.dataUpdateServices.yandex.api.imageParams.ImagesSearchParams
 import com.limelist.slices.tvStore.services.dataUpdateServices.yandex.api.YandexSearchApiClient
+import com.limelist.slices.tvStore.services.models.tags.TvTag
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancel
@@ -24,6 +26,7 @@ class JsonSourceDataUpdateService(
     private val channels: TvChannelsRepository,
     private val shows: TvShowsRepository,
     private val releases: TvReleasesRepository,
+    private val tags: TvTagsRepository,
     private val config: JsonSourceDataUpdateServiceConfig,
     coroutineContext: CoroutineContext = EmptyCoroutineContext
 ) : DataUpdateService {
@@ -66,14 +69,21 @@ class JsonSourceDataUpdateService(
     }
 
     private fun convertToTvChannel(
-        channel: SourceChannel
+        channel: SourceChannel,
+        federalTag: TvTag
     ): TvChannelCreateModel {
+        val tags = if (channel.isFederal)
+                listOf(federalTag.id)
+            else
+                listOf()
+
         return TvChannelCreateModel(
             channel.id,
             channel.name,
             channel.image,
             channel.description,
-            listOf("https://limehd.tv/channel/${channel.address}")
+            listOf("https://limehd.tv/channel/${channel.address}"),
+            tags
         )
     }
 
@@ -115,19 +125,26 @@ class JsonSourceDataUpdateService(
         }
     }
 
+    private suspend fun reloadDataSet(data: SourceDataSet){
+        val federalTag = tags.createIfNotExists(
+            TvTagCreateModel("Федеральный", 0b01)
+        )
+        val channelsData = data.channels.map { convertToTvChannel(it, federalTag) }
+        channels.updateMany(channelsData)
+
+        val showsData = data.shows.map { convertToTvShow(it, data.releases) }
+        shows.updateMany(showsData)
+
+        val releasesData = data.releases.map { convertToTvRelease(it) }
+        releases.updateMany(releasesData)
+    }
+
     override suspend fun start() {
         loadLoopScope.launch {
             //data.shows
             if (config.reloadDataSet) {
                 val data: SourceDataSet = loadDataSet()
-                val channelsData = data.channels.map { convertToTvChannel(it) }
-                channels.updateMany(channelsData)
-
-                val showsData = data.shows.map { convertToTvShow(it, data.releases) }
-                shows.updateMany(showsData)
-
-                val releasesData = data.releases.map { convertToTvRelease(it) }
-                releases.updateMany(releasesData)
+                reloadDataSet(data)
             }
 
             if (config.findShowImages && yandex != null){
