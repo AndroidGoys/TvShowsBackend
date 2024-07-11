@@ -36,7 +36,6 @@ fun Route.channels(
             }
 
             call.respondJson(
-                HttpStatusCode.Found,
                 channel
             );
         }

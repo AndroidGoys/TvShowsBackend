@@ -80,17 +80,22 @@ class TvShowsSqliteRepository(
 
 
     private val getShowDetailsStatement = connection.prepareStatement("""
-        SELECT 
-            show.*,
-            AVG(show_reviews.assessment) as assessment
+        SELECT shows.*, show_frames.url as frame
         FROM (
-            SELECT shows.* 
-            FROM shows 
-            WHERE shows.id = ?
-        ) as show
-        LEFT JOIN show_reviews
-            ON show_reviews.show_id = show.id
-        GROUP BY show.id
+            SELECT 
+                show.*,
+                AVG(show_reviews.assessment) as assessment
+            FROM (
+                SELECT shows.* 
+                FROM shows 
+                WHERE shows.id = ?
+            ) as show
+            LEFT JOIN show_reviews
+                ON show_reviews.show_id = show.id
+            GROUP BY show.id
+        ) as shows 
+        LEFT JOIN show_frames
+        ON shows.id == show_frames.show_id
     """)
 
 
@@ -105,13 +110,23 @@ class TvShowsSqliteRepository(
         if (!set.next())
             return null;
 
+        val id = set.getInt("id")
+        val name = set.getString("name")
+        val assessment = set.getFloat("assessment")
+        val ageLimit = AgeLimit.fromInt(set.getInt("age_limit"))
+        val previewUrl = set.getString("preview_url")
+        val description = set.getString("description")
+
+        val frames = buildList{
+            do {
+                val frame = set.getString("frame")
+                if (frame != null)
+                    add(frame)
+            } while (set.next())
+        }
+
         return TvShowDetailsModel(
-            set.getInt("id"),
-            set.getString("name"),
-            set.getFloat("assessment"),
-            AgeLimit.fromInt(set.getInt("age_limit")),
-            set.getString("preview_url"),
-            set.getString("description"),
+            id, name, assessment, ageLimit, previewUrl, frames, description
         )
     }
 
@@ -348,6 +363,7 @@ class TvShowsSqliteRepository(
                         set.getFloat("assessment"),
                         AgeLimit.fromInt(set.getInt("age_limit")),
                         set.getString("preview_url"),
+                        listOf(),
                         set.getString("description"),
                     )
                 )

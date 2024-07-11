@@ -32,7 +32,6 @@ fun Route.refresh(service: AuthService) {
         val response = service.refresh(
             call.receive()
         )
-
     }
 }
 

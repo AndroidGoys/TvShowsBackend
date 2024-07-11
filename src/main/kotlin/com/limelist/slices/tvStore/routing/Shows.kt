@@ -31,7 +31,6 @@ fun Route.shows(tvShowsService: TvShowsServiceInterface) {
             }
 
             call.respondJson(
-                HttpStatusCode.Found,
                 show
             )
         }
