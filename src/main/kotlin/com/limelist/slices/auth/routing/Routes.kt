@@ -1,56 +1,47 @@
 package com.limelist.slices.auth.routing
 
-import com.limelist.slices.auth.services.AuthService
+import com.limelist.slices.auth.services.TokenIssuanceService
 import com.limelist.slices.shared.receiveJson
 import com.limelist.slices.shared.respondJson
+import com.limelist.slices.shared.respondWithResult
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.routing.*
 
-fun Route.login(service: AuthService) {
+fun Route.login(service: TokenIssuanceService) {
     post("login") {
         val response = service.login(
             call.receive()
         )
 
-        call.respondJson(response)
+        call.respondWithResult(response)
     }
 }
 
-//fun Route.signup(service: AuthService) {
-//    post("signup") {
-//        val response = service.signup(
-//            call.receiveJson()
-//
-//        )
-//        call.respondJson(response)
-//    }
-//}
+fun Route.register(service: TokenIssuanceService) {
+    post("register"){
+        val response = service.refresh(
+            call.receiveJson()
+        )
 
+        call.respondWithResult(response)
+    }
+}
 
-fun Route.refresh(service: AuthService) {
+fun Route.refresh(service: TokenIssuanceService) {
     post("refresh"){
         val response = service.refresh(
             call.receiveJson()
         )
+
+        call.respondWithResult(response)
     }
 }
 
-//fun Route.updateLoginData(service: AuthService){
-//    post("update") {
-//        val body = call.receiveJson<UpdateLoginDataBody>()
-//        val response = service.updateLoginData(
-//            body.oldData,
-//            body.newData
-//        )
-//        call.respondWithResult(response)
-//    }
-//}
-
-fun Route.useAuth(root: String, authService: AuthService){
+fun Route.useAuth(root: String, authService: TokenIssuanceService){
     route(root){
         refresh(authService)
         login(authService)
-//        updateLoginData(authService)
+        register(authService)
     }
 }

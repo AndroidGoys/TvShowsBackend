@@ -10,6 +10,7 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
+import kotlin.reflect.jvm.internal.impl.load.java.JavaClassFinder.Request
 
 suspend inline fun <reified T> ApplicationCall.respondJson(
     statusCode: HttpStatusCode,
@@ -24,22 +25,14 @@ suspend inline fun <reified T> ApplicationCall.respondJson(
 }
 
 suspend inline fun <reified T> ApplicationCall.respondWithResult(
-    result: Result<T>,
+    result: RequestResult<T>,
 ){
-    result.fold(
-        { value -> this.respondJson(value) },
-        {exception ->
-            if (exception is RequestException) {
-                val response = exception.response;
-                this.respondJson(
-                    HttpStatusCode.fromValue(response.statusCode),
-                    exception.response
-                )
-            } else {
-                throw exception
-            }
-        }
-    )
+    when(result) {
+        is RequestResult.SuccessResult<T>
+            -> this.respondJson(result.statusCode, result.data)
+        is RequestResult.ErrorResult
+            -> this.respond(result.statusCode, result.error)
+    }
 }
 
 suspend inline fun <reified T> ApplicationCall.respondJson(

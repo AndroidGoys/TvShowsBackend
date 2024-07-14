@@ -4,5 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class AuthConfig (
-    val secret: String
+    val secret: String,
+    val tokensLifeTimeCoefficient: Float
 )
