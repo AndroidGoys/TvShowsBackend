@@ -5,6 +5,6 @@ import kotlinx.serialization.SerialName
 
 @Serializable
 data class AccessToken(
-    @SerialName("access_token")
+    @SerialName("accessToken")
     val value: String
 )

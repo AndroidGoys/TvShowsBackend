@@ -6,5 +6,5 @@ class IdentificationData(
     val userId: Int,
     val login: String,
     val hashedPassword: String,
-    val refreshTokenId: String
+    val lastUpdate: Long
 )

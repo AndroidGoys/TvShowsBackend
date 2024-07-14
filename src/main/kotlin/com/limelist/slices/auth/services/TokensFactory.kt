@@ -32,10 +32,12 @@ public class TokensFactory (
             .toString()
 
     private fun createRefreshTokenPrivate(
-        refreshId: String,
+        userId: Int,
+        lastUpdate: Long,
         expirationDate: Long
     ) = JWT.create()
-        .withSubject(refreshId)
+        .withSubject(userId.toString())
+        .withClaim("lastUpdate", lastUpdate)
         .withExpiresAt(Instant.ofEpochMilli(expirationDate))
         .sign(Algorithm.HMAC256(config.secret))
         .toString()
@@ -51,10 +53,12 @@ public class TokensFactory (
     )
 
     fun createRefreshToken(
-        refreshId: String
+        userId: Int,
+        lastUpdate: Long
     ) = RefreshToken(
         createRefreshTokenPrivate(
-            refreshId,
+            userId,
+            lastUpdate,
             refreshTokenExpirationDateMs
         )
     )
@@ -65,7 +69,8 @@ public class TokensFactory (
             accessTokenExpirationDateMS
         )
         val refresh = createRefreshTokenPrivate(
-            tokensData.refreshTokenId,
+            tokensData.userId,
+            tokensData.lastUpdate,
             accessTokenExpirationDateMS
         )
 
