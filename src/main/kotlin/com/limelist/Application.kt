@@ -1,6 +1,7 @@
 package com.limelist
 
 import com.limelist.plugins.*
+import com.limelist.slices.auth.services.PBKDF2Hasher
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
@@ -9,6 +10,7 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import java.io.FileNotFoundException
+import java.util.UUID.randomUUID
 import java.util.concurrent.TimeUnit
 import kotlin.coroutines.CoroutineContext
 

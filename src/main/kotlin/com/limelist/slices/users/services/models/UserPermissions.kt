@@ -1,4 +1,4 @@
-package com.limelist.slices.internal.users.models
+package com.limelist.slices.users.services.models
 
 import kotlinx.serialization.Serializable
 

@@ -1,5 +1,6 @@
 package com.limelist.slices.auth.routing
 
+import com.limelist.slices.auth.AuthServices
 import com.limelist.slices.auth.services.TokenIssuanceService
 import com.limelist.slices.shared.receiveJson
 import com.limelist.slices.shared.respondJson
@@ -38,10 +39,10 @@ fun Route.refresh(service: TokenIssuanceService) {
     }
 }
 
-fun Route.useAuth(root: String, authService: TokenIssuanceService){
+fun Route.useAuth(root: String, authServices: AuthServices) {
     route(root){
-        refresh(authService)
-        login(authService)
-        register(authService)
+        refresh(authServices.tokenIssuanceService)
+        login(authServices.tokenIssuanceService)
+        register(authServices.tokenIssuanceService)
     }
 }

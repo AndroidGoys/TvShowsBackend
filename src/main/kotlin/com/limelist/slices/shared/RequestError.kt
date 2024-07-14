@@ -10,7 +10,7 @@ open class RequestError (
     @Serializable
     enum class ErrorCode {
         // При неверном логине / пароле
-        InvalidIdentification,
+        InvalidLoginOrPassword,
         InvalidRefreshToken,
         //При ошибке добавления данных пользователя в сервис авторизации
         AuthorizationServiceRegistrationError,

@@ -1,6 +1,7 @@
 package com.limelist.plugins
 
 import com.limelist.ApplicationServices
+import com.limelist.slices.auth.routing.useAuth
 import io.ktor.server.application.*
 import io.ktor.server.resources.Resources
 import io.ktor.server.routing.*
@@ -12,6 +13,7 @@ fun Application.configureRouting(services: ApplicationServices) {
     routing {
         route("/api"){
             useTvHistory("/", services.tvStoreServices)
+            useAuth("/auth", services.authServices)
         }
     }
 }

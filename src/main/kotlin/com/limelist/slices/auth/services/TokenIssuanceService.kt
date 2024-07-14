@@ -1,7 +1,7 @@
 package com.limelist.slices.auth.services
 
 import com.limelist.slices.auth.services.models.*
-import com.limelist.slices.internal.users.models.RegistrationData
+import com.limelist.slices.users.services.models.RegistrationData
 import com.limelist.slices.shared.RequestResult
 
 interface TokenIssuanceService {

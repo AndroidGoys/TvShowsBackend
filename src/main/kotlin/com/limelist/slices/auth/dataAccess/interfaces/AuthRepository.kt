@@ -1,13 +1,10 @@
 package com.limelist.slices.auth.dataAccess.interfaces
 
-import com.limelist.slices.auth.services.models.AccessTokenData
-import com.limelist.slices.auth.services.models.AuthenticationTokensData
-import com.limelist.slices.auth.services.models.LoginData
-import com.limelist.slices.auth.services.models.RefreshTokenData
+import com.limelist.slices.auth.services.models.*
 
 interface AuthRepository {
-    suspend fun add(userId: Int, login: String, password: String, refreshTokenId: String)
-    suspend fun update(oldAuthData: LoginData, newAuthData: LoginData, newRefreshTokenId: String)
-    suspend fun findTokenDataByRefreshToken(refreshToken: RefreshTokenData): AccessTokenData?
-    suspend fun findTokenDataByIdentificationData(login: String, password: String): AuthenticationTokensData?
+    suspend fun add(data: IdentificationData)
+    suspend fun update(data: IdentificationData)
+    suspend fun findByRefreshToken(refreshToken: RefreshTokenData): IdentificationData?
+    suspend fun findByLogin(login: String): IdentificationData?
 }
