@@ -4,5 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class AccessTokenData (
-    val userId: Int
+    val userId: Int,
+    val expirationDate: Long
 )

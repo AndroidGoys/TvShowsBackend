@@ -73,7 +73,7 @@ class KtorTokenIssuanceService(
 
         return RequestResult.SuccessResult(
             tokens.createAccessToken(
-                AccessTokenData(tokensData.userId)
+                tokensData.userId
             )
         )
     }
