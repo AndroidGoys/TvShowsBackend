@@ -10,16 +10,16 @@ public class TokensFactory (
     val config: AuthConfig
 ) {
 
-    private val accessTokenLifetimeMS = // 20 минут
+    private val accessTokenLifetimeMS = // 20 минут * коеф
         (20 * 60 * 1000 * config.tokensLifeTimeCoefficient).toLong()
-    private val refreshTokenLifetimeMS = // 20 дней
+    private val refreshTokenLifetimeMS = // 20 дней * коеф
         (20 * 24 * 60 * 60 * 1000 * config.tokensLifeTimeCoefficient).toLong()
 
-    private val accessTokenExpirationDateMS =
-        accessTokenLifetimeMS + Instant.EPOCH.toEpochMilli()
+    private val accessTokenExpirationDateMS
+        get() = accessTokenLifetimeMS + Instant.EPOCH.toEpochMilli()
 
-    private val refreshTokenExpirationDateMs =
-        accessTokenLifetimeMS + Instant.EPOCH.toEpochMilli()
+    private val refreshTokenExpirationDateMs
+        get() = accessTokenLifetimeMS + Instant.EPOCH.toEpochMilli()
 
 
     private fun createAccessTokenPrivate(
