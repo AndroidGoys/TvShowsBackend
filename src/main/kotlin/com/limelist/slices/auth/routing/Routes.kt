@@ -21,7 +21,7 @@ fun Route.login(service: TokenIssuanceService) {
 
 fun Route.register(service: TokenIssuanceService) {
     post("register"){
-        val response = service.refresh(
+        val response = service.register(
             call.receiveJson()
         )
 

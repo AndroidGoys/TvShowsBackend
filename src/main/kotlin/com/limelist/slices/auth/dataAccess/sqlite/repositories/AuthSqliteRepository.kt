@@ -25,6 +25,8 @@ class AuthSqliteRepository(
                 last_update REAL
             )
         """)
+
+        connection.commit()
     }
 
     val addIdentStatement = connection.prepareStatement("""
@@ -35,13 +37,17 @@ class AuthSqliteRepository(
     override suspend fun add(
         data: IdentificationData
     ): Int = mutex.withLock {
-        addIdentStatement.run {
+        val result = addIdentStatement.run {
             setInt(1, data.userId)
             setString(2, data.login)
             setString(3, data.hashedPassword)
             setLong(4, data.lastUpdate)
-            return@withLock executeUpdate()
+            return@run executeUpdate()
         }
+
+        connection.commit()
+
+        return@withLock result
     }
 
     val updateIdentStatement = connection.prepareStatement("""
@@ -57,13 +63,17 @@ class AuthSqliteRepository(
     override suspend fun update(
         data: IdentificationData
     ) = mutex.withLock {
-        updateIdentStatement.run {
+        val result = updateIdentStatement.run {
             setInt(1, data.userId)
             setString(2, data.login)
             setString(3, data.hashedPassword)
             setLong(4, data.lastUpdate)
             return@withLock executeUpdate()
         }
+
+        connection.commit()
+
+        return@withLock result
     }
 
     val findByUserIdStatement = connection.prepareStatement("""

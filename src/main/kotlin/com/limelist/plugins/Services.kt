@@ -18,6 +18,8 @@ import com.limelist.slices.tvStore.services.tvChannelServices.TvChannelsService;
 import com.limelist.slices.tvStore.services.tvShowServices.TvShowsService;
 import com.limelist.slices.tvStore.services.dataUpdateServices.JsonSourceDataUpdateService
 import com.limelist.slices.users.UserServices
+import com.limelist.slices.users.dataAccess.interfaces.UsersRepository
+import com.limelist.slices.users.dataAccess.sqlite.UsersSqliteRepository
 import com.limelist.slices.users.services.DefaultUsersInternalService
 import com.limelist.slices.users.services.UserCreationInternalService
 import kotlin.coroutines.CoroutineContext
@@ -87,7 +89,7 @@ fun Application.configureAuthServices(
     config: AuthConfig,
     users: UserCreationInternalService
 ) : AuthServices {
-    val conn = DriverManager.getConnection("jdbc:sqlite:AuthKeys.sql")
+    val conn = DriverManager.getConnection("jdbc:sqlite:authIdent.sql")
     val mutex = Mutex()
 
     val authRepository = AuthSqliteRepository(conn, mutex)
@@ -106,7 +108,14 @@ fun Application.configureAuthServices(
 }
 
 fun Application.configureUserServices() : UserServices {
+    val conn = DriverManager.getConnection("jdbc:sqlite:users.sql")
+    val mutex = Mutex()
+
+    val users = UsersSqliteRepository(conn, mutex)
+
     return UserServices(
-        DefaultUsersInternalService()
+        DefaultUsersInternalService(
+            users
+        )
     )
 }

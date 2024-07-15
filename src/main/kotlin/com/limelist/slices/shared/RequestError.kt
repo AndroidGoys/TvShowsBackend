@@ -12,8 +12,10 @@ open class RequestError (
         // При неверном логине / пароле
         InvalidLoginOrPassword,
         InvalidRefreshToken,
-        //При ошибке добавления данных пользователя в сервис авторизации
+        // При ошибке добавления данных пользователя в сервис авторизации
         AuthorizationServiceRegistrationError,
+        // Если при регистрации логин уже существует
+        LoginExistsError
     }
 }
 

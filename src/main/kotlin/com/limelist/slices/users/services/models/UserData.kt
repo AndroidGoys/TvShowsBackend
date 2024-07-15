@@ -8,6 +8,6 @@ data class UserData(
     val email: String,
     val username: String,
     val avatarUrl: String?,
-    val registrationData: Long,
+    val registrationDateSeconds: Long,
     val permissions: UserPermissions
 )
