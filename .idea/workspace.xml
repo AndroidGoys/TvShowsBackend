@@ -10,20 +10,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="90c853c6-c64c-4142-9064-ff9deb980f22" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AuthKeys.sql-journal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/authIdent.sql" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/requests.http" beforeDir="false" afterPath="$PROJECT_DIR$/requests.http" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/Application.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/Application.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/plugins/Services.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/plugins/Services.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/auth/dataAccess/sqlite/repositories/AuthSqliteRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/auth/dataAccess/sqlite/repositories/AuthSqliteRepository.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/auth/routing/Routes.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/auth/routing/Routes.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/auth/services/KtorTokenIssuanceService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/auth/services/KtorTokenIssuanceService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/auth/services/TokenIssuanceService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/auth/services/TokenIssuanceService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/auth/services/TokensFactory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/auth/services/TokensFactory.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/shared/ApplicationCallExtensions.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/shared/ApplicationCallExtensions.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/shared/RequestError.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/shared/RequestError.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/shared/UnixTimeExtensions.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/shared/UnixTimeExtensions.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/dataAccess/interfaces/UsersRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/dataAccess/interfaces/UsersRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/shared/Results.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/shared/Results.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/dataAccess/sqlite/UsersSqliteRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/dataAccess/sqlite/UsersSqliteRepository.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/services/DefaultUsersInternalService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/services/DefaultUsersInternalService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/services/UserCreationInternalService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/services/UserCreationInternalService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/services/models/UserData.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/services/models/UserData.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/services/models/UserPermissions.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/services/models/UserPermissions.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users.sql" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,8 +170,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="HTTP Request.requests | #9" />
         <item itemvalue="HTTP Request.requests | #8" />
+        <item itemvalue="HTTP Request.requests | #9" />
         <item itemvalue="HTTP Request.requests | #7" />
         <item itemvalue="HTTP Request.requests | #3" />
         <item itemvalue="HTTP Request.requests | #1" />
@@ -227,7 +228,7 @@
       <workItem from="1720939848475" duration="3953000" />
       <workItem from="1720944735409" duration="288000" />
       <workItem from="1720952222040" duration="15919000" />
-      <workItem from="1721073367758" duration="1575000" />
+      <workItem from="1721073367758" duration="6368000" />
     </task>
     <task id="LOCAL-00001" summary="Fixing sql queries">
       <option name="closed" value="true" />

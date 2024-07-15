@@ -9,8 +9,6 @@ import com.limelist.slices.shared.RequestResult
 import com.limelist.slices.shared.getCurrentUnixUtc0TimeSeconds
 import com.limelist.slices.users.services.UserCreationInternalService
 import com.limelist.slices.users.services.models.RegistrationData
-import java.time.Clock
-import java.time.Instant
 
 
 class KtorTokenIssuanceService(
@@ -30,7 +28,7 @@ class KtorTokenIssuanceService(
         )
 
         if (fromRepository == null) {
-            return RequestResult.ErrorResult(
+            return RequestResult.FailureResult(
                 RequestError(
                     InvalidLoginOrPassword,
                     "Invalid login or password"
@@ -44,7 +42,7 @@ class KtorTokenIssuanceService(
         )
 
         if (!hasValidPassword) {
-            return RequestResult.ErrorResult(
+            return RequestResult.FailureResult(
                 RequestError(
                     InvalidLoginOrPassword,
                     "Invalid login or password"
@@ -68,10 +66,10 @@ class KtorTokenIssuanceService(
         val tokensData = authRepository.findByUserId(refreshToken.userId)
 
         if (tokensData?.lastUpdate != refreshToken.lastUpdate){
-            return RequestResult.ErrorResult(
+            return RequestResult.FailureResult(
                 RequestError(
-                    InvalidRefreshToken,
-                    "Invalid refresh token"
+                    ExpiredRefreshToken,
+                    "Expired refresh token"
                 )
             )
         }
@@ -87,7 +85,7 @@ class KtorTokenIssuanceService(
         data: RegistrationData
     ): RequestResult<AuthenticationTokens> {
         if (authRepository.findByLogin(data.email) != null) {
-            return RequestResult.ErrorResult(
+            return RequestResult.FailureResult(
                 RequestError(
                     LoginExistsError,
                     "A user with this username already exists"
@@ -95,10 +93,9 @@ class KtorTokenIssuanceService(
             )
         }
 
-
         val createUsersResult = users.createNewUser(data)
 
-        if (createUsersResult is RequestResult.ErrorResult)
+        if (createUsersResult is RequestResult.FailureResult)
             return createUsersResult
 
         val success = createUsersResult as RequestResult.SuccessResult
@@ -118,7 +115,7 @@ class KtorTokenIssuanceService(
         }
 
         if (addUserAuthDataResult.isFailure){
-            return RequestResult.ErrorResult(
+            return RequestResult.FailureResult(
                 RequestError(
                     AuthorizationServiceRegistrationError,
                     "Unknown registration error is authorization service"
@@ -130,6 +127,23 @@ class KtorTokenIssuanceService(
             tokens.create(
                 AuthenticationTokensData(user.id, lastUpdate)
             )
+        )
+    }
+
+    override suspend fun validate(token: RefreshToken): RequestResult<RefreshTokenData> {
+        val result = tokens.validate(token)
+
+        if (result.isFailure){
+            return RequestResult.FailureResult(
+                RequestError(
+                    InvalidRefreshToken,
+                    "Invalid refresh token"
+                )
+            )
+        }
+
+        return  RequestResult.SuccessResult(
+            result.getOrThrow()
         )
 
     }

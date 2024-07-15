@@ -18,7 +18,7 @@ class DefaultUsersInternalService(
     ): RequestResult<UserData> {
         val user = users.findByEmail(registration.email)
         if (user != null) {
-            return RequestResult.ErrorResult(
+            return RequestResult.FailureResult(
                 RequestError(
                     LoginExistsError,
                     "A user with this email already exists"

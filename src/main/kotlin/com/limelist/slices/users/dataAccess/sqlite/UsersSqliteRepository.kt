@@ -72,6 +72,7 @@ class UsersSqliteRepository(
 
             return@run executeUpdate()
         }
+        connection.commit()
 
         val keys = addStatement.generatedKeys
         if (!keys.next())

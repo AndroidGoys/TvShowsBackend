@@ -2,8 +2,10 @@ package com.limelist.slices.auth.services
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
+import com.auth0.jwt.exceptions.JWTVerificationException
 import com.limelist.slices.auth.AuthConfig
 import com.limelist.slices.auth.services.models.*
+import com.limelist.slices.shared.getCurrentUnixUtc0TimeSeconds
 import java.time.Instant
 
 public class TokensFactory (
@@ -15,11 +17,11 @@ public class TokensFactory (
     private val refreshTokenLifetimeMS = // 20 дней * коеф
         (20 * 24 * 60 * 60 * 1000 * config.tokensLifeTimeCoefficient).toLong()
 
-    private val accessTokenExpirationDateMS
-        get() = accessTokenLifetimeMS + Instant.EPOCH.toEpochMilli()
+    private val accessTokenExpirationDateSeconds
+        get() = accessTokenLifetimeMS + getCurrentUnixUtc0TimeSeconds()
 
-    private val refreshTokenExpirationDateMs
-        get() = accessTokenLifetimeMS + Instant.EPOCH.toEpochMilli()
+    private val refreshTokenExpirationDateSeconds
+        get() = accessTokenLifetimeMS + getCurrentUnixUtc0TimeSeconds()
 
 
     private fun createAccessTokenPrivate(
@@ -27,7 +29,7 @@ public class TokensFactory (
         expirationDate: Long
     ) = JWT.create()
             .withSubject(userId.toString())
-            .withExpiresAt(Instant.ofEpochMilli(expirationDate))
+            .withExpiresAt(Instant.ofEpochSecond(expirationDate))
             .sign(Algorithm.HMAC256(config.secret))
             .toString()
 
@@ -38,7 +40,7 @@ public class TokensFactory (
     ) = JWT.create()
         .withSubject(userId.toString())
         .withClaim("lastUpdate", lastUpdate)
-        .withExpiresAt(Instant.ofEpochMilli(expirationDate))
+        .withExpiresAt(Instant.ofEpochSecond(expirationDate))
         .sign(Algorithm.HMAC256(config.secret))
         .toString()
 
@@ -48,7 +50,7 @@ public class TokensFactory (
     ) = AccessToken(
         createAccessTokenPrivate(
             userId,
-            accessTokenExpirationDateMS
+            accessTokenExpirationDateSeconds
         )
     )
 
@@ -59,21 +61,43 @@ public class TokensFactory (
         createRefreshTokenPrivate(
             userId,
             lastUpdate,
-            refreshTokenExpirationDateMs
+            refreshTokenExpirationDateSeconds
         )
     )
 
     fun create(tokensData: AuthenticationTokensData): AuthenticationTokens {
         val access = createAccessTokenPrivate(
             tokensData.userId,
-            accessTokenExpirationDateMS
+            accessTokenExpirationDateSeconds
         )
         val refresh = createRefreshTokenPrivate(
             tokensData.userId,
             tokensData.lastUpdate,
-            accessTokenExpirationDateMS
+            refreshTokenExpirationDateSeconds
         )
 
-        return  AuthenticationTokens(access, refresh)
+        return  AuthenticationTokens(refresh, access)
+    }
+
+    fun validate(token: RefreshToken) : Result<RefreshTokenData> {
+        try {
+            JWT.require(Algorithm.HMAC256(config.secret))
+                .build()
+                .verify(token.value)
+        } catch (exception: JWTVerificationException) {
+            return Result.failure(exception)
+        }
+
+        val decodedToken = JWT.decode(token.value)
+
+        val userId = decodedToken.subject.toInt()
+        val expiresDate = decodedToken.expiresAtAsInstant
+        val lastUpdate = decodedToken.getClaim("lastUpdate").asLong()
+
+        return Result.success(RefreshTokenData(
+            userId,
+            lastUpdate,
+            expiresDate.epochSecond
+        ))
     }
 }

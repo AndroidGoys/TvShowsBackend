@@ -29,6 +29,26 @@ POST {{baseUrl}}/api/auth/register
 Accept:application/json
 
 {
-"":"",
-"":""
+"username":"androidbot",
+"email":"and@yandex.ru"
+"password":"qwerty"
 }
+
+###
+POST {{baseUrl}}/api/auth/refresh
+Accept:application/json
+
+{
+"refreshToken": "SET_YOUR_TOKEN"
+}
+
+###
+POST {{baseUrl}}/api/auth/login
+Accept:application/json
+
+{
+"login": "and@yandex.ru",
+"password": "qwerty"
+}
+
+

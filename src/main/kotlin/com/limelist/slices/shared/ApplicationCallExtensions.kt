@@ -5,12 +5,9 @@ import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.SerializationException
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
-import kotlin.reflect.jvm.internal.impl.load.java.JavaClassFinder.Request
 
 suspend inline fun <reified T> ApplicationCall.respondJson(
     statusCode: HttpStatusCode,
@@ -30,8 +27,8 @@ suspend inline fun <reified T> ApplicationCall.respondWithResult(
     when(result) {
         is RequestResult.SuccessResult<T>
             -> this.respondJson(result.statusCode, result.data)
-        is RequestResult.ErrorResult
-            -> this.respond(result.statusCode, result.error)
+        is RequestResult.FailureResult
+            -> this.respondJson(result.statusCode, result.error)
     }
 }
 

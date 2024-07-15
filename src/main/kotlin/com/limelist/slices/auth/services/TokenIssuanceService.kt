@@ -8,4 +8,5 @@ interface TokenIssuanceService {
     suspend fun login(data: LoginData): RequestResult<AuthenticationTokens>
     suspend fun refresh(refreshToken: RefreshTokenData): RequestResult<AccessToken>
     suspend fun register(data: RegistrationData): RequestResult<AuthenticationTokens>
+    suspend fun validate(token: RefreshToken): RequestResult<RefreshTokenData>
 }

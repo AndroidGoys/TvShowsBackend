@@ -8,13 +8,21 @@ sealed class RequestResult<out T>(
     class SuccessResult<out T>(
         val data: T,
         statusCode: HttpStatusCode = HttpStatusCode.OK,
-    ): RequestResult<T>(statusCode)
+    ): RequestResult<T>(statusCode) {
+        override fun unwrap(): T {
+            return data
+        }
+    }
 
-    class ErrorResult(
+    class FailureResult(
         val error: RequestError,
         statusCode: HttpStatusCode = HttpStatusCode.BadRequest,
-    ): RequestResult<Nothing>(statusCode)
+    ): RequestResult<Nothing>(statusCode) {
+        override fun unwrap(): Nothing {
+            throw Exception(error.errorMessage)
+        }
+    }
 
-
+    abstract fun unwrap() : T
 }
 
