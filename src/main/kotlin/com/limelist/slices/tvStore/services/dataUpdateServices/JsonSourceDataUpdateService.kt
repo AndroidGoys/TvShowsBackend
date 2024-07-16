@@ -5,11 +5,11 @@ import com.limelist.slices.tvStore.dataAccess.models.create.TvChannelCreateModel
 import com.limelist.slices.tvStore.dataAccess.models.create.TvReleaseCreateModel
 import com.limelist.slices.tvStore.dataAccess.models.create.TvShowCreateModel
 import com.limelist.slices.tvStore.dataAccess.models.create.TvTagCreateModel
+import com.limelist.slices.tvStore.services.models.tags.TvTagDetails
 import com.limelist.slices.tvStore.services.dataUpdateServices.source.models.*
 import com.limelist.slices.tvStore.services.dataUpdateServices.yandex.api.imageParams.ImagesSearchParams
 import com.limelist.slices.tvStore.services.dataUpdateServices.yandex.api.YandexSearchApiClient
 import com.limelist.slices.tvStore.services.models.AgeLimit
-import com.limelist.slices.tvStore.services.models.tags.TvTag
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancel
@@ -82,7 +82,7 @@ class JsonSourceDataUpdateService(
 
     private fun convertToTvChannel(
         channel: SourceChannel,
-        federalTag: TvTag
+        federalTag: TvTagDetails
     ): TvChannelCreateModel {
         val tags = if (channel.isFederal)
                 listOf(federalTag.id)

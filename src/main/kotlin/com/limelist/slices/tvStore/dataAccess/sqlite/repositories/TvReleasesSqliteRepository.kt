@@ -13,7 +13,7 @@ class TvReleasesSqliteRepository(
     connection: Connection,
     mutex: Mutex
 ):
-    BaseSqliteTvRepository(connection, mutex, releasesTableName),
+    BaseSqliteTvRepository(connection, mutex, "releases"),
     TvReleasesRepository {
 
     private val updateReleasesStatement = connection.prepareStatement("""

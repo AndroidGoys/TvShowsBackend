@@ -1,17 +1,13 @@
 package com.limelist.slices.users.dataAccess.sqlite
 
-import com.limelist.slices.shared.getCurrentUnixUtc0TimeSeconds
-import com.limelist.slices.tvStore.dataAccess.sqlite.repositories.BaseSqliteTvRepository.Companion.channelsTabelName
 import com.limelist.slices.users.dataAccess.interfaces.UsersRepository
 import com.limelist.slices.users.services.models.UserData
 import com.limelist.slices.users.services.models.UserPermissions
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import java.lang.Long.getLong
 import java.sql.Connection
 import java.sql.ResultSet
 import java.sql.Statement
-import javax.swing.UIManager.getString
 
 class UsersSqliteRepository(
     private val connection: Connection,

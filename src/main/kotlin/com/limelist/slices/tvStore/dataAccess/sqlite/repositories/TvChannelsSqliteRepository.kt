@@ -11,15 +11,18 @@ import com.limelist.slices.tvStore.services.models.channels.TvChannels
 import com.limelist.slices.tvStore.services.models.channels.TvChannelDetailsModel
 import com.limelist.slices.tvStore.services.models.releases.TvChannelReleases
 import com.limelist.slices.tvStore.services.models.releases.TvChannelShowRelease
+import com.limelist.slices.tvStore.services.models.tags.TvTagDetails
+import com.limelist.slices.tvStore.services.models.tags.TvTagPreview
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.sync.withLock
+import java.sql.ResultSet
 import kotlin.coroutines.cancellation.CancellationException
 
 class TvChannelsSqliteRepository(
     connection: Connection,
     mutex: Mutex
-) : BaseSqliteTvRepository(connection, mutex, channelsTabelName),
+) : BaseSqliteTvRepository(connection, mutex, "channels"),
     TvChannelsRepository {
 
     private val getAllChannelsStatement = connection.prepareStatement("""
@@ -88,8 +91,16 @@ class TvChannelsSqliteRepository(
         GROUP BY channel.id
     """)
 
+    private val getChannelTagsStatement = connection.prepareStatement("""
+        SELECT tags.*
+            FROM channel_tags
+        INNER JOIN tags 
+            ON tags.id = channel_tags.tag_id
+        WHERE channel_id = ?
+    """)
+
     override suspend fun getChannelDetails(id: Int): TvChannelDetailsModel? {
-        val set = getChannelDetailsStatement.run{
+        var set = getChannelDetailsStatement.run{
             setInt(1, id)
             executeQuery()
         }
@@ -111,17 +122,26 @@ class TvChannelsSqliteRepository(
                 viewUrls.add(url)
         } while (set.next())
 
+        set = getChannelTagsStatement.run {
+            setInt(1, id)
+            executeQuery()
+        }
+
+        val tags = mutableListOf<TvTagPreview>()
+        while (set.next()){
+            tags.add(parseTag(set))
+        }
+
         return TvChannelDetailsModel(
             id,
             name,
             imageUrl,
             assessment,
             description,
-            listOf(),
+            tags,
             viewUrls,
         )
     }
-
 
     val searchByNameStatement = connection.prepareStatement("""
         SELECT 

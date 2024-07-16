@@ -22,7 +22,7 @@ import kotlin.coroutines.cancellation.CancellationException
 class TvShowsSqliteRepository(
     connection: Connection,
     mutex: Mutex
-) : BaseSqliteTvRepository(connection, mutex, showsTabelName),
+) : BaseSqliteTvRepository(connection, mutex, "shows"),
     TvShowsRepository {
 
     private val getAllShowsStatement = connection.prepareStatement("""
@@ -99,10 +99,18 @@ class TvShowsSqliteRepository(
     """)
 
 
+    private val getShowTags = connection.prepareStatement("""
+        SELECT tags.*
+            FROM show_tags
+        INNER JOIN tags
+            ON tags.id = show_tags.tag_id
+        WHERE show_tags.show_id = ?
+    """)
+
     override suspend fun getShowDetails(
         id: Int
     ): TvShowDetailsModel? = mutex.withLock {
-        val set = getShowDetailsStatement.run{
+        var set = getShowDetailsStatement.run{
             setInt(1, id)
             return@run executeQuery()
         }
@@ -125,8 +133,26 @@ class TvShowsSqliteRepository(
             } while (set.next())
         }
 
+        set = getShowTags.run{
+            setInt(1, id)
+            executeQuery()
+        }
+
+        val tags = buildList{
+            while (set.next()){
+                add(parseTag(set))
+            }
+        }
+
         return TvShowDetailsModel(
-            id, name, assessment, ageLimit, previewUrl, frames, listOf(), description
+            id,
+            name,
+            assessment,
+            ageLimit,
+            previewUrl,
+            frames,
+            tags,
+            description
         )
     }
 

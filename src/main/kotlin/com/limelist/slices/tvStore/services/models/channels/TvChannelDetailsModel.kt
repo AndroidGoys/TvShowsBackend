@@ -1,5 +1,6 @@
 package com.limelist.slices.tvStore.services.models.channels
 
+import com.limelist.slices.tvStore.services.models.tags.TvTagPreview
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -9,6 +10,6 @@ data class TvChannelDetailsModel(
     override val imageUrl: String,
     override val assessment: Float,
     val description: String,
-    val tags: List<String>,
+    val tags: List<TvTagPreview>,
     val viewUrls: List<String>
 ) : TvChannel

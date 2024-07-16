@@ -1,22 +1,17 @@
 package com.limelist.slices.tvStore.dataAccess.sqlite.repositories
 import com.limelist.slices.tvStore.dataAccess.interfaces.TvRepository
+import com.limelist.slices.tvStore.services.models.tags.TvTagPreview
 import io.ktor.server.plugins.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import java.sql.Connection
+import java.sql.ResultSet
 
 abstract class BaseSqliteTvRepository(
     protected val connection: Connection,
     protected val mutex: Mutex,
     protected val tableName: String
 ): TvRepository {
-    companion object {
-        val channelsTabelName = "channels"
-        val showsTabelName = "shows"
-        val releasesTableName = "releases"
-        val tagsTableName = "tags"
-    }
-
     init {
         connection.autoCommit = false
         val statement = connection.createStatement();
@@ -26,7 +21,7 @@ abstract class BaseSqliteTvRepository(
         """.trimIndent())
 
         statement.execute("""
-            CREATE TABLE IF NOT EXISTS $channelsTabelName (
+            CREATE TABLE IF NOT EXISTS channels (
                 id INTEGER PRIMARY KEY,
                 name VARCHAR(50) NOT NULL,
                 image_url TEXT NOT NULL,
@@ -35,7 +30,7 @@ abstract class BaseSqliteTvRepository(
         """)
 
         statement.execute("""
-            CREATE TABLE IF NOT EXISTS $showsTabelName (
+            CREATE TABLE IF NOT EXISTS shows (
                 id INTEGER PRIMARY KEY,
                 name VARCHAR(50) NOT NULL,
                 age_limit INTEGER,
@@ -45,7 +40,7 @@ abstract class BaseSqliteTvRepository(
         """)
 
         statement.execute("""
-            CREATE TABLE IF NOT EXISTS $tagsTableName (
+            CREATE TABLE IF NOT EXISTS tags (
                 id INTEGER PRIMARY KEY  ,
                 name VARCHAR(50) NOT NULL,
                 belong INTEGER
@@ -70,7 +65,7 @@ abstract class BaseSqliteTvRepository(
 
         statement.execute("""
             CREATE TABLE IF NOT EXISTS show_reviews (
-                id INTEGER PRIMARY KEY,
+                user_id INTEGER PRIMARY KEY,
                 show_id INTEGER REFERENCES shows,
                 date INTEGER,  
                 comment TEXT,
@@ -80,7 +75,7 @@ abstract class BaseSqliteTvRepository(
 
         statement.execute("""
             CREATE TABLE IF NOT EXISTS channel_reviews (
-                id INTEGER PRIMARY KEY,
+                user_id INTEGER PRIMARY KEY,
                 channel_id INTEGER REFERENCES shows,
                 date INTEGER,  
                 comment TEXT,
@@ -89,7 +84,7 @@ abstract class BaseSqliteTvRepository(
         """)
 
         statement.execute("""
-            CREATE TABLE IF NOT EXISTS $releasesTableName (
+            CREATE TABLE IF NOT EXISTS releases (
                 id INTEGER PRIMARY KEY,
                 show_id INTEGER REFERENCES shows,
                 channel_id INTEGER REFERENCES channels,
@@ -133,5 +128,15 @@ abstract class BaseSqliteTvRepository(
 
         return@withLock set.getInt(1);
     }
+
+    protected fun parseTag(
+        set: ResultSet
+    ): TvTagPreview {
+        return TvTagPreview(
+            set.getInt("id"),
+            set.getString("name"),
+        )
+    }
+
 
 }

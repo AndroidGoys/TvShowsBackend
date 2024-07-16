@@ -5,11 +5,11 @@ GET {{baseUrl}}/api/channels
 Accept:application/json
 
 ###
-GET {{baseUrl}}/api/channels/15569
+GET {{baseUrl}}/api/channels/105
 Accept:application/json
 
 ###
-GET {{baseUrl}}/api/channels/15569/releases
+GET {{baseUrl}}/api/channels/105/releases
 Accept:application/json
 
 ###
@@ -17,11 +17,11 @@ GET {{baseUrl}}/api/shows
 Accept:application/json
 
 ###
-GET {{baseUrl}}/api/shows/1013351
+GET {{baseUrl}}/api/shows/1570553078
 Accept:application/json
 
 ###
-GET {{baseUrl}}/api/shows/1013351/channels
+GET {{baseUrl}}/api/shows/1570553078/channels
 Accept:application/json
 
 ###

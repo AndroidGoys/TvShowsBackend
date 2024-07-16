@@ -2,7 +2,7 @@ package com.limelist.slices.tvStore.dataAccess.sqlite.repositories
 
 import com.limelist.slices.tvStore.dataAccess.interfaces.TvTagsRepository
 import com.limelist.slices.tvStore.dataAccess.models.create.TvTagCreateModel
-import com.limelist.slices.tvStore.services.models.tags.TvTag
+import com.limelist.slices.tvStore.services.models.tags.TvTagDetails
 import com.limelist.slices.tvStore.services.models.tags.TvTagBelong
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -13,7 +13,7 @@ import java.sql.Statement
 class TvTagsSqliteRepository(
     connection: Connection,
     mutex: Mutex
-) : BaseSqliteTvRepository(connection, mutex, tagsTableName),
+) : BaseSqliteTvRepository(connection, mutex, "tags"),
     TvTagsRepository {
 
     private val searchByNameStatement = connection.prepareStatement("""
@@ -36,14 +36,14 @@ class TvTagsSqliteRepository(
 
     override suspend fun createIfNotExists(
         tvTag: TvTagCreateModel
-    ): TvTag = mutex.withLock {
+    ): TvTagDetails = mutex.withLock {
         var set = searchByNameStatement.run {
             setString(1, "%${tvTag.name}%");
             return@run executeQuery()
         }
 
         if (set.next()) {
-            return parseTag(set)
+            return parseTagDetails(set)
         }
 
         insertTagStatement.run {
@@ -67,10 +67,10 @@ class TvTagsSqliteRepository(
         if (!set.next())
             throw UnknownError()
 
-        return parseTag(set)
+        return parseTagDetails(set)
     }
 
-    private fun parseTag(set: ResultSet) = TvTag(
+    private fun parseTagDetails(set: ResultSet) = TvTagDetails(
         set.getInt("id"),
         set.getString("name"),
         TvTagBelong(set.getInt("belong"))
