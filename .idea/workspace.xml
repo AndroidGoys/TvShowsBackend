@@ -10,11 +10,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="90c853c6-c64c-4142-9064-ff9deb980f22" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/shared/serialization/ErrorCodeSarializer.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authIdent.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/requests.http" beforeDir="false" afterPath="$PROJECT_DIR$/requests.http" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/openapi/documentation.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/openapi/documentation.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/shared/RequestError.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/shared/RequestError.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/services/models/serialization/AgeLimitSerializer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/services/models/serialization/AgeLimitSerializer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/services/models/serialization/TvTagBelongSerializer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/services/models/serialization/TvTagBelongSerializer.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -219,7 +219,7 @@
       <workItem from="1720944735409" duration="288000" />
       <workItem from="1720952222040" duration="15919000" />
       <workItem from="1721073367758" duration="6551000" />
-      <workItem from="1721110123692" duration="5467000" />
+      <workItem from="1721110123692" duration="6245000" />
     </task>
     <task id="LOCAL-00001" summary="Fixing sql queries">
       <option name="closed" value="true" />

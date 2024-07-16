@@ -1,11 +1,11 @@
 package com.limelist.slices.users.services
 
 import com.limelist.slices.shared.RequestError
+import com.limelist.slices.shared.RequestError.ErrorCode.Companion.LoginExistsError
 import com.limelist.slices.shared.RequestResult
 import com.limelist.slices.users.dataAccess.interfaces.UsersRepository
 import com.limelist.slices.users.services.models.RegistrationData
 import com.limelist.slices.users.services.models.UserData
-import com.limelist.slices.shared.RequestError.ErrorCode.LoginExistsError
 import com.limelist.slices.shared.getCurrentUnixUtc0TimeSeconds
 import com.limelist.slices.users.services.models.UserPermissions
 

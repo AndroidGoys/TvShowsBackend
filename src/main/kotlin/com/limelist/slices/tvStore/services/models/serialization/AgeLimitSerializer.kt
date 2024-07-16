@@ -9,7 +9,8 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
 class AgeLimitSerializer : KSerializer<AgeLimit> {
-    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("AgeLimit", PrimitiveKind.STRING)
+    override val descriptor: SerialDescriptor
+        = PrimitiveSerialDescriptor("AgeLimit", PrimitiveKind.INT)
 
     override fun deserialize(decoder: Decoder): AgeLimit {
         val flag = decoder.decodeInt()

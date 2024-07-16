@@ -10,7 +10,7 @@ import kotlinx.serialization.encoding.Encoder
 
 class TvTagBelongSerializer : KSerializer<TvTagBelong> {
     override val descriptor: SerialDescriptor
-        = PrimitiveSerialDescriptor("TvTagBelong", PrimitiveKind.STRING)
+        = PrimitiveSerialDescriptor("TvTagBelong", PrimitiveKind.INT)
 
     override fun deserialize(decoder: Decoder): TvTagBelong {
         val flag = decoder.decodeInt()

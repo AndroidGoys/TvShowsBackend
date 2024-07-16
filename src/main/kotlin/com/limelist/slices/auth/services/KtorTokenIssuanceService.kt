@@ -5,6 +5,11 @@ import com.limelist.slices.auth.dataAccess.interfaces.AuthRepository
 import com.limelist.slices.auth.services.models.*
 import com.limelist.slices.shared.RequestError
 import com.limelist.slices.shared.RequestError.ErrorCode.*
+import com.limelist.slices.shared.RequestError.ErrorCode.Companion.AuthorizationServiceRegistrationError
+import com.limelist.slices.shared.RequestError.ErrorCode.Companion.ExpiredRefreshToken
+import com.limelist.slices.shared.RequestError.ErrorCode.Companion.InvalidLoginOrPassword
+import com.limelist.slices.shared.RequestError.ErrorCode.Companion.InvalidRefreshToken
+import com.limelist.slices.shared.RequestError.ErrorCode.Companion.LoginExistsError
 import com.limelist.slices.shared.RequestResult
 import com.limelist.slices.shared.getCurrentUnixUtc0TimeSeconds
 import com.limelist.slices.users.services.UserCreationInternalService
