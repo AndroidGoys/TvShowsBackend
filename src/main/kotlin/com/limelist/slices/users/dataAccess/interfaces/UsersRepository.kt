@@ -1,8 +1,8 @@
 package com.limelist.slices.users.dataAccess.interfaces
 
-import com.limelist.slices.users.services.models.UserData
+import com.limelist.slices.users.services.models.UserDetailsModel
 
 interface UsersRepository {
-    suspend fun add(data: UserData) : UserData
-    suspend fun findByEmail(email: String): UserData?
+    suspend fun add(data: UserDetailsModel) : UserDetailsModel
+    suspend fun findByEmail(email: String): UserDetailsModel?
 }

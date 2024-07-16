@@ -10,11 +10,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="90c853c6-c64c-4142-9064-ff9deb980f22" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/shared/serialization/ErrorCodeSarializer.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/plugins/Authentication.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/routing/Routes.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/services/models/UserPreviewModel.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/services/userDataServices/UsersDataService.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/services/userDataServices/UsersDataServiceInterface.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/shared/RequestError.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/shared/RequestError.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/services/models/serialization/AgeLimitSerializer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/services/models/serialization/AgeLimitSerializer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/services/models/serialization/TvTagBelongSerializer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/services/models/serialization/TvTagBelongSerializer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/ApplicationServices.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/ApplicationServices.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/plugins/Services.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/plugins/Services.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/auth/services/KtorTokenIssuanceService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/auth/services/KtorTokenIssuanceService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/shared/serialization/ErrorCodeSarializer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/shared/serialization/ErrorCodeSarializer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/UserServices.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/UsersServices.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/dataAccess/interfaces/UsersRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/dataAccess/interfaces/UsersRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/dataAccess/sqlite/UsersSqliteRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/dataAccess/sqlite/UsersSqliteRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/services/DefaultUsersInternalService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/services/internal/DefaultUsersCreationInternalService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/services/UserCreationInternalService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/services/internal/UsersCreationInternalService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/services/models/UserData.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/services/models/UserDetailsModel.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,9 +37,9 @@
       <list>
         <option value="Class" />
         <option value="package-info" />
-        <option value="Kotlin File" />
-        <option value="Kotlin Interface" />
         <option value="Kotlin Class" />
+        <option value="Kotlin Interface" />
+        <option value="Kotlin File" />
       </list>
     </option>
   </component>
@@ -64,49 +75,50 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;HTTP Request.requests | #1.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.requests | #2 (1).executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.requests | #2.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.requests | #3.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.requests | #4 (1).executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.requests | #4.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.requests | #5.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.requests | #6.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.requests | #7.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.requests | #8.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.requests | #9.executor&quot;: &quot;Run&quot;,
-    &quot;Kotlin.ApplicationKt.executor&quot;: &quot;Debug&quot;,
-    &quot;Maven.tvshows [-v].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.tvshows [package].executor&quot;: &quot;Run&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Junk/Solutions/Pet/TvShowsBackend/pom.xml&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Downloaded.Files.Path.Enabled": "false",
+    "HTTP Request.requests | #1.executor": "Run",
+    "HTTP Request.requests | #2 (1).executor": "Run",
+    "HTTP Request.requests | #2.executor": "Run",
+    "HTTP Request.requests | #3.executor": "Run",
+    "HTTP Request.requests | #4 (1).executor": "Run",
+    "HTTP Request.requests | #4.executor": "Run",
+    "HTTP Request.requests | #5.executor": "Run",
+    "HTTP Request.requests | #6.executor": "Run",
+    "HTTP Request.requests | #7.executor": "Run",
+    "HTTP Request.requests | #8.executor": "Run",
+    "HTTP Request.requests | #9.executor": "Run",
+    "JAR Application.tvshows.jar.executor": "Debug",
+    "Kotlin.ApplicationKt.executor": "Debug",
+    "Maven.tvshows [-v].executor": "Run",
+    "Maven.tvshows [package].executor": "Run",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Junk/Solutions/Pet/TvShowsBackend/pom.xml",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;sqlite&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "sqlite"
     ],
-    &quot;com.intellij.ide.scratch.LRUPopupBuilder$1/SQL Dialect&quot;: [
-      &quot;SQLite&quot;
+    "com.intellij.ide.scratch.LRUPopupBuilder$1/SQL Dialect": [
+      "SQLite"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Junk\Solutions\Pet\TvShowsBackend\src\main\resources" />
@@ -114,30 +126,29 @@
       <recent name="C:\Junk\Solutions\Pet\TvShowsBackend" />
     </key>
     <key name="CreateKotlinClassDialog.RecentsKey">
+      <recent name="com.limelist.slices.users.services.userDataServices" />
       <recent name="com.limelist.slices.internal.users.models" />
       <recent name="com.limelist.slices.auth.services.models" />
       <recent name="com.limelist.slices.auth.dataAccess.interfaces" />
       <recent name="com.limelist.slices.shared" />
-      <recent name="com.limelist.slices.auth.services" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="com.limelist.slices.users.services.models" />
+      <recent name="com.limelist.slices.users.services.userDataServices" />
+      <recent name="com.limelist.slices.users.services.internal" />
       <recent name="com.limelist.slices.tvStore.services.models.tags" />
       <recent name="com.limelist.slices.tvStore.dataAccess.models.create" />
-      <recent name="com.limelist.slices.users.services" />
-      <recent name="com.limelist.slices.internal.users.models" />
-      <recent name="com.limelist.slices.internal.users" />
     </key>
   </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="mvn -v" />
       <command value="mvn package" />
+      <command value="java -jar" />
+      <command value="java -jar tvshows.jar" />
     </option>
   </component>
-  <component name="RunManager" selected="Kotlin.ApplicationKt">
-    <configuration name="requests | #2" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/requests.http" index="2" requestIdentifier="#2" runType="Run single request">
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="JAR Application.tvshows.jar">
     <configuration name="requests | #3" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/requests.http" index="3" requestIdentifier="#3" runType="Run single request">
       <method v="2" />
     </configuration>
@@ -150,6 +161,10 @@
     <configuration name="requests | #7" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/requests.http" index="7" requestIdentifier="#7" runType="Run single request">
       <method v="2" />
     </configuration>
+    <configuration name="tvshows.jar" type="JarApplication" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/tvshows_jar/tvshows.jar" />
+      <method v="2" />
+    </configuration>
     <configuration name="ApplicationKt" type="JetRunConfigurationType" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.limelist.ApplicationKt" />
       <module name="tvshows" />
@@ -160,11 +175,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JAR Application.tvshows.jar" />
         <item itemvalue="HTTP Request.requests | #7" />
         <item itemvalue="HTTP Request.requests | #5" />
         <item itemvalue="HTTP Request.requests | #3" />
         <item itemvalue="HTTP Request.requests | #4" />
-        <item itemvalue="HTTP Request.requests | #2" />
       </list>
     </recent_temporary>
   </component>
@@ -219,7 +234,8 @@
       <workItem from="1720944735409" duration="288000" />
       <workItem from="1720952222040" duration="15919000" />
       <workItem from="1721073367758" duration="6551000" />
-      <workItem from="1721110123692" duration="6245000" />
+      <workItem from="1721110123692" duration="10183000" />
+      <workItem from="1721142919807" duration="4266000" />
     </task>
     <task id="LOCAL-00001" summary="Fixing sql queries">
       <option name="closed" value="true" />

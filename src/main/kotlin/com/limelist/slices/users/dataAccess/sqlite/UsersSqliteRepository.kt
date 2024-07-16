@@ -1,7 +1,7 @@
 package com.limelist.slices.users.dataAccess.sqlite
 
 import com.limelist.slices.users.dataAccess.interfaces.UsersRepository
-import com.limelist.slices.users.services.models.UserData
+import com.limelist.slices.users.services.models.UserDetailsModel
 import com.limelist.slices.users.services.models.UserPermissions
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -57,11 +57,11 @@ class UsersSqliteRepository(
     """, Statement.RETURN_GENERATED_KEYS)
 
     override suspend fun add(
-        data: UserData
-    ): UserData = mutex.withLock {
+        data: UserDetailsModel
+    ): UserDetailsModel = mutex.withLock {
         addStatement.run {
             setString(1, data.email)
-            setString(2, data.username)
+            setString(2, data.nickname)
             setString(3, data.avatarUrl)
             setLong(4, data.registrationDateSeconds)
             setLong(5, data.permissions.flag)
@@ -76,10 +76,10 @@ class UsersSqliteRepository(
 
         val id =  keys.getInt(1)
 
-        return@withLock UserData(
+        return@withLock UserDetailsModel(
             id,
             data.email,
-            data.username,
+            data.nickname,
             data.avatarUrl,
             data.registrationDateSeconds,
             data.permissions
@@ -95,7 +95,7 @@ class UsersSqliteRepository(
 
     override suspend fun findByEmail(
         email: String
-    ): UserData? = mutex.withLock {
+    ): UserDetailsModel? = mutex.withLock {
         val set = findByEmailStatement.run {
             setString(1, email)
             return@run executeQuery()
@@ -109,7 +109,7 @@ class UsersSqliteRepository(
 
     private fun parseUserData(
         set: ResultSet
-    ) = UserData(
+    ) = UserDetailsModel(
         set.getInt("id"),
         set.getString("email"),
         set.getString("username"),

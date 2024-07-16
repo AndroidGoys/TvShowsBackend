@@ -3,10 +3,10 @@ package com.limelist.slices.users.services.models
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class UserData(
+data class UserDetailsModel(
     val id: Int,
     val email: String,
-    val username: String,
+    val nickname: String,
     val avatarUrl: String?,
     val registrationDateSeconds: Long,
     val permissions: UserPermissions

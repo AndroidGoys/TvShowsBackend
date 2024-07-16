@@ -1,21 +1,21 @@
-package com.limelist.slices.users.services
+package com.limelist.slices.users.services.internal
 
 import com.limelist.slices.shared.RequestError
 import com.limelist.slices.shared.RequestError.ErrorCode.Companion.LoginExistsError
 import com.limelist.slices.shared.RequestResult
 import com.limelist.slices.users.dataAccess.interfaces.UsersRepository
 import com.limelist.slices.users.services.models.RegistrationData
-import com.limelist.slices.users.services.models.UserData
+import com.limelist.slices.users.services.models.UserDetailsModel
 import com.limelist.slices.shared.getCurrentUnixUtc0TimeSeconds
 import com.limelist.slices.users.services.models.UserPermissions
 
-class DefaultUsersInternalService(
+class DefaultUsersCreationInternalService(
     val users: UsersRepository
-) : UserCreationInternalService {
+) : UsersCreationInternalService {
 
     override suspend fun createNewUser(
         registration: RegistrationData
-    ): RequestResult<UserData> {
+    ): RequestResult<UserDetailsModel> {
         val user = users.findByEmail(registration.email)
         if (user != null) {
             return RequestResult.FailureResult(
@@ -26,7 +26,7 @@ class DefaultUsersInternalService(
             )
         }
 
-        var userData = UserData(
+        var userData = UserDetailsModel(
             -1,
             registration.email,
             registration.username,
