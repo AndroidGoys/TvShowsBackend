@@ -275,5 +275,62 @@ paths:
 #                        }
 #                      ]
 
+  /api/auth/register:
+    post:
+      description: "Регистрация нового пользователя"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "200":
+          description: "OK"
+
+
+  /api/auth/refresh:
+    post:
+      description: "Получение новго access токена"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refreshToken:
+                  type: string
+
+      responses:
+        "200":
+          description: "OK"
+
+  /api/auth/login:
+    post:
+      description: "Вход по логину и паролю"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                login:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "200":
+          description: "OK"
+
+
 components:
   schemas: { }

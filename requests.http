@@ -30,7 +30,7 @@ Accept:application/json
 
 {
 "username":"androidbot",
-"email":"and@yandex.ru"
+"email":"and@yandex.ru",
 "password":"qwerty"
 }
 
