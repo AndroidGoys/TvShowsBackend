@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 class TvChannelShowRelease(
-    override val showId: Int,
+    val showId: Int,
     val showName: String,
     val showAssessment: Float,
     val showAgeLimit: AgeLimit,

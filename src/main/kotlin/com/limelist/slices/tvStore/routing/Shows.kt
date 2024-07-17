@@ -1,14 +1,18 @@
 package com.limelist.slices.tvStore.routing
 
 import com.limelist.slices.shared.respondJson
+import com.limelist.slices.shared.respondWithResult
 import com.limelist.slices.tvStore.services.tvShowServices.TvShowsFilter
 import com.limelist.slices.tvStore.services.tvShowServices.TvShowsServiceInterface
 import io.ktor.http.*
 import io.ktor.resources.*
 import io.ktor.server.application.*
+import io.ktor.server.auth.*
 import io.ktor.server.resources.*
+import io.ktor.server.resources.post
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -20,19 +24,11 @@ fun Route.shows(tvShowsService: TvShowsServiceInterface) {
                 args.offset,
                 TvShowsFilter(args.name)
             )
-            call.respondJson(shows);
+            call.respondWithResult(shows);
         }
         get<AllShows.Show>(){ args ->
             val show = tvShowsService.getShowDetails(args.id)
-
-            if (show == null) {
-                call.respond(HttpStatusCode.NotFound);
-                return@get
-            }
-
-            call.respondJson(
-                show
-            )
+            call.respondWithResult(show)
         }
 
         get<AllShows.Show.Channels>() { args ->
@@ -45,9 +41,28 @@ fun Route.shows(tvShowsService: TvShowsServiceInterface) {
                 args.timeZone
             )
 
-            call.respondJson(
-                channels
-            )
+            call.respondWithResult(channels)
+        }
+
+        authenticate("access-auth"){
+            get<AllShows.Show.Favorites>{
+                val userIdPrincipal = call.principal<UserIdPrincipal>()
+
+                if (userIdPrincipal == null){
+                    call.respond(HttpStatusCode.Unauthorized)
+                    return@get
+                }
+
+                call.respondJson(
+                    tvShowsService.getUserFavorites(
+                        userIdPrincipal.name.toInt()
+                    )
+                )
+            }
+
+            post<AllShows.Show.Favorites> {
+
+            }
         }
     }
 }
@@ -80,5 +95,9 @@ data class AllShows(
             @SerialName("time-zone")
             val timeZone: Float? = null
         )
+
+        @Serializable
+        @Resource("favorites")
+        class Favorites
     }
 }

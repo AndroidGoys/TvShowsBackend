@@ -322,7 +322,6 @@ class TvShowsSqliteRepository(
                 }
 
                 releases.add(TvShowRelease(
-                    dataModel.releaseId,
                     dataModel.releaseDescription,
                     dataModel.releaseStart,
                     dataModel.releaseStop
