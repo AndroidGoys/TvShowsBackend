@@ -6,6 +6,7 @@ import com.limelist.slices.users.services.models.UserPermissions
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import java.sql.Connection
+import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.Statement
 
@@ -107,6 +108,27 @@ class UsersSqliteRepository(
         return@withLock parseUserData(set)
     }
 
+    private val findByIdStatement = connection.prepareStatement("""
+        SELECT *
+            FROM users
+        WHERE id = ?
+        LIMIT 1
+    """)
+
+    override suspend fun findById(
+        userId: Int
+    ) = mutex.withLock {
+        val set = findByIdStatement.run {
+            setInt(1, userId)
+            return@run executeQuery()
+        }
+
+        if (!set.next())
+            return@withLock null
+
+        return@withLock parseUserData(set)
+    }
+
     private fun parseUserData(
         set: ResultSet
     ) = UserDetailsModel(
@@ -115,6 +137,6 @@ class UsersSqliteRepository(
         set.getString("username"),
         set.getString("avatar_url"),
         set.getLong("registration_date"),
-        UserPermissions(set.getLong("permisssions"))
+        UserPermissions(set.getLong("permissions"))
     )
 }

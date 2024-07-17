@@ -9,9 +9,9 @@ import com.limelist.slices.users.services.models.UserDetailsModel
 import com.limelist.slices.shared.getCurrentUnixUtc0TimeSeconds
 import com.limelist.slices.users.services.models.UserPermissions
 
-class DefaultUsersCreationInternalService(
+class DefaultUsersRegistrationInternalService(
     val users: UsersRepository
-) : UsersCreationInternalService {
+) : UsersRegistrationInternalService {
 
     override suspend fun createNewUser(
         registration: RegistrationData

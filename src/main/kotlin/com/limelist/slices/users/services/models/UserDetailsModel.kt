@@ -10,4 +10,12 @@ data class UserDetailsModel(
     val avatarUrl: String?,
     val registrationDateSeconds: Long,
     val permissions: UserPermissions
-)
+) {
+    fun toPreview(): UserPreviewModel {
+        return UserPreviewModel(
+            id,
+            nickname,
+            avatarUrl
+        )
+    }
+}

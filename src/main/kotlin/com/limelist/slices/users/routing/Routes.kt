@@ -16,7 +16,7 @@ import kotlinx.serialization.Serializable
 fun Route.getUserById(
     usersDataService: UsersDataServiceInterface
 ){
-    get<Users.User> { args ->
+    get<AllUsers.User> { args ->
         val response = usersDataService.findUserById(args.id)
         return@get call.respondWithResult(response)
     }
@@ -25,8 +25,8 @@ fun Route.getUserById(
 fun Route.getMe(
     usersDataService: UsersDataServiceInterface
 ){
-    authenticate {
-        get<Users.Me> {
+    authenticate("access-auth") {
+        get<AllUsers.Me> {
             val userIdPrincipal = call.principal<UserIdPrincipal>()
 
             if (userIdPrincipal == null){
@@ -45,18 +45,23 @@ fun Route.getMe(
 
 @Serializable
 @Resource("/users")
-class Users{
-    @Resource("/{id}")
+class AllUsers{
+    @Serializable
+    @Resource("/users/{id}")
     data class User(
         val id: Int
     )
 
-    @Resource("/@me")
+    @Serializable
+    @Resource("/users/@me")
     class Me()
 }
 
-fun Route.useUsers(services: UsersServices){
-    route("/users"){
+fun Route.useUsers(
+    root: String,
+    services: UsersServices
+){
+    route(root){
         getUserById(services.usersDataService)
         getMe(services.usersDataService)
     }
