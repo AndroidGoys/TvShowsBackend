@@ -12,13 +12,14 @@ open class RequestError (
     class ErrorCode(val flag: Int) {
         companion object {
             // При неверном логине / пароле
-            val InvalidLoginOrPassword = ErrorCode(0b100)
-            val InvalidRefreshToken = ErrorCode(0b101)
-            val ExpiredRefreshToken = ErrorCode(0b110)
+            val InvalidLoginOrPassword = ErrorCode(1)
+            val InvalidRefreshToken = ErrorCode(2)
+            val ExpiredRefreshToken = ErrorCode(3)
             // При ошибке добавления данных пользователя в сервис авторизации
-            val AuthorizationServiceRegistrationError = ErrorCode(0b1000)
+            val AuthorizationServiceRegistrationError = ErrorCode(4)
             // Если при регистрации логин уже существует
-            val LoginExistsError = ErrorCode(0b1001)
+            val LoginExistsError = ErrorCode(5)
+            val NotFound = ErrorCode(6)
         }
     }
 }

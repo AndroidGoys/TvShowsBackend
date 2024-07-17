@@ -19,8 +19,9 @@ import com.limelist.slices.tvStore.services.tvShowServices.TvShowsService;
 import com.limelist.slices.tvStore.services.dataUpdateServices.JsonSourceDataUpdateService
 import com.limelist.slices.users.UsersServices
 import com.limelist.slices.users.dataAccess.sqlite.UsersSqliteRepository
-import com.limelist.slices.users.services.internal.DefaultUsersCreationInternalService
-import com.limelist.slices.users.services.internal.UsersCreationInternalService
+import com.limelist.slices.users.services.internal.DefaultUsersRegistrationInternalService
+import com.limelist.slices.users.services.internal.UsersRegistrationInternalService
+import com.limelist.slices.users.services.userDataServices.UsersDataService
 import kotlin.coroutines.CoroutineContext
 
 
@@ -38,7 +39,7 @@ fun Application.configureServices(
 
     val authServices = configureAuthServices(
         config.authConfig,
-        userServices.userCreationService
+        userServices.usersRegistrationService
     )
     return ApplicationServices(
         tvHistoryServices,
@@ -86,7 +87,7 @@ fun Application.configureTvHistoryServices(
 
 fun Application.configureAuthServices(
     config: AuthConfig,
-    users: UsersCreationInternalService
+    users: UsersRegistrationInternalService
 ) : AuthServices {
     val conn = DriverManager.getConnection("jdbc:sqlite:authIdent.sql")
     val mutex = Mutex()
@@ -111,10 +112,13 @@ fun Application.configureUserServices() : UsersServices {
     val mutex = Mutex()
 
     val users = UsersSqliteRepository(conn, mutex)
+    val usersRegistrationService = DefaultUsersRegistrationInternalService(
+        users
+    )
+    val usersDataService = UsersDataService(users)
 
     return UsersServices(
-        DefaultUsersCreationInternalService(
-            users
-        )
+        usersRegistrationService,
+        usersDataService
     )
 }

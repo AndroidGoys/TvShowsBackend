@@ -11,12 +11,12 @@ import com.limelist.slices.shared.RequestError.ErrorCode.Companion.InvalidRefres
 import com.limelist.slices.shared.RequestError.ErrorCode.Companion.LoginExistsError
 import com.limelist.slices.shared.RequestResult
 import com.limelist.slices.shared.getCurrentUnixUtc0TimeSeconds
-import com.limelist.slices.users.services.internal.UsersCreationInternalService
+import com.limelist.slices.users.services.internal.UsersRegistrationInternalService
 import com.limelist.slices.users.services.models.RegistrationData
 
 
 class KtorTokenIssuanceService(
-    val users: UsersCreationInternalService,
+    val users: UsersRegistrationInternalService,
     val authRepository: AuthRepository,
     val passwordHasher: PasswordHasher,
     val config: AuthConfig

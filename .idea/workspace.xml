@@ -10,22 +10,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="90c853c6-c64c-4142-9064-ff9deb980f22" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/plugins/Authentication.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/routing/Routes.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/services/models/UserPreviewModel.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/services/userDataServices/UsersDataService.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/services/userDataServices/UsersDataServiceInterface.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/ApplicationServices.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/ApplicationServices.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requests.http" beforeDir="false" afterPath="$PROJECT_DIR$/requests.http" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/Application.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/Application.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/plugins/Routing.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/plugins/Routing.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/plugins/Services.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/plugins/Services.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/auth/services/KtorTokenIssuanceService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/auth/services/KtorTokenIssuanceService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/shared/serialization/ErrorCodeSarializer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/shared/serialization/ErrorCodeSarializer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/UserServices.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/UsersServices.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/dataAccess/interfaces/UsersRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/dataAccess/interfaces/UsersRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/dataAccess/sqlite/UsersSqliteRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/dataAccess/sqlite/UsersSqliteRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/services/DefaultUsersInternalService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/services/internal/DefaultUsersCreationInternalService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/services/UserCreationInternalService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/services/internal/UsersCreationInternalService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/services/models/UserData.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/users/services/models/UserDetailsModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/shared/RequestError.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/shared/RequestError.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/routing/Channels.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/routing/Channels.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/services/tvChannelServices/TvChannelsService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/services/tvChannelServices/TvChannelsService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/services/tvChannelServices/TvChannelsServiceInterface.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/services/tvChannelServices/TvChannelsServiceInterface.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,8 +32,8 @@
         <option value="Class" />
         <option value="package-info" />
         <option value="Kotlin Class" />
-        <option value="Kotlin Interface" />
         <option value="Kotlin File" />
+        <option value="Kotlin Interface" />
       </list>
     </option>
   </component>
@@ -79,6 +73,8 @@
   "keyToString": {
     "Downloaded.Files.Path.Enabled": "false",
     "HTTP Request.requests | #1.executor": "Run",
+    "HTTP Request.requests | #10.executor": "Run",
+    "HTTP Request.requests | #11.executor": "Run",
     "HTTP Request.requests | #2 (1).executor": "Run",
     "HTTP Request.requests | #2.executor": "Run",
     "HTTP Request.requests | #3.executor": "Run",
@@ -148,8 +144,11 @@
       <command value="java -jar tvshows.jar" />
     </option>
   </component>
-  <component name="RunManager" selected="JAR Application.tvshows.jar">
-    <configuration name="requests | #3" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/requests.http" index="3" requestIdentifier="#3" runType="Run single request">
+  <component name="RunManager" selected="Kotlin.ApplicationKt">
+    <configuration name="requests | #10" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/requests.http" index="10" requestIdentifier="#10" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="requests | #11" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/requests.http" index="11" requestIdentifier="#11" runType="Run single request">
       <method v="2" />
     </configuration>
     <configuration name="requests | #4" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/requests.http" index="4" requestIdentifier="#4" runType="Run single request">
@@ -158,11 +157,7 @@
     <configuration name="requests | #5" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/requests.http" index="5" requestIdentifier="#5" runType="Run single request">
       <method v="2" />
     </configuration>
-    <configuration name="requests | #7" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/requests.http" index="7" requestIdentifier="#7" runType="Run single request">
-      <method v="2" />
-    </configuration>
-    <configuration name="tvshows.jar" type="JarApplication" temporary="true">
-      <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/tvshows_jar/tvshows.jar" />
+    <configuration name="requests | #6" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/requests.http" index="6" requestIdentifier="#6" runType="Run single request">
       <method v="2" />
     </configuration>
     <configuration name="ApplicationKt" type="JetRunConfigurationType" nameIsGenerated="true">
@@ -175,11 +170,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JAR Application.tvshows.jar" />
-        <item itemvalue="HTTP Request.requests | #7" />
+        <item itemvalue="HTTP Request.requests | #6" />
         <item itemvalue="HTTP Request.requests | #5" />
-        <item itemvalue="HTTP Request.requests | #3" />
         <item itemvalue="HTTP Request.requests | #4" />
+        <item itemvalue="HTTP Request.requests | #10" />
+        <item itemvalue="HTTP Request.requests | #11" />
       </list>
     </recent_temporary>
   </component>
@@ -235,7 +230,8 @@
       <workItem from="1720952222040" duration="15919000" />
       <workItem from="1721073367758" duration="6551000" />
       <workItem from="1721110123692" duration="10183000" />
-      <workItem from="1721142919807" duration="4266000" />
+      <workItem from="1721142919807" duration="4322000" />
+      <workItem from="1721199666676" duration="5419000" />
     </task>
     <task id="LOCAL-00001" summary="Fixing sql queries">
       <option name="closed" value="true" />

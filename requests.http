@@ -47,8 +47,16 @@ POST {{baseUrl}}/api/auth/login
 Accept:application/json
 
 {
-"login": "and@yandex.ru",
-"password": "qwerty"
+"login":"and@yandex.ru",
+"password":"qwerty"
 }
 
 
+###
+GET {{baseUrl}}/api/users/1
+Accept:application/json
+
+###
+GET {{baseUrl}}/api/users/@me
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwibGFzdFVwZGF0ZSI6MTcyMTExNTU1MCwiZXhwIjoxNzIyNDAxNTg0fQ.prxBVldMC6D__iH4wF5tztBlgWLSifPy7dUkegWzLOc

@@ -43,6 +43,7 @@ fun Application.module() {
     );
 
     configureHTTP()
+    configureAuthentication(applicationConfig)
     configureRouting(services)
 }
 

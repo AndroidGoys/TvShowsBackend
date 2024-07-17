@@ -7,6 +7,7 @@ import io.ktor.server.resources.Resources
 import io.ktor.server.routing.*
 
 import com.limelist.slices.tvStore.routing.useTvHistory;
+import com.limelist.slices.users.routing.useUsers
 
 fun Application.configureRouting(services: ApplicationServices) {
     install(Resources)
@@ -14,6 +15,7 @@ fun Application.configureRouting(services: ApplicationServices) {
         route("/api"){
             useTvHistory("/", services.tvStoreServices)
             useAuth("/auth", services.authServices)
+            useUsers("/", services.userServices)
         }
     }
 }
