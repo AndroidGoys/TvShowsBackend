@@ -1,5 +1,6 @@
 package com.limelist.slices.tvStore.services.tvChannelServices
 
+import com.limelist.slices.shared.RequestResult
 import com.limelist.slices.tvStore.services.models.channels.TvChannelDetailsModel
 import com.limelist.slices.tvStore.services.models.channels.TvChannelPreviewModel
 import com.limelist.slices.tvStore.services.models.channels.TvChannels
@@ -11,16 +12,16 @@ interface TvChannelsServiceInterface {
         limit: Int?,
         offset: Int?,
         filter: TvChannelsFilter
-    ): TvChannels<TvChannelPreviewModel>
+    ): RequestResult<TvChannels<TvChannelPreviewModel>>
 
     suspend fun getChannelDetails(
         id: Int
-    ): TvChannelDetailsModel?
+    ): RequestResult<TvChannelDetailsModel>
 
     suspend fun getChannelReleases(
         channelId: Int,
         limit: Int?,
         timeStart: Long?,
         timeZone: Float?
-    ): TvChannelReleases<TvChannelShowRelease>
+    ): RequestResult<TvChannelReleases<TvChannelShowRelease>>
 }

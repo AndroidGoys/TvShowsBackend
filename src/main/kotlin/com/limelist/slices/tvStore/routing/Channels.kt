@@ -1,6 +1,7 @@
 package com.limelist.slices.tvStore.routing
 
 import com.limelist.slices.shared.respondJson
+import com.limelist.slices.shared.respondWithResult
 import com.limelist.slices.tvStore.services.tvChannelServices.TvChannelsFilter
 import com.limelist.slices.tvStore.services.tvChannelServices.TvChannelsServiceInterface
 import io.ktor.http.*
@@ -22,22 +23,14 @@ fun Route.channels(
                 args.offset,
                 TvChannelsFilter(args.name)
             )
-            call.respondJson(channels);
+            call.respondWithResult(channels);
         }
 
         get<AllChannels.Channel>(){ args ->
             val channel = tvChannelsService.getChannelDetails(
                 args.id
             )
-
-            if (channel == null) {
-                call.respond(HttpStatusCode.NotFound);
-                return@get
-            }
-
-            call.respondJson(
-                channel
-            );
+            call.respondWithResult(channel);
         }
 
         get<AllChannels.Channel.Releases>{ args ->
