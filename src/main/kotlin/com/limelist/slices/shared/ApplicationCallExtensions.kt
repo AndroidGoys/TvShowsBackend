@@ -26,7 +26,11 @@ suspend inline fun <reified T> ApplicationCall.respondWithResult(
 ){
     when(result) {
         is RequestResult.SuccessResult<T>
-            -> this.respondJson(result.statusCode, result.data)
+            -> if (result.data is Unit)
+                    this.respond(result.statusCode)
+                else
+                    this.respondJson(result.statusCode, result.data)
+
         is RequestResult.FailureResult
             -> this.respondJson(result.statusCode, result.error)
     }
