@@ -1,7 +1,9 @@
 package com.limelist.slices.tvStore.routing
 
+import com.limelist.slices.shared.receiveJson
 import com.limelist.slices.shared.respondJson
-import com.limelist.slices.shared.respondWithResult
+import com.limelist.slices.shared.respondResult
+import com.limelist.slices.tvStore.routing.models.OnlyIdModel
 import com.limelist.slices.tvStore.services.tvShowServices.TvShowsFilter
 import com.limelist.slices.tvStore.services.tvShowServices.TvShowsServiceInterface
 import io.ktor.http.*
@@ -24,11 +26,11 @@ fun Route.shows(tvShowsService: TvShowsServiceInterface) {
                 args.offset,
                 TvShowsFilter(args.name)
             )
-            call.respondWithResult(shows);
+            call.respondResult(shows);
         }
         get<AllShows.Show>(){ args ->
             val show = tvShowsService.getShowDetails(args.id)
-            call.respondWithResult(show)
+            call.respondResult(show)
         }
 
         get<AllShows.Show.Channels>() { args ->
@@ -41,7 +43,7 @@ fun Route.shows(tvShowsService: TvShowsServiceInterface) {
                 args.timeZone
             )
 
-            call.respondWithResult(channels)
+            call.respondResult(channels)
         }
 
         authenticate("access-auth"){
@@ -61,7 +63,21 @@ fun Route.shows(tvShowsService: TvShowsServiceInterface) {
             }
 
             post<AllShows.Show.Favorites> {
+                val userIdPrincipal = call.principal<UserIdPrincipal>()
 
+                if (userIdPrincipal == null){
+                    call.respond(HttpStatusCode.Unauthorized)
+                    return@post
+                }
+
+                val show = call.receiveJson<OnlyIdModel>()
+
+                val result = tvShowsService.addToFavorite(
+                    userIdPrincipal.name.toInt(),
+                    show.id
+                )
+
+                call.respondResult(result)
             }
         }
     }

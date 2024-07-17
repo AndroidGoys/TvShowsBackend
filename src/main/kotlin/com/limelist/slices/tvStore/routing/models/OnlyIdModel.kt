@@ -1,4 +1,6 @@
 package com.limelist.slices.tvStore.routing.models
 
-class OnlyIdModel {
-}
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class OnlyIdModel (val id: Int)

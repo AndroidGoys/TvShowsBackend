@@ -5,9 +5,8 @@ import com.limelist.slices.auth.services.TokenIssuanceService
 import com.limelist.slices.auth.services.models.RefreshToken
 import com.limelist.slices.shared.RequestResult
 import com.limelist.slices.shared.receiveJson
-import com.limelist.slices.shared.respondWithResult
+import com.limelist.slices.shared.respondResult
 import io.ktor.server.application.*
-import io.ktor.server.request.*
 import io.ktor.server.routing.*
 
 fun Route.login(service: TokenIssuanceService) {
@@ -16,7 +15,7 @@ fun Route.login(service: TokenIssuanceService) {
             call.receiveJson()
         )
 
-        call.respondWithResult(response)
+        call.respondResult(response)
     }
 }
 
@@ -25,7 +24,7 @@ fun Route.register(service: TokenIssuanceService) {
         val response = service.register(
             call.receiveJson()
         )
-        call.respondWithResult(response)
+        call.respondResult(response)
     }
 }
 
@@ -36,7 +35,7 @@ fun Route.refresh(service: TokenIssuanceService) {
         val validationResult = service.validate(refreshToken)
 
         if (validationResult is RequestResult.FailureResult) {
-            call.respondWithResult<Unit>(validationResult)
+            call.respondResult<Unit>(validationResult)
             return@post
         }
 
@@ -46,7 +45,7 @@ fun Route.refresh(service: TokenIssuanceService) {
             token
         )
 
-        call.respondWithResult(response)
+        call.respondResult(response)
     }
 }
 

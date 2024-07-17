@@ -21,7 +21,7 @@ suspend inline fun <reified T> ApplicationCall.respondJson(
     )
 }
 
-suspend inline fun <reified T> ApplicationCall.respondWithResult(
+suspend inline fun <reified T> ApplicationCall.respondResult(
     result: RequestResult<T>,
 ){
     when(result) {

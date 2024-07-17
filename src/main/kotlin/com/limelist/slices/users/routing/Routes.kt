@@ -1,6 +1,6 @@
 package com.limelist.slices.users.routing
 
-import com.limelist.slices.shared.respondWithResult
+import com.limelist.slices.shared.respondResult
 import com.limelist.slices.users.UsersServices
 import com.limelist.slices.users.services.userDataServices.UsersDataServiceInterface
 import io.ktor.http.*
@@ -18,7 +18,7 @@ fun Route.getUserById(
 ){
     get<AllUsers.User> { args ->
         val response = usersDataService.findUserById(args.id)
-        return@get call.respondWithResult(response)
+        return@get call.respondResult(response)
     }
 }
 
@@ -38,7 +38,7 @@ fun Route.getMe(
                 userIdPrincipal.name.toInt()
             )
 
-            call.respondWithResult(response)
+            call.respondResult(response)
         }
     }
 }
