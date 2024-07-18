@@ -89,12 +89,24 @@ class TvShowsService(
         return RequestResult.SuccessResult(showChannels)
     }
 
-    override suspend fun getUserFavorites(userId: Int): RequestResult<TvShows<TvShowPreviewModel>> {
-        TODO("Not yet implemented")
+    override suspend fun getUserFavorites(
+        userId: Int,
+        limit: Int?,
+        offset: Int?
+    ): RequestResult<TvShows<TvShowPreviewModel>> {
+        val limit = limit ?: -1
+        val offset = offset ?: 0
+
+        val favorites = tvShows.getUserFavorites(userId, limit, offset)
+        return RequestResult.SuccessResult(favorites)
     }
 
     override suspend fun addToFavorite(userId: Int, showId: Int): RequestResult<Unit> {
-        TODO("Not yet implemented")
+        if (!tvShows.contains(showId))
+            return showNotFoundResult
+
+        tvShows.addUserFavorites(userId, showId)
+        return RequestResult.SuccessResult(Unit)
     }
 
 }

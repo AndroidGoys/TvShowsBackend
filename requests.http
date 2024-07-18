@@ -51,7 +51,6 @@ Accept:application/json
 "password":"qwerty"
 }
 
-
 ###
 GET {{baseUrl}}/api/users/1
 Accept:application/json
@@ -59,4 +58,18 @@ Accept:application/json
 ###
 GET {{baseUrl}}/api/users/@me
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwibGFzdFVwZGF0ZSI6MTcyMTExNTU1MCwiZXhwIjoxNzIyNDAxNTg0fQ.prxBVldMC6D__iH4wF5tztBlgWLSifPy7dUkegWzLOc
+Authorization: Bearer {SET_YOUR_TOKEN}
+
+###
+GET {{baseUrl}}/api/shows/favorites
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzIyNDkzNzE0fQ.u7JBJtql4pXROgIG-EFVoNd6K3eg4UqFTRXeXSH5cCc
+
+###
+POST {{baseUrl}}/api/shows/favorites
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzIyNDkzNzE0fQ.u7JBJtql4pXROgIG-EFVoNd6K3eg4UqFTRXeXSH5cCc
+
+{
+"id" : 1570553078
+}

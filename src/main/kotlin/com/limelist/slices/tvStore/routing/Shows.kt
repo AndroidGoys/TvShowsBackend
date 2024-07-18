@@ -47,7 +47,7 @@ fun Route.shows(tvShowsService: TvShowsServiceInterface) {
         }
 
         authenticate("access-auth"){
-            get<AllShows.Show.Favorites>{
+            get<AllShows.Show.Favorites>{ args ->
                 val userIdPrincipal = call.principal<UserIdPrincipal>()
 
                 if (userIdPrincipal == null){
@@ -55,9 +55,11 @@ fun Route.shows(tvShowsService: TvShowsServiceInterface) {
                     return@get
                 }
 
-                call.respondJson(
+                call.respondResult(
                     tvShowsService.getUserFavorites(
-                        userIdPrincipal.name.toInt()
+                        userIdPrincipal.name.toInt(),
+                        args.limit,
+                        args.offset
                     )
                 )
             }
@@ -114,6 +116,9 @@ data class AllShows(
 
         @Serializable
         @Resource("favorites")
-        class Favorites
+        class Favorites (
+            val limit: Int? = null,
+            val offset: Int? = null
+        )
     }
 }

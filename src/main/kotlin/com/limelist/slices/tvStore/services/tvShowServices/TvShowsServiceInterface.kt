@@ -28,7 +28,9 @@ interface TvShowsServiceInterface {
     ): RequestResult<TvChannels<TvShowChannelModel>>
 
     suspend fun getUserFavorites(
-        userId: Int
+        userId: Int,
+        limit: Int?,
+        offset: Int?
     ): RequestResult<TvShows<TvShowPreviewModel>>
 
     suspend fun addToFavorite(

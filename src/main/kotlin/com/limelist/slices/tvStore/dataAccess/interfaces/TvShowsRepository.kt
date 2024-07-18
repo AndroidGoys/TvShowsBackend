@@ -8,10 +8,25 @@ import com.limelist.slices.tvStore.services.models.shows.TvShowDetailsModel
 import com.limelist.slices.tvStore.services.models.shows.TvShowPreviewModel
 
 interface TvShowsRepository : TvRepository {
-    suspend fun getAllShows(limit: Int, offset: Int): TvShows<TvShowPreviewModel>
-    suspend fun getShowDetails(id: Int): TvShowDetailsModel?
-    suspend fun searchByName(name: String, limit: Int, offset: Int): TvShows<TvShowPreviewModel>
-    suspend fun updateMany(shows: List<TvShowCreateModel>)
+    suspend fun getAllShows(
+        limit: Int,
+        offset: Int
+    ): TvShows<TvShowPreviewModel>
+
+    suspend fun getShowDetails(
+        id: Int
+    ): TvShowDetailsModel?
+
+    suspend fun searchByName(
+        name: String,
+        limit: Int,
+        offset: Int
+    ): TvShows<TvShowPreviewModel>
+
+    suspend fun updateMany(
+        shows: List<TvShowCreateModel>
+    )
+
     suspend fun getShowChannels(
         showId: Int,
         channelsLimit: Int,
@@ -19,5 +34,20 @@ interface TvShowsRepository : TvRepository {
         releasesLimit: Int,
         releasesTimeStart: Long
     ): TvChannels<TvShowChannelModel>
-    suspend fun getWithoutImageShows(limit: Int, offset: Int): TvShows<TvShowDetailsModel>
+
+    suspend fun getWithoutImageShows(
+        limit: Int,
+        offset: Int
+    ): TvShows<TvShowDetailsModel>
+
+    suspend fun getUserFavorites(
+        userId: Int,
+        limit: Int,
+        offset: Int
+    ) : TvShows<TvShowPreviewModel>
+
+    suspend fun addUserFavorites(
+        userId: Int,
+        showId: Int
+    )
 }

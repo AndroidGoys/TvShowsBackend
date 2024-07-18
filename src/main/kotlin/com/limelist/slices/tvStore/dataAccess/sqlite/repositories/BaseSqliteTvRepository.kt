@@ -1,5 +1,7 @@
 package com.limelist.slices.tvStore.dataAccess.sqlite.repositories
 import com.limelist.slices.tvStore.dataAccess.interfaces.TvRepository
+import com.limelist.slices.tvStore.services.models.AgeLimit
+import com.limelist.slices.tvStore.services.models.shows.TvShowPreviewModel
 import com.limelist.slices.tvStore.services.models.tags.TvTagPreview
 import io.ktor.server.plugins.*
 import kotlinx.coroutines.sync.Mutex
@@ -111,6 +113,22 @@ abstract class BaseSqliteTvRepository(
                 url TEXT NOT NULL
             );
         """)
+
+        statement.execute("""
+            CREATE TABLE IF NOT EXISTS favorite_shows(
+                user_id INTEGER,
+                show_id INTEGER REFERENCES shows,
+                CONSTRAINT id PRIMARY KEY (show_id, user_id)
+            )
+        """)
+
+        statement.execute("""
+            CREATE TABLE IF NOT EXISTS favorite_channels(
+                user_id INTEGER,
+                channel_id INTEGER REFERENCES channels,
+                CONSTRAINT id PRIMARY KEY (channel_id, user_id)
+            )
+        """)
         statement.close()
 
         connection.commit()
@@ -153,5 +171,20 @@ abstract class BaseSqliteTvRepository(
         )
     }
 
+    protected fun parseShowPreviews(
+        set: ResultSet
+    ) = buildList{
+        while (set.next()){
+            add(
+                TvShowPreviewModel(
+                    set.getInt("id"),
+                    set.getString("name"),
+                    set.getFloat("assessment"),
+                    AgeLimit.fromInt(set.getInt("age_limit")),
+                    set.getString("preview_url"),
+                )
+            )
+        }
+    }
 
 }

@@ -53,19 +53,7 @@ class TvShowsSqliteRepository(
             return@run executeQuery()
         }
 
-        val shows = buildList{
-            while (set.next()){
-                add(
-                    TvShowPreviewModel(
-                        set.getInt("id"),
-                        set.getString("name"),
-                        set.getFloat("assessment"),
-                        AgeLimit.fromInt(set.getInt("age_limit")),
-                        set.getString("preview_url"),
-                    )
-                )
-            }
-        }
+        val shows = parseShowPreviews(set)
 
         set = getCountStatement.executeQuery()
         if (!set.next())
@@ -191,19 +179,7 @@ class TvShowsSqliteRepository(
             return@run executeQuery()
         }
 
-        val shows = buildList{
-            while (set.next()){
-                add(
-                    TvShowPreviewModel(
-                        set.getInt("id"),
-                        set.getString("name"),
-                        set.getFloat("assessment"),
-                        AgeLimit.fromInt(set.getInt("age_limit")),
-                        set.getString("preview_url"),
-                    )
-                )
-            }
-        }
+        val shows = parseShowPreviews(set)
 
         return TvShows(
             -1,
@@ -400,6 +376,63 @@ class TvShowsSqliteRepository(
             -1,
             shows
         )
+    }
+
+    val getFavoritesStatement = connection.prepareStatement("""
+        SELECT 
+            shows.*,
+            AVG(show_reviews.assessment) as assessment
+        FROM ( 
+            SELECT shows.* 
+                FROM (    
+                    SELECT * 
+                        FROM favorite_shows
+                    WHERE user_id = ?
+                    ORDER BY show_id
+                    LIMIT ?
+                    OFFSET ?
+                ) as favorites
+            INNER JOIN shows
+                ON shows.id == favorites.show_id
+        ) as shows
+        LEFT JOIN show_reviews
+            ON show_reviews.show_id = shows.id
+        GROUP BY shows.id
+    """)
+    override suspend fun getUserFavorites(
+        userId: Int, 
+        limit: Int,
+        offset: Int
+    ): TvShows<TvShowPreviewModel> = mutex.withLock {
+        var set = getFavoritesStatement.run {
+            setInt(1, userId)
+            setInt(2, limit)
+            setInt(3, offset)
+            return@run executeQuery()
+        }
+
+        val shows = parseShowPreviews(set)
+
+        return TvShows(
+            -1,
+            shows
+        )
+    }
+
+    val addFavoritesStatement = connection.prepareStatement("""
+        INSERT OR IGNORE INTO favorite_shows(user_id, show_id)
+            VALUES (?,?)
+    """)
+
+    override suspend fun addUserFavorites(
+        userId: Int,
+        showId: Int
+    ): Unit = mutex.withLock {
+        addFavoritesStatement.run {
+            setInt(1, userId)
+            setInt(2, showId)
+            executeUpdate()
+        }
     }
 
     private val updateShowsStatementWithPreview = connection.prepareStatement("""
