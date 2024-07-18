@@ -19,27 +19,26 @@ abstract class BaseTvReviewsRepository(
     private val getReviewsStatement = connection.prepareStatement("""
         SELECT * 
             FROM $targetTable
-        WHERE parent_id = ?;
+        WHERE parent_id = ? AND date > ?
+        ORDER BY date
         LIMIT ?
-        OFFSET ?
     """)
 
     override suspend fun get(
         parentId: Int,
         limit: Int,
-        offset: Int
+        timeStart: Long
     ): TvReviews = mutex.withLock {
         val set = getReviewsStatement.run {
             setInt(1,  parentId)
-            setInt(2, limit)
-            setInt(3, offset)
+            setLong(2, timeStart)
+            setInt(3, limit)
             return@run executeQuery()
         }
 
         val reviews = parseReviews(set)
         return TvReviews(-1, reviews)
     }
-
 
     private val addReviews = connection.prepareStatement("""
         INSERT OR IGNORE INTO $targetTable (

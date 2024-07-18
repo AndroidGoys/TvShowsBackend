@@ -14,6 +14,8 @@ import com.limelist.slices.auth.services.PBKDF2Hasher
 import com.limelist.slices.tvStore.TvStoreConfig
 import com.limelist.slices.tvStore.TvStoreServices
 import com.limelist.slices.tvStore.dataAccess.sqlite.repositories.*
+import com.limelist.slices.tvStore.dataAccess.sqlite.repositories.reviews.TvChannelReviewsSqliteRepository
+import com.limelist.slices.tvStore.dataAccess.sqlite.repositories.reviews.TvShowReviewsSqliteRepository
 import com.limelist.slices.tvStore.services.tvChannelServices.TvChannelsService;
 import com.limelist.slices.tvStore.services.tvShowServices.TvShowsService;
 import com.limelist.slices.tvStore.services.dataUpdateServices.JsonSourceDataUpdateService
@@ -59,13 +61,16 @@ fun Application.configureTvHistoryServices(
 
     val dbLifeCycle = TvSqliteDbLifeCycle(conn, mutex)
 
+    val channelReviews = TvChannelReviewsSqliteRepository(conn, mutex)
+    val showReviews = TvShowReviewsSqliteRepository(conn, mutex)
+
     val channels = TvChannelsSqliteRepository(conn, mutex)
     val shows = TvShowsSqliteRepository(conn, mutex)
     val releases = TvReleasesSqliteRepository(conn, mutex);
     val tags = TvTagsSqliteRepository(conn, mutex);
 
-    val tvChannelsService = TvChannelsService(channels);
-    val tvShowsService = TvShowsService(shows);
+    val tvChannelsService = TvChannelsService(channels, channelReviews);
+    val tvShowsService = TvShowsService(shows, showReviews);
 
     val dataUpdateService = JsonSourceDataUpdateService(
         channels,

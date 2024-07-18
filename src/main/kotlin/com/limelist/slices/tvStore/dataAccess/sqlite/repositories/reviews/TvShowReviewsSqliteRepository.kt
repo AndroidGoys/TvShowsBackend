@@ -7,6 +7,6 @@ import java.sql.Connection
 class TvShowReviewsSqliteRepository(
     connection: Connection,
     mutex: Mutex
-): BaseTvReviewsRepository(connection, mutex, "channels", "channels_reviews"),
+): BaseTvReviewsRepository(connection, mutex, "channels", "channel_reviews"),
     TvChannelReviewsRepository {
 }

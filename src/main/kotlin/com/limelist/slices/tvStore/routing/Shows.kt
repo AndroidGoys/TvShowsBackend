@@ -1,8 +1,8 @@
 package com.limelist.slices.tvStore.routing
 
 import com.limelist.slices.shared.receiveJson
-import com.limelist.slices.shared.respondJson
 import com.limelist.slices.shared.respondResult
+import com.limelist.slices.tvStore.routing.models.AddReviewModel
 import com.limelist.slices.tvStore.routing.models.OnlyIdModel
 import com.limelist.slices.tvStore.services.tvShowServices.TvShowsFilter
 import com.limelist.slices.tvStore.services.tvShowServices.TvShowsServiceInterface
@@ -46,11 +46,36 @@ fun Route.shows(tvShowsService: TvShowsServiceInterface) {
             call.respondResult(channels)
         }
 
-        get<AllShows.Show.Comments>{ args ->
+        get<AllShows.Show.Reviews>{ args ->
+            val reviews = tvShowsService.getReviews(
+                args.parent.id,
+                args.limit,
+                args.timeStart,
+                args.timeZone
+            )
+            call.respondResult(reviews)
         }
 
         authenticate("access-auth"){
+            post<AllShows.Show.Reviews> { args ->
+                val userIdPrincipal = call.principal<UserIdPrincipal>()
 
+                if (userIdPrincipal == null){
+                    call.respond(HttpStatusCode.Unauthorized)
+                    return@post
+                }
+
+                val review = call.receiveJson<AddReviewModel>()
+                call.respondResult(
+                    tvShowsService.addReview(
+                        args.parent.id,
+                        userIdPrincipal.name.toInt(),
+                        review.assessment,
+                        review.text
+                    )
+                )
+
+            }
 
             get<AllShows.Favorites>{ args ->
                 val userIdPrincipal = call.principal<UserIdPrincipal>()
@@ -128,10 +153,12 @@ data class AllShows(
 
 
         @Serializable
-        @Resource("comments")
-        class Comments (
+        @Resource("reviews")
+        class Reviews (
+            val parent: Show,
             val limit: Int? = null,
-            val offset: Int? = null
+            val timeStart: Long? = null,
+            val timeZone: Float? = null
         )
     }
 }

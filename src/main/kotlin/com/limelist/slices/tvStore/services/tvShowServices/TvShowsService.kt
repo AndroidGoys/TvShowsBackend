@@ -2,18 +2,22 @@ package com.limelist.slices.tvStore.services.tvShowServices
 
 import com.limelist.slices.shared.RequestError
 import com.limelist.slices.shared.RequestResult
+import com.limelist.slices.shared.getCurrentUnixUtc0TimeSeconds
 import com.limelist.slices.shared.normalizeUnixSecondsTime
 import com.limelist.slices.tvStore.services.models.shows.TvShows
 import com.limelist.slices.tvStore.services.models.shows.TvShowDetailsModel
 import com.limelist.slices.tvStore.dataAccess.interfaces.TvShowsRepository
+import com.limelist.slices.tvStore.dataAccess.sqlite.repositories.reviews.TvShowReviewsSqliteRepository
 import com.limelist.slices.tvStore.services.models.channels.TvChannels
+import com.limelist.slices.tvStore.services.models.comments.TvReview
 import com.limelist.slices.tvStore.services.models.comments.TvReviews
 import com.limelist.slices.tvStore.services.models.shows.TvShowChannelModel
 import com.limelist.slices.tvStore.services.models.shows.TvShowPreviewModel
 import io.ktor.http.*
 
 class TvShowsService(
-    private val tvShows: TvShowsRepository
+    private val tvShows: TvShowsRepository,
+    private val showReviews: TvShowReviewsSqliteRepository
 ) : TvShowsServiceInterface {
 
     private val showNotFoundResult = RequestResult.FailureResult(
@@ -107,6 +111,45 @@ class TvShowsService(
             return showNotFoundResult
 
         tvShows.addUserFavorites(userId, showId)
+        return RequestResult.SuccessResult(Unit)
+    }
+
+    override suspend fun getReviews(
+        showId: Int,
+        limit: Int?,
+        timeStart: Long?,
+        timeZone: Float?
+    ): RequestResult<TvReviews> {
+        if (!tvShows.contains(showId))
+            return showNotFoundResult
+
+        val limit = limit?: -1
+        var timeStart = timeStart?: 0
+
+        if (timeZone != null) {
+            timeStart = timeStart.normalizeUnixSecondsTime(timeZone)
+        }
+
+        val reviews = showReviews.get(showId, limit, timeStart)
+        return RequestResult.SuccessResult(reviews)
+    }
+
+    override suspend fun addReview(
+        showId: Int,
+        userId: Int,
+        assessment: Int,
+        text: String
+    ): RequestResult<Unit> {
+        showReviews.add(
+            showId,
+            TvReview(
+                userId,
+                assessment,
+                getCurrentUnixUtc0TimeSeconds(),
+                text
+            )
+        )
+
         return RequestResult.SuccessResult(Unit)
     }
 

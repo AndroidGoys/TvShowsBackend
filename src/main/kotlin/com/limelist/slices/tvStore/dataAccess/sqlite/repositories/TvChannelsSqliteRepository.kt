@@ -337,4 +337,19 @@ class TvChannelsSqliteRepository(
         }
     }
 
+
+    val containsStatement = connection.prepareStatement("""
+        SELECT * FROM $tableName
+        WHERE id = ?
+        LIMIT 1
+    """)
+
+    override suspend fun contains(id: Int): Boolean {
+        val set = containsStatement.run {
+            setInt(1, id)
+            return@run executeQuery()
+        }
+        return set.next()
+    }
+
 }

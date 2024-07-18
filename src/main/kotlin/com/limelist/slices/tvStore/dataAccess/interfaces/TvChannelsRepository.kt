@@ -32,4 +32,8 @@ interface TvChannelsRepository : TvRepository {
     suspend fun updateMany(
         channels: List<TvChannelCreateModel>
     )
+
+    suspend fun contains(
+        id: Int
+    ): Boolean
 }

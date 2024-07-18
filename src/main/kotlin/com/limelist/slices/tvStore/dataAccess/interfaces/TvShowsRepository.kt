@@ -50,4 +50,8 @@ interface TvShowsRepository : TvRepository {
         userId: Int,
         showId: Int
     )
+
+    suspend fun contains(
+        id: Int
+    ): Boolean
 }

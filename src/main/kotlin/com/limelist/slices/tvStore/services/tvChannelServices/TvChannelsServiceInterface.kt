@@ -4,6 +4,7 @@ import com.limelist.slices.shared.RequestResult
 import com.limelist.slices.tvStore.services.models.channels.TvChannelDetailsModel
 import com.limelist.slices.tvStore.services.models.channels.TvChannelPreviewModel
 import com.limelist.slices.tvStore.services.models.channels.TvChannels
+import com.limelist.slices.tvStore.services.models.comments.TvReviews
 import com.limelist.slices.tvStore.services.models.releases.TvChannelReleases
 import com.limelist.slices.tvStore.services.models.releases.TvChannelShowRelease
 
@@ -24,4 +25,10 @@ interface TvChannelsServiceInterface {
         timeStart: Long?,
         timeZone: Float?
     ): RequestResult<TvChannelReleases<TvChannelShowRelease>>
+
+    suspend fun getReviews(
+        channelId: Int,
+        limit: Int?,
+        timeStart: Long?,
+    ) : RequestResult<TvReviews>
 }

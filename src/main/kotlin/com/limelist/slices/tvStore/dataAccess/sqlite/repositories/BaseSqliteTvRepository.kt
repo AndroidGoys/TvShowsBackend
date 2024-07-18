@@ -13,7 +13,7 @@ import java.sql.ResultSet
 abstract class BaseSqliteTvRepository(
     protected val connection: Connection,
     protected val mutex: Mutex,
-    protected val tableName: String
+    protected val tableName: String,
 ): TvRepository {
     init {
         connection.autoCommit = false
@@ -148,21 +148,6 @@ abstract class BaseSqliteTvRepository(
             throw NotFoundException();
 
         return@withLock set.getInt(1);
-    }
-
-
-    val containsStatement = connection.prepareStatement("""
-        SELECT * FROM $tableName
-        WHERE id = ?
-        LIMIT 1
-    """)
-
-    override suspend fun contains(id: Int): Boolean {
-        val set = containsStatement.run {
-            setInt(1, id)
-            return@run executeQuery()
-        }
-        return set.next()
     }
 
     protected fun parseTag(

@@ -8,11 +8,14 @@ import com.limelist.slices.tvStore.services.models.channels.TvChannelDetailsMode
 import com.limelist.slices.tvStore.services.models.channels.TvChannelPreviewModel
 import com.limelist.slices.tvStore.services.models.releases.TvChannelReleases
 import com.limelist.slices.shared.normalizeUnixSecondsTime
+import com.limelist.slices.tvStore.dataAccess.sqlite.repositories.reviews.TvChannelReviewsSqliteRepository
+import com.limelist.slices.tvStore.services.models.comments.TvReviews
 import com.limelist.slices.tvStore.services.models.releases.TvChannelShowRelease
 import io.ktor.http.*
 
-class TvChannelsService (
-    private val tvChannels: TvChannelsRepository
+class TvChannelsService(
+    private val tvChannels: TvChannelsRepository,
+    private val channelReviews: TvChannelReviewsSqliteRepository
 ): TvChannelsServiceInterface {
 
     val channelNotFoundResult = RequestResult.FailureResult(
@@ -78,5 +81,9 @@ class TvChannelsService (
         )
 
         return RequestResult.SuccessResult(releases)
+    }
+
+    override suspend fun getReviews(channelId: Int, limit: Int?, timeStart: Long?): RequestResult<TvReviews> {
+        TODO("Not yet implemented")
     }
 }
