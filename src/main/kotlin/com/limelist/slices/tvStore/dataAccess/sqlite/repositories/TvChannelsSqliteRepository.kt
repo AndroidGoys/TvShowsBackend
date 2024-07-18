@@ -33,7 +33,7 @@ class TvChannelsSqliteRepository(
             AVG(channel_reviews.assessment) as assessment
         FROM channels
         LEFT JOIN channel_reviews
-            ON channel_reviews.channel_id = channels.id
+            ON channel_reviews.parent_id = channels.id
             
         GROUP BY channels.id
         ORDER BY channels.id
@@ -85,7 +85,7 @@ class TvChannelsSqliteRepository(
             WHERE channels.id = ?
         ) as channel
         LEFT JOIN channel_reviews
-            ON channel_reviews.channel_id = channel.id
+            ON channel_reviews.parent_id = channel.id
         LEFT JOIN channel_view_urls
             ON channel_view_urls.channel_id = channel.id    
         GROUP BY channel.id
@@ -155,7 +155,7 @@ class TvChannelsSqliteRepository(
             WHERE name LIKE ?
         ) as channels
         LEFT JOIN channel_reviews
-            ON channel_reviews.channel_id = channels.id
+            ON channel_reviews.parent_id = channels.id
              
         GROUP BY channels.id
         ORDER BY channels.id
@@ -218,7 +218,7 @@ class TvChannelsSqliteRepository(
                 AVG(show_reviews.assessment) as assessment
             FROM shows
             LEFT JOIN show_reviews
-                ON show_reviews.show_id = shows.id
+                ON show_reviews.parent_id = shows.id
                 
             GROUP BY shows.id
             ORDER BY shows.id

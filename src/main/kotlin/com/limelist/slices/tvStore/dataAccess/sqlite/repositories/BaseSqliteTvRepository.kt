@@ -1,6 +1,7 @@
 package com.limelist.slices.tvStore.dataAccess.sqlite.repositories
 import com.limelist.slices.tvStore.dataAccess.interfaces.TvRepository
 import com.limelist.slices.tvStore.services.models.AgeLimit
+import com.limelist.slices.tvStore.services.models.comments.TvReview
 import com.limelist.slices.tvStore.services.models.shows.TvShowPreviewModel
 import com.limelist.slices.tvStore.services.models.tags.TvTagPreview
 import io.ktor.server.plugins.*
@@ -67,21 +68,23 @@ abstract class BaseSqliteTvRepository(
 
         statement.execute("""
             CREATE TABLE IF NOT EXISTS show_reviews (
-                user_id INTEGER PRIMARY KEY,
-                show_id INTEGER REFERENCES shows,
-                date INTEGER,  
-                comment TEXT,
-                assessment INTEGER
+                user_id INTEGER,
+                parent_id INTEGER REFERENCES shows,
+                date REAL,  
+                text TEXT,
+                assessment INTEGER,
+                CONSTRAINT id PRIMARY KEY (user_id, parent_id)
             );
         """)
 
         statement.execute("""
             CREATE TABLE IF NOT EXISTS channel_reviews (
-                user_id INTEGER PRIMARY KEY,
-                channel_id INTEGER REFERENCES shows,
-                date INTEGER,  
-                comment TEXT,
-                assessment INTEGER
+                user_id INTEGER,
+                parent_id INTEGER REFERENCES shows,
+                date REAL,  
+                text TEXT,
+                assessment INTEGER,
+                CONSTRAINT id PRIMARY KEY (user_id, parent_id)
             );
         """)
 
@@ -182,6 +185,21 @@ abstract class BaseSqliteTvRepository(
                     set.getFloat("assessment"),
                     AgeLimit.fromInt(set.getInt("age_limit")),
                     set.getString("preview_url"),
+                )
+            )
+        }
+    }
+
+    protected fun parseReviews(
+        set: ResultSet
+    ) = buildList {
+        while (set.next()){
+            add(
+                TvReview(
+                    set.getInt("user_id"),
+                    set.getInt("assessment"),
+                    set.getLong("date"),
+                    set.getString("text")
                 )
             )
         }

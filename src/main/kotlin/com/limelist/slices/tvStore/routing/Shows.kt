@@ -46,8 +46,13 @@ fun Route.shows(tvShowsService: TvShowsServiceInterface) {
             call.respondResult(channels)
         }
 
+        get<AllShows.Show.Comments>{ args ->
+        }
+
         authenticate("access-auth"){
-            get<AllShows.Show.Favorites>{ args ->
+
+
+            get<AllShows.Favorites>{ args ->
                 val userIdPrincipal = call.principal<UserIdPrincipal>()
 
                 if (userIdPrincipal == null){
@@ -64,7 +69,7 @@ fun Route.shows(tvShowsService: TvShowsServiceInterface) {
                 )
             }
 
-            post<AllShows.Show.Favorites> {
+            post<AllShows.Favorites> {
                 val userIdPrincipal = call.principal<UserIdPrincipal>()
 
                 if (userIdPrincipal == null){
@@ -94,6 +99,13 @@ data class AllShows(
     val name: String? = null
 ){
     @Serializable
+    @Resource("favorites")
+    class Favorites (
+        val limit: Int? = null,
+        val offset: Int? = null
+    )
+
+    @Serializable
     @Resource("{id}")
     data class Show(
         val id: Int,
@@ -114,9 +126,10 @@ data class AllShows(
             val timeZone: Float? = null
         )
 
+
         @Serializable
-        @Resource("favorites")
-        class Favorites (
+        @Resource("comments")
+        class Comments (
             val limit: Int? = null,
             val offset: Int? = null
         )

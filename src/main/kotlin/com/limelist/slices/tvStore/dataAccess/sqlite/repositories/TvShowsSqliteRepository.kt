@@ -34,7 +34,7 @@ class TvShowsSqliteRepository(
             AVG(show_reviews.assessment) as assessment
         FROM shows
         LEFT JOIN show_reviews
-            ON show_reviews.show_id = shows.id
+            ON show_reviews.parent_id = shows.id
             
         GROUP BY shows.id
         ORDER BY shows.id
@@ -78,7 +78,7 @@ class TvShowsSqliteRepository(
                 WHERE shows.id = ?
             ) as show
             LEFT JOIN show_reviews
-                ON show_reviews.show_id = show.id
+                ON show_reviews.parent_id = show.id
             GROUP BY show.id
         ) as shows 
         LEFT JOIN show_frames
@@ -158,7 +158,7 @@ class TvShowsSqliteRepository(
             WHERE name LIKE ?
         ) as shows
         LEFT JOIN show_reviews
-            ON show_reviews.show_id = shows.id
+            ON show_reviews.parent_id = shows.id
              
         GROUP BY shows.id
         ORDER BY shows.id
@@ -214,7 +214,7 @@ class TvShowsSqliteRepository(
                         AVG(channel_reviews.assessment) as assessment
                     FROM channels
                     LEFT JOIN channel_reviews
-                        ON channel_reviews.channel_id = channels.id
+                        ON channel_reviews.parent_id = channels.id
                         
                     GROUP BY channels.id
                     ORDER BY channels.id
@@ -335,7 +335,7 @@ class TvShowsSqliteRepository(
         ) as shows
         
         LEFT JOIN show_reviews
-            ON show_reviews.show_id = shows.id
+            ON show_reviews.parent_id = shows.id
             
         GROUP BY shows.id
         ORDER BY shows.id
@@ -396,7 +396,7 @@ class TvShowsSqliteRepository(
                 ON shows.id == favorites.show_id
         ) as shows
         LEFT JOIN show_reviews
-            ON show_reviews.show_id = shows.id
+            ON show_reviews.parent_id = shows.id
         GROUP BY shows.id
     """)
     override suspend fun getUserFavorites(

@@ -1,6 +1,7 @@
 package com.limelist.slices.tvStore.services.tvShowServices
 
 import com.limelist.slices.shared.RequestResult
+import com.limelist.slices.tvStore.services.models.comments.TvReviews
 import com.limelist.slices.tvStore.services.models.channels.TvChannels
 import com.limelist.slices.tvStore.services.models.shows.TvShowChannelModel
 import com.limelist.slices.tvStore.services.models.shows.TvShowDetailsModel

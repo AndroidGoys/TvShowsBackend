@@ -7,6 +7,7 @@ import com.limelist.slices.tvStore.services.models.shows.TvShows
 import com.limelist.slices.tvStore.services.models.shows.TvShowDetailsModel
 import com.limelist.slices.tvStore.dataAccess.interfaces.TvShowsRepository
 import com.limelist.slices.tvStore.services.models.channels.TvChannels
+import com.limelist.slices.tvStore.services.models.comments.TvReviews
 import com.limelist.slices.tvStore.services.models.shows.TvShowChannelModel
 import com.limelist.slices.tvStore.services.models.shows.TvShowPreviewModel
 import io.ktor.http.*
