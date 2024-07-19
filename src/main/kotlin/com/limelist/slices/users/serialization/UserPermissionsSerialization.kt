@@ -1,7 +1,6 @@
 package com.limelist.slices.users.serialization
 
-import com.limelist.slices.shared.RequestError
-import com.limelist.slices.users.services.models.UserPermissions
+import com.limelist.slices.users.services.internal.models.UserPermissions
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor

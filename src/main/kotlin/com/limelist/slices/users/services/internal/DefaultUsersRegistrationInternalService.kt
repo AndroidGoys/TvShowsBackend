@@ -4,10 +4,10 @@ import com.limelist.slices.shared.RequestError
 import com.limelist.slices.shared.RequestError.ErrorCode.Companion.LoginExistsError
 import com.limelist.slices.shared.RequestResult
 import com.limelist.slices.users.dataAccess.interfaces.UsersRepository
-import com.limelist.slices.users.services.models.RegistrationData
-import com.limelist.slices.users.services.models.UserDetailsModel
+import com.limelist.slices.users.services.internal.models.RegistrationData
+import com.limelist.slices.users.services.internal.models.UserDetailsModel
 import com.limelist.slices.shared.getCurrentUnixUtc0TimeSeconds
-import com.limelist.slices.users.services.models.UserPermissions
+import com.limelist.slices.users.services.internal.models.UserPermissions
 
 class DefaultUsersRegistrationInternalService(
     val users: UsersRepository

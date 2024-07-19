@@ -7,7 +7,7 @@ import com.limelist.slices.auth.services.models.RefreshToken
 import com.limelist.slices.shared.RequestResult
 import com.limelist.slices.shared.receiveJson
 import com.limelist.slices.shared.respondResult
-import com.limelist.slices.users.services.models.RegistrationData
+import com.limelist.slices.users.services.internal.models.RegistrationData
 import io.ktor.server.application.*
 import io.ktor.server.routing.*
 

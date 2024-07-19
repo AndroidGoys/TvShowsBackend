@@ -3,18 +3,26 @@ package com.limelist.slices.users.routing
 import com.limelist.slices.shared.respondResult
 import com.limelist.slices.shared.withAuth
 import com.limelist.slices.users.UsersServices
-import com.limelist.slices.users.services.userDataServices.UsersDataServiceInterface
-import io.ktor.http.*
+import com.limelist.slices.users.services.userData.UsersDataServiceInterface
 import io.ktor.resources.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.resources.*
-import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.serialization.Serializable
 
+fun Route.useUsers(
+    root: String,
+    services: UsersServices
+){
+    route(root){
+        getUserById(services.usersDataService)
+        getMe(services.usersDataService)
+        useAvatars(services.avatarsSharingService)
+    }
+}
 
-fun Route.getUserById(
+private fun Route.getUserById(
     usersDataService: UsersDataServiceInterface
 ){
     get<AllUsers.User> { args ->
@@ -23,7 +31,7 @@ fun Route.getUserById(
     }
 }
 
-fun Route.getMe(
+private fun Route.getMe(
     usersDataService: UsersDataServiceInterface
 ){
     authenticate("access-auth") {
@@ -41,24 +49,24 @@ fun Route.getMe(
 
 @Serializable
 @Resource("/users")
-class AllUsers{
+class AllUsers {
     @Serializable
     @Resource("/users/{id}")
     data class User(
         val id: Int
-    )
-
+    ) {
+        @Serializable
+        @Resource("avatar")
+        class Avatar(
+            val parent: User
+        )
+    }
     @Serializable
     @Resource("/users/@me")
-    class Me()
-}
-
-fun Route.useUsers(
-    root: String,
-    services: UsersServices
-){
-    route(root){
-        getUserById(services.usersDataService)
-        getMe(services.usersDataService)
+    class Me{
+        @Serializable
+        @Resource("/users/@me/avatar")
+        class Avatar
     }
 }
+

@@ -12,7 +12,7 @@ import com.limelist.slices.shared.RequestError.ErrorCode.Companion.LoginExistsEr
 import com.limelist.slices.shared.RequestResult
 import com.limelist.slices.shared.getCurrentUnixUtc0TimeSeconds
 import com.limelist.slices.users.services.internal.UsersRegistrationInternalService
-import com.limelist.slices.users.services.models.RegistrationData
+import com.limelist.slices.users.services.internal.models.RegistrationData
 
 
 class KtorTokenIssuanceService(

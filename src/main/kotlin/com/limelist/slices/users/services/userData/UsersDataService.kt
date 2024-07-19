@@ -1,10 +1,10 @@
-package com.limelist.slices.users.services.userDataServices
+package com.limelist.slices.users.services.userData
 
 import com.limelist.slices.shared.RequestError
 import com.limelist.slices.shared.RequestResult
 import com.limelist.slices.users.dataAccess.interfaces.UsersRepository
-import com.limelist.slices.users.services.models.UserDetailsModel
-import com.limelist.slices.users.services.models.UserPreviewModel
+import com.limelist.slices.users.services.internal.models.UserDetailsModel
+import com.limelist.slices.users.services.internal.models.UserPreviewModel
 import com.limelist.slices.shared.RequestError.ErrorCode.Companion.NotFound
 import io.ktor.http.*
 

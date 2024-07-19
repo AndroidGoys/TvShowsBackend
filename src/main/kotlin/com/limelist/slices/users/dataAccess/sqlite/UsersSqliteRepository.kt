@@ -1,12 +1,11 @@
 package com.limelist.slices.users.dataAccess.sqlite
 
 import com.limelist.slices.users.dataAccess.interfaces.UsersRepository
-import com.limelist.slices.users.services.models.UserDetailsModel
-import com.limelist.slices.users.services.models.UserPermissions
+import com.limelist.slices.users.services.internal.models.UserDetailsModel
+import com.limelist.slices.users.services.internal.models.UserPermissions
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import java.sql.Connection
-import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.Statement
 
@@ -127,6 +126,19 @@ class UsersSqliteRepository(
             return@withLock null
 
         return@withLock parseUserData(set)
+    }
+
+    private val setAvatarStatement = connection.prepareStatement("""
+        UPDATE users
+            SET avatar_url = ?
+        WHERE users.id = ?     
+    """)
+
+    override suspend fun setAvatarRoute(userId: Int, avatarRoute: String) {
+        setAvatarStatement.run{
+            setString(1, avatarRoute)
+            setInt(2, userId)
+        }
     }
 
     private fun parseUserData(

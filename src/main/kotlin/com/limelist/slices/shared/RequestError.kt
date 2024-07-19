@@ -11,6 +11,7 @@ open class RequestError (
     @Serializable(with = ErrorCodeSerializer::class)
     class ErrorCode(val flag: Int) {
         companion object {
+
             //Если ресурсы не найдены
             val NotFound = ErrorCode(0)
             val ReviewNotFoundError = ErrorCode(6)
@@ -25,6 +26,8 @@ open class RequestError (
             val AuthorizationServiceRegistrationError = ErrorCode(4)
             // Если при регистрации логин уже существует
             val LoginExistsError = ErrorCode(5)
+            val UnableToCreateFile = ErrorCode(8)
+            val UnsupportedFileFormat = ErrorCode(9)
         }
     }
 }

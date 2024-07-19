@@ -25,9 +25,10 @@ import com.limelist.slices.tvStore.services.favorites.CommonFavoriteService
 import com.limelist.slices.tvStore.services.tvReviews.TvReviewsCommonService
 import com.limelist.slices.users.UsersServices
 import com.limelist.slices.users.dataAccess.sqlite.UsersSqliteRepository
+import com.limelist.slices.users.services.avatars.AvatarsSharingService
 import com.limelist.slices.users.services.internal.DefaultUsersRegistrationInternalService
 import com.limelist.slices.users.services.internal.UsersRegistrationInternalService
-import com.limelist.slices.users.services.userDataServices.UsersDataService
+import com.limelist.slices.users.services.userData.UsersDataService
 import kotlin.coroutines.CoroutineContext
 
 
@@ -155,9 +156,11 @@ fun Application.configureUserServices() : UsersServices {
         users
     )
     val usersDataService = UsersDataService(users)
+    val avatarsSharingService = AvatarsSharingService(users)
 
     return UsersServices(
         usersRegistrationService,
-        usersDataService
+        usersDataService,
+        avatarsSharingService
     )
 }

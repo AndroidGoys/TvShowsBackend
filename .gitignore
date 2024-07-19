@@ -41,3 +41,4 @@ out/
 **/dataset.json
 **/ApplicationConfig.json
 ./*.sql
+./userFiles

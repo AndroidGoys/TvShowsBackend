@@ -1,8 +1,8 @@
-package com.limelist.slices.users.services.userDataServices
+package com.limelist.slices.users.services.userData
 
 import com.limelist.slices.shared.RequestResult
-import com.limelist.slices.users.services.models.UserDetailsModel
-import com.limelist.slices.users.services.models.UserPreviewModel
+import com.limelist.slices.users.services.internal.models.UserDetailsModel
+import com.limelist.slices.users.services.internal.models.UserPreviewModel
 
 interface UsersDataServiceInterface {
     suspend fun getMe(userId: Int): RequestResult<UserDetailsModel>

@@ -1,4 +1,4 @@
-package com.limelist.slices.users.services.models
+package com.limelist.slices.users.services.internal.models
 
 import com.limelist.slices.users.serialization.UserPermissionsSerialization
 import kotlinx.serialization.Serializable
