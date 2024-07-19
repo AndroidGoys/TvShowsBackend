@@ -3,6 +3,7 @@ package com.limelist.slices.tvStore.services.tvShowServices
 import com.limelist.slices.shared.RequestResult
 import com.limelist.slices.tvStore.services.models.reviews.TvReviews
 import com.limelist.slices.tvStore.services.models.channels.TvChannels
+import com.limelist.slices.tvStore.services.models.reviews.TvReviewsFilter
 import com.limelist.slices.tvStore.services.models.shows.*
 
 interface TvShowsServiceInterface {
@@ -35,20 +36,4 @@ interface TvShowsServiceInterface {
         userId: Int,
         showId: Int,
     ): RequestResult<Unit>
-
-    suspend fun getReviews(
-        showId: Int,
-        limit: Int?,
-        timeStart: Long?,
-        timeZone: Float?
-
-    ): RequestResult<TvReviews>
-
-    suspend fun addReview(
-        showId: Int,
-        userId: Int,
-        assessment: Int,
-        text: String,
-    ): RequestResult<Unit>
-
 }

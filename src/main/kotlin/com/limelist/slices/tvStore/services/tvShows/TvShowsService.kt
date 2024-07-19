@@ -9,12 +9,12 @@ import com.limelist.slices.tvStore.dataAccess.sqlite.repositories.reviews.TvShow
 import com.limelist.slices.tvStore.services.models.channels.TvChannels
 import com.limelist.slices.tvStore.services.models.reviews.TvReview
 import com.limelist.slices.tvStore.services.models.reviews.TvReviews
+import com.limelist.slices.tvStore.services.models.reviews.TvReviewsFilter
 import com.limelist.slices.tvStore.services.models.shows.*
 import io.ktor.http.*
 
 class TvShowsService(
-    private val tvShows: TvShowsRepository,
-    private val showReviews: TvShowReviewsSqliteRepository
+    private val tvShows: TvShowsRepository
 ) : TvShowsServiceInterface {
 
     private val showNotFoundResult = RequestResult.FailureResult(
@@ -110,44 +110,4 @@ class TvShowsService(
         tvShows.addUserFavorites(userId, showId)
         return RequestResult.SuccessResult(Unit)
     }
-
-    override suspend fun getReviews(
-        showId: Int,
-        limit: Int?,
-        timeStart: Long?,
-        timeZone: Float?
-    ): RequestResult<TvReviews> {
-        if (!tvShows.contains(showId))
-            return showNotFoundResult
-
-        val limit = limit?: -1
-        var timeStart = timeStart?: 0
-
-        if (timeZone != null) {
-            timeStart = timeStart.normalizeUnixSecondsTime(timeZone)
-        }
-
-        val reviews = showReviews.get(showId, limit, timeStart)
-        return RequestResult.SuccessResult(reviews)
-    }
-
-    override suspend fun addReview(
-        showId: Int,
-        userId: Int,
-        assessment: Int,
-        text: String
-    ): RequestResult<Unit> {
-        showReviews.add(
-            showId,
-            TvReview(
-                userId,
-                assessment,
-                getCurrentUnixUtc0TimeSeconds(),
-                text
-            )
-        )
-
-        return RequestResult.SuccessResult(Unit)
-    }
-
 }
