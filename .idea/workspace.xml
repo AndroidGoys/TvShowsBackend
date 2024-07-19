@@ -10,28 +10,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="90c853c6-c64c-4142-9064-ff9deb980f22" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/dataAccess/interfaces/TvFavoritesRepository.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/dataAccess/sqlite/repositories/favorites/BaseFavoritesSqliteRepository.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/dataAccess/sqlite/repositories/favorites/FavoriteTvChannelsSqliteRepository.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/dataAccess/sqlite/repositories/favorites/FavoriteTvShowsSqliteRepository.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/routing/channels/Favorites.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/services/favorites/CommonFavoriteService.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/services/favorites/FavoriteService.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requests.http" beforeDir="false" afterPath="$PROJECT_DIR$/requests.http" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/plugins/Services.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/plugins/Services.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/TvStoreServices.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/TvStoreServices.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/dataAccess/interfaces/TvShowsRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/dataAccess/interfaces/TvShowsRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/authIdent.sql" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/dataAccess/sqlite/repositories/BaseSqliteTvRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/dataAccess/sqlite/repositories/BaseSqliteTvRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/dataAccess/sqlite/repositories/TvShowsSqliteRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/dataAccess/sqlite/repositories/TvShowsSqliteRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/dataAccess/sqlite/repositories/TvChannelsSqliteRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/dataAccess/sqlite/repositories/TvChannelsSqliteRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/dataAccess/sqlite/repositories/favorites/BaseFavoritesSqliteRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/dataAccess/sqlite/repositories/favorites/BaseFavoritesSqliteRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/dataAccess/sqlite/repositories/favorites/FavoriteTvChannelsSqliteRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/dataAccess/sqlite/repositories/favorites/FavoriteTvChannelsSqliteRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/dataAccess/sqlite/repositories/favorites/FavoriteTvShowsSqliteRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/dataAccess/sqlite/repositories/favorites/FavoriteTvShowsSqliteRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/routing/channels/Favorites.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/routing/channels/Favorites.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/routing/channels/Routes.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/routing/channels/Routes.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/routing/shows/Favorites.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/routing/shows/Favorites.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/routing/shows/Routes.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/routing/shows/Routes.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/services/tvChannels/TvChannelsService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/services/tvChannels/TvChannelsService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/services/tvChannels/TvChannelsServiceInterface.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/services/tvChannels/TvChannelsServiceInterface.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/services/tvShows/TvShowsService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/services/tvShows/TvShowsService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/services/tvShows/TvShowsServiceInterface.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/services/tvShows/TvShowsServiceInterface.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tvStore.sql" beforeDir="false" afterPath="$PROJECT_DIR$/tvStore.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tvStore.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/users.sql" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -168,19 +157,19 @@
     </option>
   </component>
   <component name="RunManager" selected="Kotlin.ApplicationKt">
-    <configuration name="requests | ИЗМЕНЯЕТ ИЛИ ДОБОВЛЯЕТ отзыв#1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/requests.http" index="15" requestIdentifier="ИЗМЕНЯЕТ ИЛИ ДОБОВЛЯЕТ отзыв#1" runType="Run single request">
-      <method v="2" />
-    </configuration>
     <configuration name="requests | #12" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/requests.http" index="12" requestIdentifier="#12" runType="Run single request">
       <method v="2" />
     </configuration>
     <configuration name="requests | #13" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/requests.http" index="13" requestIdentifier="#13" runType="Run single request">
       <method v="2" />
     </configuration>
-    <configuration name="requests | #14" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/requests.http" index="14" requestIdentifier="#14" runType="Run single request">
+    <configuration name="requests | #15" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/requests.http" index="15" requestIdentifier="#15" runType="Run single request">
       <method v="2" />
     </configuration>
-    <configuration name="requests | #5" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/requests.http" index="5" requestIdentifier="#5" runType="Run single request">
+    <configuration name="requests | #16" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/requests.http" index="16" requestIdentifier="#16" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="requests | #17" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/requests.http" index="17" requestIdentifier="#17" runType="Run single request">
       <method v="2" />
     </configuration>
     <configuration name="ApplicationKt" type="JetRunConfigurationType" nameIsGenerated="true">
@@ -193,11 +182,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="HTTP Request.requests | #15" />
         <item itemvalue="HTTP Request.requests | #12" />
         <item itemvalue="HTTP Request.requests | #13" />
-        <item itemvalue="HTTP Request.requests | #14" />
-        <item itemvalue="HTTP Request.requests | #5" />
-        <item itemvalue="HTTP Request.requests | ИЗМЕНЯЕТ ИЛИ ДОБОВЛЯЕТ отзыв#1" />
+        <item itemvalue="HTTP Request.requests | #16" />
+        <item itemvalue="HTTP Request.requests | #17" />
       </list>
     </recent_temporary>
   </component>
@@ -261,7 +250,7 @@
       <workItem from="1721314850165" duration="922000" />
       <workItem from="1721315851739" duration="1763000" />
       <workItem from="1721378271841" duration="8345000" />
-      <workItem from="1721389862687" duration="5976000" />
+      <workItem from="1721389862687" duration="7617000" />
     </task>
     <task id="LOCAL-00001" summary="Fixing sql queries">
       <option name="closed" value="true" />

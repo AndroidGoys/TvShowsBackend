@@ -53,16 +53,7 @@ class TvChannelsSqliteRepository(
             return@run executeQuery()
         }
 
-        val channels = buildList<TvChannelPreviewModel> {
-            while (set.next()){
-                add(TvChannelPreviewModel(
-                    set.getInt("id"),
-                    set.getString("name"),
-                    set.getString("image_url"),
-                    set.getFloat("assessment")
-                ))
-            }
-        }
+        val channels = parseChannelPreviews(set)
 
         set = getCountStatement.executeQuery()
         if (!set.next())

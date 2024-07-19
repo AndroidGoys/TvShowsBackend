@@ -24,12 +24,12 @@ class FavoriteTvShowsSqliteRepository(
                     SELECT * 
                         FROM favorite_shows
                     WHERE user_id = ?
-                    ORDER BY show_id
+                    ORDER BY favorite_id
                     LIMIT ?
                     OFFSET ?
                 ) as favorites
             INNER JOIN shows
-                ON shows.id == favorites.show_id
+                ON shows.id == favorites.favorite_id
         ) as shows
         LEFT JOIN show_reviews
             ON show_reviews.parent_id = shows.id

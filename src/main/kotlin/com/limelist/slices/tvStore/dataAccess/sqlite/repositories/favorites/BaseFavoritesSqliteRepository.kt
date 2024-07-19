@@ -12,7 +12,7 @@ abstract class BaseFavoritesSqliteRepository(
 ) : BaseSqliteTvRepository(connection, mutex, tableName) {
 
     private val addFavoritesStatement = connection.prepareStatement("""
-        INSERT OR IGNORE INTO ${tableName}(user_id, show_id)
+        INSERT OR IGNORE INTO ${tableName}(user_id, favorite_id)
             VALUES (?,?)
     """)
 
@@ -27,8 +27,7 @@ abstract class BaseFavoritesSqliteRepository(
 
     private val deleteFavoritesStatement = connection.prepareStatement("""
         DELETE FROM ${tableName}
-        WHERE user_id = ? AND show_id = ?
-        
+        WHERE user_id = ? AND favorite_id = ?
     """)
 
     open suspend fun removeUserFavorite(userId: Int, favoriteId: Int) {

@@ -16,10 +16,10 @@ fun Route.channels(
     tvStoreServices: TvStoreServices
 ) {
     route("channels"){
-
         getAll(tvStoreServices.tvChannelsService)
         getChannel(tvStoreServices.tvChannelsService)
         getChannelReleases(tvStoreServices.tvChannelsService)
+        favoriteChannels(tvStoreServices.favoriteChannelsService)
         channelReviews(tvStoreServices.tvChannelReviewsService)
     }
 }
@@ -100,8 +100,8 @@ data class AllChannels(
     @Serializable
     @Resource("favorites")
     class Favorites (
-        val limit: Int?,
-        val offset: Int?
+        val limit: Int? = null,
+        val offset: Int? = null
     )
 
 
