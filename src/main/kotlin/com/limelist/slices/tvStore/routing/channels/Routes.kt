@@ -16,6 +16,7 @@ fun Route.channels(
     tvStoreServices: TvStoreServices
 ) {
     route("channels"){
+
         getAll(tvStoreServices.tvChannelsService)
         getChannel(tvStoreServices.tvChannelsService)
         getChannelReleases(tvStoreServices.tvChannelsService)

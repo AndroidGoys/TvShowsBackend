@@ -51,6 +51,11 @@ interface TvShowsRepository : TvRepository {
         showId: Int
     )
 
+    suspend fun removeUserFavorite(
+        userId: Int,
+        showId: Int
+    )
+
     suspend fun contains(
         id: Int
     ): Boolean

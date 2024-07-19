@@ -434,6 +434,25 @@ class TvShowsSqliteRepository(
             setInt(2, showId)
             executeUpdate()
         }
+
+        connection.commit()
+    }
+
+    val deleteFavoritesStatement = connection.prepareStatement("""
+        DELETE FROM favorite_shows
+        WHERE user_id = ? AND show_id = ?
+        
+    """)
+
+
+    override suspend fun removeUserFavorite(userId: Int, showId: Int) {
+        deleteFavoritesStatement.run {
+            setInt(1, userId)
+            setInt(2, showId)
+            executeUpdate()
+        }
+
+        connection.commit()
     }
 
     private val updateShowsStatementWithPreview = connection.prepareStatement("""

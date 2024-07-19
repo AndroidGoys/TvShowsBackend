@@ -78,6 +78,15 @@ Authorization: Bearer {{accessToken}}
 }
 
 ###
+DELETE {{baseUrl}}/api/shows/favorites
+Accept: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+"id" : 1570553078
+}
+
+###
 GET {{baseUrl}}/api/shows/1570553078/reviews
 Accept: application/json
 
