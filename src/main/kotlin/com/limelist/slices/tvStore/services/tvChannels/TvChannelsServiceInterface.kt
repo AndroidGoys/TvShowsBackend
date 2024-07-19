@@ -1,4 +1,4 @@
-package com.limelist.slices.tvStore.services.tvChannelServices
+package com.limelist.slices.tvStore.services.tvChannels
 
 import com.limelist.slices.shared.RequestResult
 import com.limelist.slices.tvStore.services.models.channels.TvChannelDetailsModel

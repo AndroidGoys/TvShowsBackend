@@ -1,9 +1,7 @@
-package com.limelist.slices.tvStore.services.tvShowServices
+package com.limelist.slices.tvStore.services.tvShows
 
 import com.limelist.slices.shared.RequestResult
-import com.limelist.slices.tvStore.services.models.reviews.TvReviews
 import com.limelist.slices.tvStore.services.models.channels.TvChannels
-import com.limelist.slices.tvStore.services.models.reviews.TvReviewsFilter
 import com.limelist.slices.tvStore.services.models.shows.*
 
 interface TvShowsServiceInterface {

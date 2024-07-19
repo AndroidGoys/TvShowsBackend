@@ -1,8 +1,9 @@
 package com.limelist.slices.tvStore.routing.shows
 
 import com.limelist.slices.shared.respondResult
+import com.limelist.slices.tvStore.TvStoreServices
 import com.limelist.slices.tvStore.services.models.shows.TvShowsFilter
-import com.limelist.slices.tvStore.services.tvShowServices.TvShowsServiceInterface
+import com.limelist.slices.tvStore.services.tvShows.TvShowsServiceInterface
 import io.ktor.resources.*
 import io.ktor.server.application.*
 import io.ktor.server.resources.*
@@ -10,13 +11,13 @@ import io.ktor.server.routing.*
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-fun Route.shows(tvShowsService: TvShowsServiceInterface) {
+fun Route.shows(tvStoreServices: TvStoreServices) {
     route("shows"){
-        getAll(tvShowsService)
-        getShow(tvShowsService)
-        getShowChannels(tvShowsService)
-        favoriteShows(tvShowsService)
-        showReviews(tvShowsService)
+        getAll(tvStoreServices.tvShowsService)
+        getShow(tvStoreServices.tvShowsService)
+        getShowChannels(tvStoreServices.tvShowsService)
+        favoriteShows(tvStoreServices.tvShowsService)
+        showReviews(tvStoreServices.tvShowReviewsService)
     }
 }
 
@@ -97,8 +98,14 @@ data class AllShows(
             val limit: Int? = null,
             val timeStart: Long? = null,
             val timeZone: Float? = null,
-            @SerialName("user_id")
-            val userId: Int? = null
-        )
+        ) {
+            @Serializable
+            @Resource("@my")
+            class My (
+                val parent: Reviews,
+            ) {
+                val show get() = parent.parent
+            }
+        }
     }
 }

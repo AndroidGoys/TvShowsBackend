@@ -16,9 +16,10 @@ import com.limelist.slices.tvStore.TvStoreServices
 import com.limelist.slices.tvStore.dataAccess.sqlite.repositories.*
 import com.limelist.slices.tvStore.dataAccess.sqlite.repositories.reviews.TvChannelReviewsSqliteRepository
 import com.limelist.slices.tvStore.dataAccess.sqlite.repositories.reviews.TvShowReviewsSqliteRepository
-import com.limelist.slices.tvStore.services.tvChannelServices.TvChannelsService;
-import com.limelist.slices.tvStore.services.tvShowServices.TvShowsService;
+import com.limelist.slices.tvStore.services.tvChannels.TvChannelsService;
+import com.limelist.slices.tvStore.services.tvShows.TvShowsService;
 import com.limelist.slices.tvStore.services.dataUpdateServices.JsonSourceDataUpdateService
+import com.limelist.slices.tvStore.services.tvReviews.TvReviewsCommonService
 import com.limelist.slices.users.UsersServices
 import com.limelist.slices.users.dataAccess.sqlite.UsersSqliteRepository
 import com.limelist.slices.users.services.internal.DefaultUsersRegistrationInternalService
@@ -66,11 +67,23 @@ fun Application.configureTvHistoryServices(
 
     val channels = TvChannelsSqliteRepository(conn, mutex)
     val shows = TvShowsSqliteRepository(conn, mutex)
+
     val releases = TvReleasesSqliteRepository(conn, mutex);
     val tags = TvTagsSqliteRepository(conn, mutex);
 
-    val tvChannelsService = TvChannelsService(channels, channelReviews);
-    val tvShowsService = TvShowsService(shows, showReviews);
+    val channelReviewsService = TvReviewsCommonService(
+        channels,
+        channelReviews,
+        "channel"
+    )
+    val showReviewsService = TvReviewsCommonService(
+        shows,
+        showReviews,
+        "show"
+    )
+
+    val tvChannelsService = TvChannelsService(channels);
+    val tvShowsService = TvShowsService(shows);
 
     val dataUpdateService = JsonSourceDataUpdateService(
         channels,
@@ -84,6 +97,8 @@ fun Application.configureTvHistoryServices(
     return TvStoreServices(
         tvChannelsService,
         tvShowsService,
+        channelReviewsService,
+        showReviewsService,
         listOf(dataUpdateService),
         listOf(dbLifeCycle)
     )

@@ -1,4 +1,4 @@
-package com.limelist.slices.tvStore.services.tvChannelServices
+package com.limelist.slices.tvStore.services.tvChannels
 
 import com.limelist.slices.shared.RequestError
 import com.limelist.slices.shared.RequestResult
@@ -15,8 +15,7 @@ import com.limelist.slices.tvStore.services.models.releases.TvChannelShowRelease
 import io.ktor.http.*
 
 class TvChannelsService(
-    private val tvChannels: TvChannelsRepository,
-    private val channelReviews: TvChannelReviewsSqliteRepository
+    private val tvChannels: TvChannelsRepository
 ): TvChannelsServiceInterface {
 
     val channelNotFoundResult = RequestResult.FailureResult(

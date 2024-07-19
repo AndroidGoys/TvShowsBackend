@@ -1,4 +1,6 @@
-package com.limelist.slices.tvStore.services.tvChannelServices.reviews
+package com.limelist.slices.tvStore.services.tvChannels.reviews
 
-interface TvChannelReviewsService {
+import com.limelist.slices.tvStore.services.tvReviews.TvReviewsService
+
+interface TvChannelReviewsService : TvReviewsService {
 }

@@ -2,8 +2,8 @@ package com.limelist.slices.tvStore.routing
 
 import com.limelist.slices.shared.respondJson
 import com.limelist.slices.shared.respondResult
+import com.limelist.slices.tvStore.TvStoreServices
 import com.limelist.slices.tvStore.services.models.channels.TvChannelsFilter
-import com.limelist.slices.tvStore.services.tvChannelServices.TvChannelsServiceInterface
 import io.ktor.resources.*
 import io.ktor.server.application.*
 import io.ktor.server.resources.*
@@ -12,8 +12,9 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
 
 fun Route.channels(
-    tvChannelsService: TvChannelsServiceInterface
+    tvStoreServices: TvStoreServices
 ) {
+    val tvChannelsService = tvStoreServices.tvChannelsService
     route("channels"){
         get<AllChannels>(){ args ->
             val channels = tvChannelsService.getAllChannels(

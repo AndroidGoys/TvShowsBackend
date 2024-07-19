@@ -5,5 +5,7 @@ import com.limelist.slices.tvStore.services.models.reviews.TvReviews
 
 interface TvReviewsRepository {
     suspend fun get(parentId: Int, limit: Int, timeStart: Long): TvReviews
-    suspend fun add(parentId: Int, comment: TvReview)
+    suspend fun update(parentId: Int, review: TvReview)
+    suspend fun getForUser(userId: Int, parentId: Int): TvReview?
+    suspend fun delete(showId: Int, userId: Int)
 }

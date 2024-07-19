@@ -1,4 +1,94 @@
 package com.limelist.slices.tvStore.services.tvReviews
 
-class TvReviewsCommonService {
+import com.limelist.slices.shared.RequestError
+import com.limelist.slices.shared.RequestResult
+import com.limelist.slices.shared.getCurrentUnixUtc0TimeSeconds
+import com.limelist.slices.shared.normalizeUnixSecondsTime
+import com.limelist.slices.tvStore.dataAccess.interfaces.SingleIdRepository
+import com.limelist.slices.tvStore.dataAccess.interfaces.TvReviewsRepository
+import com.limelist.slices.tvStore.services.models.reviews.TvReview
+import com.limelist.slices.tvStore.services.models.reviews.TvReviews
+import com.limelist.slices.tvStore.services.tvChannels.reviews.TvChannelReviewsService
+import com.limelist.slices.tvStore.services.tvShows.reviews.TvShowReviewsService
+
+class TvReviewsCommonService(
+    val parents: SingleIdRepository<Int>,
+    val tvReviews: TvReviewsRepository,
+    val parentName: String
+) : TvShowReviewsService, TvChannelReviewsService {
+
+    val parentNotFoundResult = RequestResult.FailureResult(
+        RequestError(
+            RequestError.ErrorCode.ParentIdNotFoundError,
+            "${parentName} id not found"
+        )
+    )
+
+    val reviewNotFoundResult = RequestResult.FailureResult(
+        RequestError(
+            RequestError.ErrorCode.ReviewNotFoundError,
+            "Review not found"
+        )
+    )
+
+
+    override suspend fun getAll(
+        parentId: Int,
+        limit: Int?,
+        timeStart: Long?,
+        timeZone: Float?
+    ): RequestResult<TvReviews> {
+        if (!parents.contains(parentId))
+            return parentNotFoundResult
+
+        val limit = limit?: -1
+        var timeStart = timeStart?: 0
+
+        if (timeZone != null) {
+            timeStart = timeStart.normalizeUnixSecondsTime(timeZone)
+        }
+
+        val reviews = tvReviews.get(parentId, limit, timeStart)
+        return RequestResult.SuccessResult(reviews)
+    }
+
+    override suspend fun addOrUpdateReview(
+        parentId: Int,
+        userId: Int,
+        assessment: Int,
+        text: String
+    ): RequestResult<TvReview> {
+        val tvReview = TvReview(
+            userId,
+            assessment,
+            getCurrentUnixUtc0TimeSeconds(),
+            text
+        )
+
+        tvReviews.update(
+            parentId,
+            tvReview
+        )
+
+        return RequestResult.SuccessResult(tvReview)
+    }
+    override suspend fun getUserReview(
+        parentId: Int,
+        userId: Int
+    ): RequestResult<TvReview> {
+        val tvReview = tvReviews.getForUser(userId, parentId)
+        if (tvReview == null) {
+            return reviewNotFoundResult
+        }
+
+        return RequestResult.SuccessResult(tvReview)
+    }
+
+    override suspend fun deleteReview(
+        parentId: Int,
+        userId: Int
+    ): RequestResult<Unit> {
+        tvReviews.delete(parentId, userId)
+        return RequestResult.SuccessResult(Unit)
+    }
 }

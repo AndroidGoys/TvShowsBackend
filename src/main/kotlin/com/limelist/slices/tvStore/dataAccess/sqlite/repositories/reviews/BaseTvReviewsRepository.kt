@@ -40,27 +40,71 @@ abstract class BaseTvReviewsRepository(
         return TvReviews(-1, reviews)
     }
 
-    private val addReviews = connection.prepareStatement("""
-        INSERT OR IGNORE INTO $targetTable (
+    private val updateReviews = connection.prepareStatement("""
+        INSERT INTO $targetTable (
             user_id,
             parent_id,
             date,
             text,
             assessment
         ) VALUES (?, ?, ?, ?, ?)
+        ON CONFLICT (user_id, parent_id) DO UPDATE
+            SET date = EXCLUDED.date,
+                text = EXCLUDED.text,
+                assessment = EXCLUDED.assessment
     """)
 
-    override suspend fun add(
+    override suspend fun update(
         parentId: Int,
-        comment: TvReview
+        review: TvReview
     ) : Unit = mutex.withLock {
-        addReviews.run{
-            setInt(1, comment.userId)
+        updateReviews.run{
+            setInt(1, review.userId)
             setInt(2, parentId)
-            setLong(3, comment.date)
-            setString(4, comment.text)
-            setInt(5, comment.assessment)
+            setLong(3, review.date)
+            setString(4, review.text)
+            setInt(5, review.assessment)
             executeUpdate()
         }
+
+        connection.commit()
+    }
+
+    private val getForUserStatement = connection.prepareStatement("""
+        SELECT * 
+            FROM $targetTable
+        WHERE parent_id = ? AND user_id = ?
+        LIMIT 1
+    """)
+
+    override suspend fun getForUser(
+        userId: Int,
+        parentId: Int
+    ): TvReview? = mutex.withLock {
+        val set = getForUserStatement.run {
+            setInt(1,  parentId)
+            setInt(2, userId)
+            return@run executeQuery()
+        }
+
+        val reviews = parseReviews(set)
+
+        return@withLock reviews.firstOrNull()
+    }
+
+
+    private val deleteStatement = connection.prepareStatement("""
+        DELETE FROM $targetTable
+            WHERE parent_id = ? AND user_id = ?
+    """)
+
+
+    override suspend fun delete(parentId: Int, userId: Int) {
+        deleteStatement.run {
+            setInt(1, parentId)
+            setInt(2, userId)
+            executeUpdate()
+        }
+        connection.commit()
     }
 }

@@ -2,24 +2,28 @@ package com.limelist.slices.tvStore.routing.shows
 
 import com.limelist.slices.shared.receiveJson
 import com.limelist.slices.shared.respondResult
+import com.limelist.slices.shared.withAuth
 import com.limelist.slices.tvStore.routing.models.AddReviewModel
-import com.limelist.slices.tvStore.services.tvShowServices.TvShowsServiceInterface
-import io.ktor.http.*
+import com.limelist.slices.tvStore.services.tvShows.reviews.TvShowReviewsService
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.resources.*
-import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import io.ktor.server.routing.post
+import io.ktor.server.resources.post
 
-internal fun Route.showReviews(tvShowsService: TvShowsServiceInterface) {
-    getReviews(tvShowsService)
-    addReview(tvShowsService)
+internal fun Route.showReviews(tvReviewsService: TvShowReviewsService) {
+    getReviews(tvReviewsService)
+    authenticate("access-auth"){
+        getUserReview(tvReviewsService)
+        addOrUpdateReview(tvReviewsService)
+        deleteReview(tvReviewsService)
+    }
+
 }
 
-private fun Route.getReviews(tvShowsService: TvShowsServiceInterface) {
+private fun Route.getReviews(tvReviewsService: TvShowReviewsService) {
     get<AllShows.Show.Reviews>{ args ->
-        val reviews = tvShowsService.getReviews(
+        val reviews = tvReviewsService.getAll(
             args.parent.id,
             args.limit,
             args.timeStart,
@@ -29,24 +33,49 @@ private fun Route.getReviews(tvShowsService: TvShowsServiceInterface) {
     }
 }
 
-private fun Route.addReview(tvShowsService: TvShowsServiceInterface) {
+private fun Route.addOrUpdateReview(tvReviewsService: TvShowReviewsService) {
     post<AllShows.Show.Reviews> { args ->
-        val userIdPrincipal = call.principal<UserIdPrincipal>()
-
-        if (userIdPrincipal == null){
-            call.respond(HttpStatusCode.Unauthorized)
-            return@post
-        }
-
-        val review = call.receiveJson<AddReviewModel>()
-        call.respondResult(
-            tvShowsService.addReview(
-                args.parent.id,
-                userIdPrincipal.name.toInt(),
-                review.assessment,
-                review.text
+        call.withAuth { user ->
+            val review = call.receiveJson<AddReviewModel>()
+            call.respondResult(
+                tvReviewsService.addOrUpdateReview(
+                    args.parent.id,
+                    user.id,
+                    review.assessment,
+                    review.text
+                )
             )
-        )
+        }
     }
 }
 
+private fun Route.getUserReview(
+    tvReviewsService: TvShowReviewsService
+) {
+    get<AllShows.Show.Reviews.My> { args ->
+        call.withAuth { user ->
+            val review = tvReviewsService.getUserReview(
+                args.show.id,
+                user.id
+            )
+
+            call.respondResult(review)
+        }
+    }
+
+}
+
+private fun Route.deleteReview(
+    tvReviewsService: TvShowReviewsService
+) {
+    delete<AllShows.Show.Reviews.My> { args ->
+        call.withAuth { user ->
+            val result = tvReviewsService.deleteReview(
+                args.show.id,
+                user.id,
+            )
+
+            call.respondResult(result)
+        }
+    }
+}

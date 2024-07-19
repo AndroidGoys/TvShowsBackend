@@ -1,7 +1,7 @@
 @baseUrl=http://127.0.0.1:8080
 #@baseUrl=http://176.109.106.211:8080
 @refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwibGFzdFVwZGF0ZSI6MTcyMTMxNjg2MiwiZXhwIjoxNzIyNTE2ODYyfQ.4Xf8iZnadcET1Sqef76HyeO65BQ7N8Y6l474auL42SA
-@accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzIyNTE2ODYyfQ.8p5RnaJqyTcy2W_PukWLIKS7HCgZ2NN-Mt6w0o2Cn9g
+@accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzIyNTg2NDU0fQ.mxWpsZdcSszc8SRS641H3P6Y6cQNVenY1dTcGPCkDLk
 
 
 GET {{baseUrl}}/api/channels
@@ -81,7 +81,7 @@ Authorization: Bearer {{accessToken}}
 GET {{baseUrl}}/api/shows/1570553078/reviews
 Accept: application/json
 
-###
+### ИЗМЕНЯЕТ ИЛИ ДОБОВЛЯЕТ отзыв
 POST {{baseUrl}}/api/shows/1570553078/reviews
 Accept: application/json
 Authorization: Bearer {{accessToken}}
@@ -92,7 +92,12 @@ Authorization: Bearer {{accessToken}}
 }
 
 ###
-GET {{baseUrl}}/api/shows/1570553078/reviews?user_id=1
+GET {{baseUrl}}/api/shows/1570553078/reviews/@my
+Accept: application/json
+Authorization: Bearer {{accessToken}}
+
+###
+DELETE {{baseUrl}}/api/shows/1570553078/reviews/@my
 Accept: application/json
 Authorization: Bearer {{accessToken}}
 
@@ -100,8 +105,7 @@ Authorization: Bearer {{accessToken}}
 GET {{baseUrl}}/api/channels/105/reviews
 Accept: application/json
 
-
-###
+### ИЗМЕНЯЕТ ИЛИ ДОБОВЛЯЕТ отзыв
 POST {{baseUrl}}/api/channels/105/reviews
 Accept: application/json
 Authorization: Bearer {{accessToken}}
@@ -111,3 +115,12 @@ Authorization: Bearer {{accessToken}}
 "text": "Отличный канал, рекомендую для семейного просмотра"
 }
 
+###
+GET {{baseUrl}}/api/channels/1570553078/reviews/@my
+Accept: application/json
+Authorization: Bearer {{accessToken}}
+
+###
+DELETE {{baseUrl}}/api/channels/1570553078/reviews/@my
+Accept: application/json
+Authorization: Bearer {{accessToken}}

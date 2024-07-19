@@ -7,7 +7,7 @@ import com.limelist.slices.tvStore.routing.shows.shows
 
 fun Route.useTvHistory(rootRoute: String, services: TvStoreServices) {
     route(rootRoute) {
-        channels(services.tvChannelsService)
-        shows(services.tvShowsService)
+        channels(services)
+        shows(services)
     }
 }

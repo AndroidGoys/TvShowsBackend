@@ -1,5 +1,6 @@
 package com.limelist.slices.tvStore.dataAccess.sqlite.repositories
 
+import com.limelist.slices.tvStore.dataAccess.interfaces.SingleIdRepository
 import com.limelist.slices.tvStore.services.models.shows.TvShowDetailsModel
 import com.limelist.slices.tvStore.services.models.shows.TvShowPreviewModel
 import kotlinx.coroutines.sync.Mutex
@@ -23,7 +24,7 @@ class TvShowsSqliteRepository(
     connection: Connection,
     mutex: Mutex
 ) : BaseSqliteTvRepository(connection, mutex, "shows"),
-    TvShowsRepository {
+    TvShowsRepository, SingleIdRepository<Int> {
 
     private val getAllShowsStatement = connection.prepareStatement("""
         SELECT 

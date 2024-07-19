@@ -2,6 +2,7 @@ package com.limelist.slices.shared
 
 import io.ktor.http.*
 import io.ktor.server.application.*
+import io.ktor.server.auth.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -47,3 +48,23 @@ suspend inline fun <reified T> ApplicationCall.receiveJson(): T {
     val stream = this.receiveStream()
     return Json.decodeFromStream(stream)
 }
+
+@OptIn(ExperimentalSerializationApi::class)
+suspend inline fun ApplicationCall.withAuth(
+    block: (UserAuthData) -> Unit
+) {
+    val userIdPrincipal = principal<UserIdPrincipal>()
+
+    if (userIdPrincipal == null){
+        respond(HttpStatusCode.Unauthorized)
+        return
+    }
+
+    block(
+        UserAuthData(
+            userIdPrincipal.name.toInt()
+        )
+    )
+}
+
+

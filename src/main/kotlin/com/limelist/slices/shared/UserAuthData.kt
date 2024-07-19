@@ -1,4 +1,5 @@
 package com.limelist.slices.shared
 
-class UserAuthData {
-}
+data class UserAuthData (
+    val id: Int
+)

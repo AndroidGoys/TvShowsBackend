@@ -11,6 +11,12 @@ open class RequestError (
     @Serializable(with = ErrorCodeSerializer::class)
     class ErrorCode(val flag: Int) {
         companion object {
+            //Если ресурсы не найдены
+            val NotFound = ErrorCode(0)
+            val ReviewNotFoundError = ErrorCode(6)
+            //Если на найден ресурс от которого зависит другой ресурс
+            //Прим.: Не найден канал, от которого зависит комментарий
+            val ParentIdNotFoundError = ErrorCode(7)
             // При неверном логине / пароле
             val InvalidLoginOrPassword = ErrorCode(1)
             val InvalidRefreshToken = ErrorCode(2)
@@ -19,7 +25,6 @@ open class RequestError (
             val AuthorizationServiceRegistrationError = ErrorCode(4)
             // Если при регистрации логин уже существует
             val LoginExistsError = ErrorCode(5)
-            val NotFound = ErrorCode(6)
         }
     }
 }
