@@ -4,15 +4,12 @@ import com.limelist.slices.shared.RequestError
 import com.limelist.slices.shared.RequestResult
 import com.limelist.slices.shared.getCurrentUnixUtc0TimeSeconds
 import com.limelist.slices.shared.normalizeUnixSecondsTime
-import com.limelist.slices.tvStore.services.models.shows.TvShows
-import com.limelist.slices.tvStore.services.models.shows.TvShowDetailsModel
 import com.limelist.slices.tvStore.dataAccess.interfaces.TvShowsRepository
 import com.limelist.slices.tvStore.dataAccess.sqlite.repositories.reviews.TvShowReviewsSqliteRepository
 import com.limelist.slices.tvStore.services.models.channels.TvChannels
-import com.limelist.slices.tvStore.services.models.comments.TvReview
-import com.limelist.slices.tvStore.services.models.comments.TvReviews
-import com.limelist.slices.tvStore.services.models.shows.TvShowChannelModel
-import com.limelist.slices.tvStore.services.models.shows.TvShowPreviewModel
+import com.limelist.slices.tvStore.services.models.reviews.TvReview
+import com.limelist.slices.tvStore.services.models.reviews.TvReviews
+import com.limelist.slices.tvStore.services.models.shows.*
 import io.ktor.http.*
 
 class TvShowsService(

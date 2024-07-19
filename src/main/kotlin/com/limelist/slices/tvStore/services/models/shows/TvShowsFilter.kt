@@ -1,4 +1,4 @@
-package com.limelist.slices.tvStore.services.tvShowServices
+package com.limelist.slices.tvStore.services.models.shows
 
 import kotlinx.serialization.Serializable
 

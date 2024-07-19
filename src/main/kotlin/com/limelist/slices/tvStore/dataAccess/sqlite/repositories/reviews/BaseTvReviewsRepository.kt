@@ -2,8 +2,8 @@ package com.limelist.slices.tvStore.dataAccess.sqlite.repositories.reviews
 
 import com.limelist.slices.tvStore.dataAccess.interfaces.TvReviewsRepository
 import com.limelist.slices.tvStore.dataAccess.sqlite.repositories.BaseSqliteTvRepository
-import com.limelist.slices.tvStore.services.models.comments.TvReview
-import com.limelist.slices.tvStore.services.models.comments.TvReviews
+import com.limelist.slices.tvStore.services.models.reviews.TvReview
+import com.limelist.slices.tvStore.services.models.reviews.TvReviews
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import java.sql.Connection

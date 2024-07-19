@@ -2,7 +2,7 @@ package com.limelist.slices.tvStore.routing
 
 import com.limelist.slices.shared.respondJson
 import com.limelist.slices.shared.respondResult
-import com.limelist.slices.tvStore.services.tvChannelServices.TvChannelsFilter
+import com.limelist.slices.tvStore.services.models.channels.TvChannelsFilter
 import com.limelist.slices.tvStore.services.tvChannelServices.TvChannelsServiceInterface
 import io.ktor.resources.*
 import io.ktor.server.application.*

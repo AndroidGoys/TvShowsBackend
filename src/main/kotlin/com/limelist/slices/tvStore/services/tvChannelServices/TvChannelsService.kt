@@ -9,7 +9,8 @@ import com.limelist.slices.tvStore.services.models.channels.TvChannelPreviewMode
 import com.limelist.slices.tvStore.services.models.releases.TvChannelReleases
 import com.limelist.slices.shared.normalizeUnixSecondsTime
 import com.limelist.slices.tvStore.dataAccess.sqlite.repositories.reviews.TvChannelReviewsSqliteRepository
-import com.limelist.slices.tvStore.services.models.comments.TvReviews
+import com.limelist.slices.tvStore.services.models.channels.TvChannelsFilter
+import com.limelist.slices.tvStore.services.models.reviews.TvReviews
 import com.limelist.slices.tvStore.services.models.releases.TvChannelShowRelease
 import io.ktor.http.*
 

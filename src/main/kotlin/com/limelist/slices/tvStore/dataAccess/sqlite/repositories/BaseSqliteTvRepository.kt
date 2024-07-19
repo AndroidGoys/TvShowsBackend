@@ -1,7 +1,7 @@
 package com.limelist.slices.tvStore.dataAccess.sqlite.repositories
 import com.limelist.slices.tvStore.dataAccess.interfaces.TvRepository
 import com.limelist.slices.tvStore.services.models.AgeLimit
-import com.limelist.slices.tvStore.services.models.comments.TvReview
+import com.limelist.slices.tvStore.services.models.reviews.TvReview
 import com.limelist.slices.tvStore.services.models.shows.TvShowPreviewModel
 import com.limelist.slices.tvStore.services.models.tags.TvTagPreview
 import io.ktor.server.plugins.*

@@ -1,12 +1,9 @@
 package com.limelist.slices.tvStore.services.tvShowServices
 
 import com.limelist.slices.shared.RequestResult
-import com.limelist.slices.tvStore.services.models.comments.TvReviews
+import com.limelist.slices.tvStore.services.models.reviews.TvReviews
 import com.limelist.slices.tvStore.services.models.channels.TvChannels
-import com.limelist.slices.tvStore.services.models.shows.TvShowChannelModel
-import com.limelist.slices.tvStore.services.models.shows.TvShowDetailsModel
-import com.limelist.slices.tvStore.services.models.shows.TvShowPreviewModel
-import com.limelist.slices.tvStore.services.models.shows.TvShows
+import com.limelist.slices.tvStore.services.models.shows.*
 
 interface TvShowsServiceInterface {
     suspend fun getAllShows(
@@ -44,6 +41,7 @@ interface TvShowsServiceInterface {
         limit: Int?,
         timeStart: Long?,
         timeZone: Float?
+
     ): RequestResult<TvReviews>
 
     suspend fun addReview(

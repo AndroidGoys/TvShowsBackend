@@ -92,6 +92,11 @@ Authorization: Bearer {{accessToken}}
 }
 
 ###
+GET {{baseUrl}}/api/shows/1570553078/reviews?user_id=1
+Accept: application/json
+Authorization: Bearer {{accessToken}}
+
+###
 GET {{baseUrl}}/api/channels/105/reviews
 Accept: application/json
 

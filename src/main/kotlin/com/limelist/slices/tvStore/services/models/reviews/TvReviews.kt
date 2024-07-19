@@ -1,4 +1,4 @@
-package com.limelist.slices.tvStore.services.models.comments
+package com.limelist.slices.tvStore.services.models.reviews
 
 import kotlinx.serialization.Serializable
 

@@ -1,7 +1,7 @@
 package com.limelist.slices.tvStore.dataAccess.interfaces
 
-import com.limelist.slices.tvStore.services.models.comments.TvReview
-import com.limelist.slices.tvStore.services.models.comments.TvReviews
+import com.limelist.slices.tvStore.services.models.reviews.TvReview
+import com.limelist.slices.tvStore.services.models.reviews.TvReviews
 
 interface TvReviewsRepository {
     suspend fun get(parentId: Int, limit: Int, timeStart: Long): TvReviews
