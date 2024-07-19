@@ -85,32 +85,4 @@ class TvShowsService(
 
         return RequestResult.SuccessResult(showChannels)
     }
-
-    override suspend fun getUserFavorites(
-        userId: Int,
-        limit: Int?,
-        offset: Int?
-    ): RequestResult<TvShows<TvShowPreviewModel>> {
-        val limit = limit ?: -1
-        val offset = offset ?: 0
-
-        val favorites = tvShows.getUserFavorites(userId, limit, offset)
-        return RequestResult.SuccessResult(favorites)
-    }
-
-    override suspend fun addToFavorite(userId: Int, showId: Int): RequestResult<Unit> {
-        if (!tvShows.contains(showId))
-            return showNotFoundResult
-
-        tvShows.addUserFavorites(userId, showId)
-        return RequestResult.SuccessResult(Unit)
-    }
-
-    override suspend fun removeUserFavorite(userId: Int, showId: Int): RequestResult<Unit> {
-        if (!tvShows.contains(showId))
-            return showNotFoundResult
-
-        tvShows.removeUserFavorite(userId, showId)
-        return RequestResult.SuccessResult(Unit)
-    }
 }

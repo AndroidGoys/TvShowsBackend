@@ -23,19 +23,4 @@ interface TvShowsServiceInterface {
         releasesTimeStart: Long?,
         timeZone: Float?
     ): RequestResult<TvChannels<TvShowChannelModel>>
-
-    suspend fun getUserFavorites(
-        userId: Int,
-        limit: Int?,
-        offset: Int?
-    ): RequestResult<TvShows<TvShowPreviewModel>>
-
-    suspend fun addToFavorite(
-        userId: Int,
-        showId: Int,
-    ): RequestResult<Unit>
-
-    suspend fun removeUserFavorite(
-        userId: Int, showId: Int
-    ): RequestResult<Unit>
 }

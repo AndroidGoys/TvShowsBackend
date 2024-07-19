@@ -83,7 +83,19 @@ class TvChannelsService(
         return RequestResult.SuccessResult(releases)
     }
 
-    override suspend fun getReviews(channelId: Int, limit: Int?, timeStart: Long?): RequestResult<TvReviews> {
+    override suspend fun getUserFavorites(
+        userId: Int,
+        limit: Int?,
+        offset: Int?
+    ): RequestResult<TvChannels<TvChannelPreviewModel>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun addToFavorite(userId: Int, showId: Int): RequestResult<Unit> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun removeUserFavorite(userId: Int, showId: Int): RequestResult<Unit> {
         TODO("Not yet implemented")
     }
 }

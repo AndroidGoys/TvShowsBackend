@@ -14,11 +14,14 @@ import com.limelist.slices.auth.services.PBKDF2Hasher
 import com.limelist.slices.tvStore.TvStoreConfig
 import com.limelist.slices.tvStore.TvStoreServices
 import com.limelist.slices.tvStore.dataAccess.sqlite.repositories.*
+import com.limelist.slices.tvStore.dataAccess.sqlite.repositories.favorites.FavoriteTvChannelsSqliteRepository
+import com.limelist.slices.tvStore.dataAccess.sqlite.repositories.favorites.FavoriteTvShowsSqliteRepository
 import com.limelist.slices.tvStore.dataAccess.sqlite.repositories.reviews.TvChannelReviewsSqliteRepository
 import com.limelist.slices.tvStore.dataAccess.sqlite.repositories.reviews.TvShowReviewsSqliteRepository
 import com.limelist.slices.tvStore.services.tvChannels.TvChannelsService;
 import com.limelist.slices.tvStore.services.tvShows.TvShowsService;
 import com.limelist.slices.tvStore.services.dataUpdateServices.JsonSourceDataUpdateService
+import com.limelist.slices.tvStore.services.favorites.CommonFavoriteService
 import com.limelist.slices.tvStore.services.tvReviews.TvReviewsCommonService
 import com.limelist.slices.users.UsersServices
 import com.limelist.slices.users.dataAccess.sqlite.UsersSqliteRepository
@@ -62,6 +65,9 @@ fun Application.configureTvHistoryServices(
 
     val dbLifeCycle = TvSqliteDbLifeCycle(conn, mutex)
 
+    val favoriteChannels = FavoriteTvChannelsSqliteRepository(conn, mutex)
+    val favoriteShows = FavoriteTvShowsSqliteRepository(conn, mutex)
+
     val channelReviews = TvChannelReviewsSqliteRepository(conn, mutex)
     val showReviews = TvShowReviewsSqliteRepository(conn, mutex)
 
@@ -85,6 +91,17 @@ fun Application.configureTvHistoryServices(
     val tvChannelsService = TvChannelsService(channels);
     val tvShowsService = TvShowsService(shows);
 
+    val favoriteTvShowsService = CommonFavoriteService(
+        favoriteShows,
+        shows,
+        "Show"
+    )
+    val favoriteTvChannelsService = CommonFavoriteService(
+        favoriteChannels,
+        channels,
+        "Channel"
+    )
+
     val dataUpdateService = JsonSourceDataUpdateService(
         channels,
         shows,
@@ -99,6 +116,8 @@ fun Application.configureTvHistoryServices(
         tvShowsService,
         channelReviewsService,
         showReviewsService,
+        favoriteTvShowsService,
+        favoriteTvChannelsService,
         listOf(dataUpdateService),
         listOf(dbLifeCycle)
     )

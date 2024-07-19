@@ -96,4 +96,13 @@ data class AllChannels(
             )
         }
     }
+
+    @Serializable
+    @Resource("favorites")
+    class Favorites (
+        val limit: Int?,
+        val offset: Int?
+    )
+
+
 }

@@ -16,7 +16,7 @@ fun Route.shows(tvStoreServices: TvStoreServices) {
         getAll(tvStoreServices.tvShowsService)
         getShow(tvStoreServices.tvShowsService)
         getShowChannels(tvStoreServices.tvShowsService)
-        favoriteShows(tvStoreServices.tvShowsService)
+        favoriteShows(tvStoreServices.favoriteShowsService)
         showReviews(tvStoreServices.tvShowReviewsService)
     }
 }

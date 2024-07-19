@@ -40,22 +40,6 @@ interface TvShowsRepository : TvRepository {
         offset: Int
     ): TvShows<TvShowDetailsModel>
 
-    suspend fun getUserFavorites(
-        userId: Int,
-        limit: Int,
-        offset: Int
-    ) : TvShows<TvShowPreviewModel>
-
-    suspend fun addUserFavorites(
-        userId: Int,
-        showId: Int
-    )
-
-    suspend fun removeUserFavorite(
-        userId: Int,
-        showId: Int
-    )
-
     suspend fun contains(
         id: Int
     ): Boolean

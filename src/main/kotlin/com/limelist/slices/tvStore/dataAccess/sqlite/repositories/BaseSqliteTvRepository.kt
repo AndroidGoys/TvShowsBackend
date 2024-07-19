@@ -120,16 +120,16 @@ abstract class BaseSqliteTvRepository(
         statement.execute("""
             CREATE TABLE IF NOT EXISTS favorite_shows(
                 user_id INTEGER,
-                show_id INTEGER REFERENCES shows,
-                CONSTRAINT id PRIMARY KEY (show_id, user_id)
+                favorite_id INTEGER REFERENCES shows,
+                CONSTRAINT id PRIMARY KEY (favorite_id, user_id)
             )
         """)
 
         statement.execute("""
             CREATE TABLE IF NOT EXISTS favorite_channels(
                 user_id INTEGER,
-                channel_id INTEGER REFERENCES channels,
-                CONSTRAINT id PRIMARY KEY (channel_id, user_id)
+                favorite_id INTEGER REFERENCES channels,
+                CONSTRAINT id PRIMARY KEY (favorite_id, user_id)
             )
         """)
         statement.close()

@@ -87,6 +87,30 @@ Authorization: Bearer {{accessToken}}
 }
 
 ###
+GET {{baseUrl}}/api/channels/favorites
+Accept: application/json
+Authorization: Bearer {{accessToken}}
+
+###
+POST {{baseUrl}}/api/channels/favorites
+Accept: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+"id" : 1570553078
+}
+
+###
+DELETE {{baseUrl}}/api/channels/favorites
+Accept: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+"id" : 1570553078
+}
+
+
+###
 GET {{baseUrl}}/api/shows/1570553078/reviews
 Accept: application/json
 

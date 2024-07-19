@@ -10,15 +10,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="90c853c6-c64c-4142-9064-ff9deb980f22" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/dataAccess/interfaces/TvFavoritesRepository.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/dataAccess/sqlite/repositories/favorites/BaseFavoritesSqliteRepository.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/dataAccess/sqlite/repositories/favorites/FavoriteTvChannelsSqliteRepository.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/dataAccess/sqlite/repositories/favorites/FavoriteTvShowsSqliteRepository.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/routing/channels/Favorites.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/services/favorites/CommonFavoriteService.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/services/favorites/FavoriteService.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/requests.http" beforeDir="false" afterPath="$PROJECT_DIR$/requests.http" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/plugins/Services.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/plugins/Services.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/TvStoreServices.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/TvStoreServices.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/dataAccess/interfaces/TvShowsRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/dataAccess/interfaces/TvShowsRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/dataAccess/sqlite/repositories/BaseSqliteTvRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/dataAccess/sqlite/repositories/BaseSqliteTvRepository.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/dataAccess/sqlite/repositories/TvShowsSqliteRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/dataAccess/sqlite/repositories/TvShowsSqliteRepository.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/routing/channels/Routes.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/routing/channels/Routes.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/routing/shows/Favorites.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/routing/shows/Favorites.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/routing/shows/Routes.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/routing/shows/Routes.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/services/tvChannels/TvChannelsService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/services/tvChannels/TvChannelsService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/services/tvChannels/TvChannelsServiceInterface.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/services/tvChannels/TvChannelsServiceInterface.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/services/tvShows/TvShowsService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/services/tvShows/TvShowsService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/services/tvShows/TvShowsServiceInterface.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/slices/tvStore/services/tvShows/TvShowsServiceInterface.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tvStore.sql" beforeDir="false" afterPath="$PROJECT_DIR$/tvStore.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tvStore.sql-journal" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,8 +43,8 @@
       <list>
         <option value="Class" />
         <option value="package-info" />
-        <option value="Kotlin Interface" />
         <option value="Kotlin File" />
+        <option value="Kotlin Interface" />
         <option value="Kotlin Class" />
       </list>
     </option>
@@ -132,11 +145,11 @@
       <recent name="C:\Junk\Solutions\Pet\TvShowsBackend" />
     </key>
     <key name="CreateKotlinClassDialog.RecentsKey">
+      <recent name="com.limelist.slices.tvStore.services.favorites" />
       <recent name="com.limelist.slices.tvStore.services.tvReviews" />
       <recent name="com.limelist.slices.tvStore.services.models" />
       <recent name="com.limelist.slices.users.services.userDataServices" />
       <recent name="com.limelist.slices.internal.users.models" />
-      <recent name="com.limelist.slices.auth.services.models" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
       <recent name="com.limelist.slices.tvStore.dataAccess.interfaces" />
@@ -181,8 +194,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="HTTP Request.requests | #12" />
-        <item itemvalue="HTTP Request.requests | #14" />
         <item itemvalue="HTTP Request.requests | #13" />
+        <item itemvalue="HTTP Request.requests | #14" />
         <item itemvalue="HTTP Request.requests | #5" />
         <item itemvalue="HTTP Request.requests | ИЗМЕНЯЕТ ИЛИ ДОБОВЛЯЕТ отзыв#1" />
       </list>
@@ -248,7 +261,7 @@
       <workItem from="1721314850165" duration="922000" />
       <workItem from="1721315851739" duration="1763000" />
       <workItem from="1721378271841" duration="8345000" />
-      <workItem from="1721389862687" duration="1659000" />
+      <workItem from="1721389862687" duration="5976000" />
     </task>
     <task id="LOCAL-00001" summary="Fixing sql queries">
       <option name="closed" value="true" />

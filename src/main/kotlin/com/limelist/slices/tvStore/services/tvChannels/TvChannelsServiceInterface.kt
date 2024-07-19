@@ -8,6 +8,8 @@ import com.limelist.slices.tvStore.services.models.channels.TvChannelsFilter
 import com.limelist.slices.tvStore.services.models.reviews.TvReviews
 import com.limelist.slices.tvStore.services.models.releases.TvChannelReleases
 import com.limelist.slices.tvStore.services.models.releases.TvChannelShowRelease
+import com.limelist.slices.tvStore.services.models.shows.TvShowPreviewModel
+import com.limelist.slices.tvStore.services.models.shows.TvShows
 
 interface TvChannelsServiceInterface {
     suspend fun getAllChannels(
@@ -27,9 +29,18 @@ interface TvChannelsServiceInterface {
         timeZone: Float?
     ): RequestResult<TvChannelReleases<TvChannelShowRelease>>
 
-    suspend fun getReviews(
-        channelId: Int,
+    suspend fun getUserFavorites(
+        userId: Int,
         limit: Int?,
-        timeStart: Long?,
-    ) : RequestResult<TvReviews>
+        offset: Int?
+    ): RequestResult<TvChannels<TvChannelPreviewModel>>
+
+    suspend fun addToFavorite(
+        userId: Int,
+        showId: Int,
+    ): RequestResult<Unit>
+
+    suspend fun removeUserFavorite(
+        userId: Int, showId: Int
+    ): RequestResult<Unit>
 }
