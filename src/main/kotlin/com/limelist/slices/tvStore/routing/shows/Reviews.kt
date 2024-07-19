@@ -36,15 +36,16 @@ private fun Route.getReviews(tvReviewsService: TvShowReviewsService) {
 private fun Route.addOrUpdateReview(tvReviewsService: TvShowReviewsService) {
     post<AllShows.Show.Reviews> { args ->
         call.withAuth { user ->
-            val review = call.receiveJson<AddReviewModel>()
-            call.respondResult(
-                tvReviewsService.addOrUpdateReview(
-                    args.parent.id,
-                    user.id,
-                    review.assessment,
-                    review.text
+            call.receiveJson<AddReviewModel>{ review ->
+                call.respondResult(
+                    tvReviewsService.addOrUpdateReview(
+                        args.parent.id,
+                        user.id,
+                        review.assessment,
+                        review.text
+                    )
                 )
-            )
+            }
         }
     }
 }

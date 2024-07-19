@@ -105,4 +105,8 @@ class TvShowsService(
         tvShows.addUserFavorites(userId, showId)
         return RequestResult.SuccessResult(Unit)
     }
+
+    override suspend fun removeUserFavorite(userId: Int, showId: Int): RequestResult<Unit> {
+        TODO("Not yet implemented")
+    }
 }

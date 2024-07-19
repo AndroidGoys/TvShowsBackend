@@ -34,4 +34,8 @@ interface TvShowsServiceInterface {
         userId: Int,
         showId: Int,
     ): RequestResult<Unit>
+
+    suspend fun removeUserFavorite(
+        userId: Int, showId: Int
+    ): RequestResult<Unit>
 }

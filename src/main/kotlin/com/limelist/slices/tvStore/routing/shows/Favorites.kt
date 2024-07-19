@@ -9,9 +9,9 @@ import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.resources.*
+import io.ktor.server.resources.post
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import io.ktor.server.routing.post
 
 internal fun Route.favoriteShows(
     tvShowsService: TvShowsServiceInterface
@@ -27,14 +27,14 @@ private fun Route.addFavoriteShow(
 ) {
     post<AllShows.Favorites> {
         call.withAuth { user ->
-            val show = call.receiveJson<OnlyIdModel>()
+            call.receiveJson<OnlyIdModel>{ show ->
+                val result = tvShowsService.addToFavorite(
+                    user.id,
+                    show.id
+                )
 
-            val result = tvShowsService.addToFavorite(
-                user.id,
-                show.id
-            )
-
-            call.respondResult(result)
+                call.respondResult(result)
+            }
         }
     }
 }
@@ -49,6 +49,18 @@ private fun Route.getFavoriteShows(tvShowsService: TvShowsServiceInterface) {
                     args.offset
                 )
             )
+        }
+    }
+}
+
+private fun Route.removeFavoriteShows(tvShowsService: TvShowsServiceInterface) {
+    delete<AllShows.Favorites> {
+        call.withAuth { user ->
+            call.receiveJson<OnlyIdModel> { show ->
+                call.respondResult(
+                    tvShowsService.removeUserFavorite(user.id, show.id)
+                )
+            }
         }
     }
 }

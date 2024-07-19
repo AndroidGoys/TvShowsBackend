@@ -6,6 +6,7 @@ import io.ktor.server.auth.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
@@ -44,10 +45,19 @@ suspend inline fun <reified T> ApplicationCall.respondJson(
 }
 
 @OptIn(ExperimentalSerializationApi::class)
-suspend inline fun <reified T> ApplicationCall.receiveJson(): T {
+suspend inline fun <reified T> ApplicationCall.receiveJson(
+    block: (T) -> Unit
+) {
     val stream = this.receiveStream()
-    return Json.decodeFromStream(stream)
+    try {
+        val result = Json.decodeFromStream<T>(stream)
+        block(result)
+    }
+    catch (e: SerializationException) {
+        respondJson(HttpStatusCode.BadRequest)
+    }
 }
+
 
 @OptIn(ExperimentalSerializationApi::class)
 suspend inline fun ApplicationCall.withAuth(
