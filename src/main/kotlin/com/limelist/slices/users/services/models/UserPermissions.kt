@@ -1,8 +1,9 @@
 package com.limelist.slices.users.services.models
 
+import com.limelist.slices.users.serialization.UserPermissionsSerialization
 import kotlinx.serialization.Serializable
 
-@Serializable
+@Serializable(UserPermissionsSerialization::class)
 class UserPermissions(
     val flag: Long
 ) {

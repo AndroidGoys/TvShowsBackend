@@ -1,6 +1,7 @@
 package com.limelist.slices.users.routing
 
 import com.limelist.slices.shared.respondResult
+import com.limelist.slices.shared.withAuth
 import com.limelist.slices.users.UsersServices
 import com.limelist.slices.users.services.userDataServices.UsersDataServiceInterface
 import io.ktor.http.*
@@ -27,18 +28,13 @@ fun Route.getMe(
 ){
     authenticate("access-auth") {
         get<AllUsers.Me> {
-            val userIdPrincipal = call.principal<UserIdPrincipal>()
+            call.withAuth { user ->
+                val response = usersDataService.getMe(
+                    user.id
+                )
 
-            if (userIdPrincipal == null){
-                call.respond(HttpStatusCode.Unauthorized)
-                return@get
+                call.respondResult(response)
             }
-
-            val response = usersDataService.getMe(
-                userIdPrincipal.name.toInt()
-            )
-
-            call.respondResult(response)
         }
     }
 }
