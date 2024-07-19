@@ -96,7 +96,9 @@ data class AllShows(
         class Reviews (
             val parent: Show,
             val limit: Int? = null,
+            @SerialName("time-start")
             val timeStart: Long? = null,
+            @SerialName("time-zone")
             val timeZone: Float? = null,
         ) {
             @Serializable
