@@ -90,10 +90,9 @@ data class AllShows(
             val timeZone: Float? = null
         )
 
-
         @Serializable
         @Resource("reviews")
-        class Reviews (
+        data class Reviews (
             val parent: Show,
             val limit: Int? = null,
             @SerialName("time-start")

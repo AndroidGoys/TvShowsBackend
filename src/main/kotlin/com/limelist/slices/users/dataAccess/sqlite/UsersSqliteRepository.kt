@@ -134,11 +134,17 @@ class UsersSqliteRepository(
         WHERE users.id = ?     
     """)
 
-    override suspend fun setAvatarRoute(userId: Int, avatarRoute: String) {
+    override suspend fun setAvatarRoute(
+        userId: Int,
+        avatarRoute: String
+    ) = mutex.withLock {
         setAvatarStatement.run{
             setString(1, avatarRoute)
             setInt(2, userId)
+            executeUpdate()
         }
+
+        connection.commit()
     }
 
     private fun parseUserData(

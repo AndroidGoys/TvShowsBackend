@@ -54,7 +54,10 @@ class AvatarsSharingService(
         return withContext(Dispatchers.IO){
             var file = File(fileRelativeName)
 
-            file.getParentFile().mkdirs()
+            var userAvatarsDirectory = file.getParentFile()
+            userAvatarsDirectory.deleteOnExit()
+            userAvatarsDirectory.mkdirs()
+
             file.createNewFile()
 
             val fileOutputStream = FileOutputStream(file, false)

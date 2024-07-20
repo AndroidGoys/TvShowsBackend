@@ -10,6 +10,7 @@ import com.limelist.slices.tvStore.services.models.reviews.TvReview
 import com.limelist.slices.tvStore.services.models.reviews.TvReviews
 import com.limelist.slices.tvStore.services.tvChannels.reviews.TvChannelReviewsService
 import com.limelist.slices.tvStore.services.tvShows.reviews.TvShowReviewsService
+import io.ktor.http.*
 
 class TvReviewsCommonService(
     val parents: SingleIdRepository<Int>,
@@ -21,14 +22,14 @@ class TvReviewsCommonService(
         RequestError(
             RequestError.ErrorCode.ParentIdNotFoundError,
             "${parentName} id not found"
-        )
+        ), HttpStatusCode.NotFound
     )
 
     val reviewNotFoundResult = RequestResult.FailureResult(
         RequestError(
             RequestError.ErrorCode.ReviewNotFoundError,
             "Review not found"
-        )
+        ), HttpStatusCode.NotFound
     )
 
 

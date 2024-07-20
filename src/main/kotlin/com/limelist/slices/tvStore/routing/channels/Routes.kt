@@ -90,7 +90,7 @@ data class AllChannels(
             val timeZone: Float? = null,
         ) {
             @Serializable
-            @Resource("@my")
+            @Resource("reviews/@my")
             class My (
                 val parent: Channel,
                 @SerialName("time-zone")
