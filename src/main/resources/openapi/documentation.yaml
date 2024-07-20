@@ -1,16 +1,148 @@
 openapi: "3.0.3"
 info:
   title: "TvHistoryApi"
-  description: "Управление каналами и списком телепередачь"
+  summary: "Управление каналами и списком телепередачь"
   version: "1.0.0"
 servers:
   - url: "http://127.0.0.1:8080"
   - url: "http://176.109.106.211:8080"
 
 paths:
+  /api/auth/register:
+    post:
+      summary: "Регистрация нового пользователя"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "200":
+          description: "OK"
+
+
+  /api/auth/refresh:
+    post:
+      summary: "Получение новго access токена"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refreshToken:
+                  type: string
+
+      responses:
+        "200":
+          description: "OK"
+
+  /api/auth/login:
+    post:
+      summary: "Вход по логину и паролю"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                login:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "200":
+          description: "OK"
+
+  /api/users/{id}:
+    get:
+      summary: "Получение неполной информации о пользователе"
+      parameters:
+        - name: "id"
+          required: true
+          in: path
+
+      responses:
+        "200":
+          description: "OK"
+
+  /api/users/@me:
+    get:
+      summary: "Получение неполной информации о пользователе"
+      parameters:
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "OK"
+
+  /api/users/{id}/avatar:
+    get:
+      summary: "Получение автара"
+      parameters:
+        - name: "id"
+          required: true
+          in: path
+      responses:
+        "200":
+          description: "OK"
+
+  /api/users/@me/avatar:
+    get:
+      summary: "Получение автара"
+      parameters:
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "OK"
+    post:
+      summary: "Установка автара"
+      parameters:
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+
+        - in: header
+          name: Content-Type
+          schema:
+            type: string
+      requestBody:
+        content:
+          image/jpeg:
+            schema:
+              # a binary file of any type
+              type: string
+              format: binary
+
+          image/png:
+            schema:
+              # a binary file of any type
+              type: string
+              format: binary
+
+      responses:
+        "200":
+          description: "OK"
+
   /api/channels:
     get:
-      description: "Получить список каналов"
+      summary: "Получить список каналов"
       parameters:
         - name: "limit"
           required: false
@@ -48,7 +180,7 @@ paths:
 
   /api/channels/{id}:
     get:
-      description: "Получение подробностей о канале"
+      summary: "Получение подробностей о канале"
       parameters:
         - name: "id"
           required: true
@@ -70,7 +202,7 @@ paths:
 #                  image:
 #                    type: string
 #                    example: "https:..."
-#                  description:
+#                  summary:
 #                    type: string
 #                    example: "https:..."
 #                  view_urls:
@@ -84,7 +216,7 @@ paths:
 
   /api/channels/{id}/releases:
     get:
-      description: "Получение списка выпусков телепередачь на канале"
+      summary: "Получение списка выпусков телепередачь на канале"
       parameters:
         - name: "id"
           required: true
@@ -158,7 +290,7 @@ paths:
 #                      ]
   /api/shows:
     get:
-      description: "Получение списка телепередачь"
+      summary: "Получение списка телепередачь"
       parameters:
         - name: "limit"
           required: false
@@ -177,7 +309,7 @@ paths:
 
   /api/shows/{id}:
     get:
-      description: "Получение подробностей о телепередаче"
+      summary: "Получение подробностей о телепередаче"
       parameters:
         - name: "id"
           required: false
@@ -202,7 +334,7 @@ paths:
 #                  ageLimit:
 #                      type: number
 #                      example: 0
-#                      description: "
+#                      summary: "
 #                        0 - наш сибирский (как пример 0+ (0b0000) 6+ (0b0001) 12+ (0b0010) 18+ (0b0011))\n
 #                        1 - их пендоский (G (0b1000) PG (0b1001) PG-13 (0b1010) R (0b1011) NC-17 (0b1100))
 #                      "
@@ -210,7 +342,7 @@ paths:
 #                  previewImage:
 #                    type: string
 #                    example: "https:..."
-#                  description:
+#                  summary:
 #                    type: string
 #                    example: "1-й сезон. На кухне модного московского ресторана «Клод Моне» появляется новый повар — Максим Лавров.
 #                      2-й сезон. Отношения Макса и Вики заходят в тупик. Этому способствует сближение Макса и официантки Саши.
@@ -220,7 +352,7 @@ paths:
 
   /api/shows/{id}/channels:
     get:
-      description: "Получение списка телепередачь на канале"
+      summary: "Получение списка телепередачь на канале"
       parameters:
         - name: "id"
           required: true
@@ -275,9 +407,25 @@ paths:
 #                        }
 #                      ]
 
-  /api/auth/register:
+  /api/shows/favorites:
+    get:
+      summary: "Получение списка избранных шоу"
+      parameters:
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "OK"
+
     post:
-      description: "Регистрация нового пользователя"
+      summary: "Добавление в избранное"
+      parameters:
+        - in: header
+          name: Authorization
+          schema:
+            type: string
       requestBody:
         required: true
         content:
@@ -285,20 +433,18 @@ paths:
             schema:
               type: object
               properties:
-                username:
-                  type: string
-                email:
-                  type: string
-                password:
-                  type: string
+                id:
+                  type: number
       responses:
         "200":
           description: "OK"
-
-
-  /api/auth/refresh:
-    post:
-      description: "Получение новго access токена"
+    delete:
+      summary: "Удаление из избранного"
+      parameters:
+        - in: header
+          name: Authorization
+          schema:
+            type: string
       requestBody:
         required: true
         content:
@@ -306,16 +452,29 @@ paths:
             schema:
               type: object
               properties:
-                refreshToken:
-                  type: string
-
+                id:
+                  type: number
       responses:
         "200":
           description: "OK"
 
-  /api/auth/login:
+
+  /api/shows/{id}/reviews:
+    get:
+      summary: "Получение списка отзывов"
+      parameters:
+        - name: "id"
+          required: true
+          in: path
+      responses:
+        "200":
+          description: "OK"
     post:
-      description: "Вход по логину и паролю"
+      summary: "Добавление или изменение (если существует) отзыва"
+      parameters:
+        - name: "id"
+          required: true
+          in: path
       requestBody:
         required: true
         content:
@@ -323,14 +482,140 @@ paths:
             schema:
               type: object
               properties:
-                login:
-                  type: string
-                password:
+                assessment:
+                  type: number
+                text:
                   type: string
       responses:
         "200":
           description: "OK"
 
+  /api/shows/{id}/reviews/@my:
+    get:
+      summary: "Получение отзыва пользователя"
+      parameters:
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "OK"
+    delete:
+      summary: "Удаление отзыва"
+      parameters:
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "OK"
+
+
+  /api/channels/favorites:
+    get:
+      summary: "Получение списка избранных шоу"
+      parameters:
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "OK"
+
+    post:
+      summary: "Добавление в избранное"
+      parameters:
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: number
+      responses:
+        "200":
+          description: "OK"
+    delete:
+      summary: "Удаление из избранного"
+      parameters:
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: number
+      responses:
+        "200":
+          description: "OK"
+
+  /api/channels/{id}/reviews:
+    get:
+      summary: "Получение списка отзывов"
+      parameters:
+        - name: "id"
+          required: true
+          in: path
+      responses:
+        "200":
+          description: "OK"
+    post:
+      summary: "Добавление или изменение (если существует) отзыва"
+      parameters:
+        - name: "id"
+          required: true
+          in: path
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                assessment:
+                  type: number
+                text:
+                  type: string
+      responses:
+        "200":
+          description: "OK"
+
+  /api/channels/{id}/reviews/@my:
+    get:
+      summary: "Получение отзыва пользователя"
+      parameters:
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "OK"
+    delete:
+      summary: "Удаление отзыва"
+      parameters:
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "OK"
 
 components:
   schemas: { }
