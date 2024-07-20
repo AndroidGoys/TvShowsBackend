@@ -4,8 +4,15 @@ info:
   summary: "Управление каналами и списком телепередачь"
   version: "1.0.0"
 servers:
-  - url: "http://127.0.0.1:8080"
   - url: "http://176.109.106.211:8080"
+  - url: "http://127.0.0.1:8080"
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT  # optional, for documentation purposes only
 
 paths:
   /api/auth/register:
@@ -78,12 +85,9 @@ paths:
 
   /api/users/@me:
     get:
-      summary: "Получение неполной информации о пользователе"
-      parameters:
-        - in: header
-          name: Authorization
-          schema:
-            type: string
+      summary: "Получение полной информации о пользователе"
+      security:
+        - bearerAuth: [ ]
       responses:
         "200":
           description: "OK"
@@ -101,25 +105,21 @@ paths:
 
   /api/users/@me/avatar:
     get:
+      security:
+        - bearerAuth: [ ]
       summary: "Получение автара"
-      parameters:
-        - in: header
-          name: Authorization
-          schema:
-            type: string
+
       responses:
         "200":
           description: "OK"
     post:
       summary: "Установка автара"
+      security:
+        - bearerAuth: [ ]
       parameters:
         - in: header
-          name: Authorization
-          schema:
-            type: string
-
-        - in: header
           name: Content-Type
+          required: true
           schema:
             type: string
       requestBody:
@@ -411,21 +411,23 @@ paths:
     get:
       summary: "Получение списка избранных шоу"
       parameters:
-        - in: header
-          name: Authorization
-          schema:
-            type: string
+        - name: "limit"
+          required: false
+          in: query
+        - name: "offset"
+          required: false
+          in: query
+
+      security:
+        - bearerAuth: [ ]
       responses:
         "200":
           description: "OK"
 
     post:
       summary: "Добавление в избранное"
-      parameters:
-        - in: header
-          name: Authorization
-          schema:
-            type: string
+      security:
+        - bearerAuth: [ ]
       requestBody:
         required: true
         content:
@@ -440,11 +442,8 @@ paths:
           description: "OK"
     delete:
       summary: "Удаление из избранного"
-      parameters:
-        - in: header
-          name: Authorization
-          schema:
-            type: string
+      security:
+        - bearerAuth: [ ]
       requestBody:
         required: true
         content:
@@ -466,11 +465,23 @@ paths:
         - name: "id"
           required: true
           in: path
+        - name: "limit"
+          required: false
+          in: query
+        - name: "time-start"
+          in: query
+          required: false
+        - name: "time-zone"
+          in: query
+          required: false
+
       responses:
         "200":
           description: "OK"
     post:
       summary: "Добавление или изменение (если существует) отзыва"
+      security:
+        - bearerAuth: [ ]
       parameters:
         - name: "id"
           required: true
@@ -493,21 +504,23 @@ paths:
   /api/shows/{id}/reviews/@my:
     get:
       summary: "Получение отзыва пользователя"
+      security:
+        - bearerAuth: [ ]
       parameters:
-        - in: header
-          name: Authorization
-          schema:
-            type: string
+        - name: "id"
+          required: true
+          in: path
       responses:
         "200":
           description: "OK"
     delete:
       summary: "Удаление отзыва"
       parameters:
-        - in: header
-          name: Authorization
-          schema:
-            type: string
+        - name: "id"
+          required: true
+          in: path
+      security:
+        - bearerAuth: [ ]
       responses:
         "200":
           description: "OK"
@@ -517,21 +530,22 @@ paths:
     get:
       summary: "Получение списка избранных шоу"
       parameters:
-        - in: header
-          name: Authorization
-          schema:
-            type: string
+        - name: "limit"
+          required: false
+          in: query
+        - name: "offset"
+          required: false
+          in: query
+      security:
+        - bearerAuth: [ ]
       responses:
         "200":
           description: "OK"
 
     post:
       summary: "Добавление в избранное"
-      parameters:
-        - in: header
-          name: Authorization
-          schema:
-            type: string
+      security:
+        - bearerAuth: [ ]
       requestBody:
         required: true
         content:
@@ -546,11 +560,8 @@ paths:
           description: "OK"
     delete:
       summary: "Удаление из избранного"
-      parameters:
-        - in: header
-          name: Authorization
-          schema:
-            type: string
+      security:
+        - bearerAuth: [ ]
       requestBody:
         required: true
         content:
@@ -571,11 +582,22 @@ paths:
         - name: "id"
           required: true
           in: path
+        - name: "limit"
+          required: false
+          in: query
+        - name: "time-start"
+          in: query
+          required: false
+        - name: "time-zone"
+          in: query
+          required: false
       responses:
         "200":
           description: "OK"
     post:
       summary: "Добавление или изменение (если существует) отзыва"
+      security:
+        - bearerAuth: [ ]
       parameters:
         - name: "id"
           required: true
@@ -598,24 +620,23 @@ paths:
   /api/channels/{id}/reviews/@my:
     get:
       summary: "Получение отзыва пользователя"
+      security:
+        - bearerAuth: [ ]
       parameters:
-        - in: header
-          name: Authorization
-          schema:
-            type: string
+        - name: "id"
+          required: true
+          in: path
       responses:
         "200":
           description: "OK"
     delete:
       summary: "Удаление отзыва"
       parameters:
-        - in: header
-          name: Authorization
-          schema:
-            type: string
+        - name: "id"
+          required: true
+          in: path
+      security:
+        - bearerAuth: []
       responses:
         "200":
           description: "OK"
-
-components:
-  schemas: { }
