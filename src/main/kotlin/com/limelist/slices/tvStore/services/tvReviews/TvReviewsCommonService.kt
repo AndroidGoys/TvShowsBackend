@@ -49,6 +49,10 @@ class TvReviewsCommonService(
         }
 
         val reviews = tvReviews.get(parentId, limit, timeStart)
+
+        if (timeZone != null)
+            reviews.changeTimeZone(timeZone)
+
         return RequestResult.SuccessResult(reviews)
     }
 
@@ -74,12 +78,16 @@ class TvReviewsCommonService(
     }
     override suspend fun getUserReview(
         parentId: Int,
-        userId: Int
+        userId: Int,
+        timeZone: Float?
     ): RequestResult<TvReview> {
         val tvReview = tvReviews.getForUser(userId, parentId)
         if (tvReview == null) {
             return reviewNotFoundResult
         }
+
+        if (timeZone != null)
+            tvReview.changeTimeZone(timeZone)
 
         return RequestResult.SuccessResult(tvReview)
     }

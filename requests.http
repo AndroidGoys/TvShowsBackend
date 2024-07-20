@@ -13,7 +13,7 @@ GET {{baseUrl}}/api/channels/105
 Accept:application/json
 
 ###
-GET {{baseUrl}}/api/channels/105/releases
+GET {{baseUrl}}/api/channels/105/releases?time-start=1721453228&time-zone=3
 Accept:application/json
 
 ###

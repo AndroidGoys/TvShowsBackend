@@ -21,7 +21,8 @@ interface TvReviewsService{
 
     suspend fun getUserReview(
         parentId: Int,
-        userId: Int
+        userId: Int,
+        timeZone: Float?
     ): RequestResult<TvReview>
 
 

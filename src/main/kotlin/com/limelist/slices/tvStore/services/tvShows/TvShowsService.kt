@@ -38,7 +38,6 @@ class TvShowsService(
                     offset ?: 0,
                 )
             }
-
         return RequestResult.SuccessResult(
             shows
         )
@@ -82,6 +81,12 @@ class TvShowsService(
             releasesLimit ?: -1,
             normalizedReleasesTimeStart ?: 0,
         )
+
+        if (timeZone != null) {
+            showChannels.channels.forEach {
+                it.releases.changeTimeZone(timeZone)
+            }
+        }
 
         return RequestResult.SuccessResult(showChannels)
     }

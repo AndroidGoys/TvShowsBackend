@@ -105,6 +105,8 @@ data class AllShows(
             @Resource("@my")
             class My (
                 val parent: Reviews,
+                @SerialName("time-zone")
+                val timeZone: Float? = null
             ) {
                 val show get() = parent.parent
             }

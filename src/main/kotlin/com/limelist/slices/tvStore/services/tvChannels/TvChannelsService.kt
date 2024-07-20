@@ -70,7 +70,7 @@ class TvChannelsService(
             timeZone ?: 0.0f
         )
 
-        if(tvChannels.contains(channelId)) {
+        if(!tvChannels.contains(channelId)) {
             return channelNotFoundResult
         }
 
@@ -80,22 +80,9 @@ class TvChannelsService(
             normalizedTimeStart ?: 0,
         )
 
+        if (timeZone != null)
+            releases.changeTimeZone(timeZone)
+
         return RequestResult.SuccessResult(releases)
-    }
-
-    override suspend fun getUserFavorites(
-        userId: Int,
-        limit: Int?,
-        offset: Int?
-    ): RequestResult<TvChannels<TvChannelPreviewModel>> {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun addToFavorite(userId: Int, showId: Int): RequestResult<Unit> {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun removeUserFavorite(userId: Int, showId: Int): RequestResult<Unit> {
-        TODO("Not yet implemented")
     }
 }

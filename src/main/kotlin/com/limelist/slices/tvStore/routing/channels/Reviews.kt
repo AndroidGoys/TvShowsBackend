@@ -59,10 +59,11 @@ private fun Route.getUserReview(
     tvReviewsService: TvChannelReviewsService
 ) {
     get<AllChannels.Channel.Reviews.My> { args ->
-        call.withAuth { user ->
+        call.withAuth { data ->
             val review = tvReviewsService.getUserReview(
                 args.parent.id,
-                user.id
+                data.id,
+                args.timeZone
             )
 
             call.respondResult(review)

@@ -52,7 +52,7 @@ private fun Route.getChannelReleases(tvChannelsService: TvChannelsServiceInterfa
             args.timeStart,
             args.timeZone
         )
-        call.respondJson(releases)
+        call.respondResult(releases)
     }
 }
 
@@ -93,6 +93,8 @@ data class AllChannels(
             @Resource("@my")
             class My (
                 val parent: Channel,
+                @SerialName("time-zone")
+                val timeZone: Float? = null
             )
         }
     }
@@ -103,6 +105,4 @@ data class AllChannels(
         val limit: Int? = null,
         val offset: Int? = null
     )
-
-
 }
