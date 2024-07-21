@@ -3,6 +3,7 @@ package com.limelist.slices.tvStore.routing.channels
 import com.limelist.slices.shared.respondJson
 import com.limelist.slices.shared.respondResult
 import com.limelist.slices.tvStore.TvStoreServices
+import com.limelist.slices.tvStore.routing.favorites.useFavorite
 import com.limelist.slices.tvStore.services.models.channels.TvChannelsFilter
 import com.limelist.slices.tvStore.services.tvChannels.TvChannelsServiceInterface
 import io.ktor.resources.*
@@ -19,8 +20,8 @@ fun Route.channels(
         getAll(tvStoreServices.tvChannelsService)
         getChannel(tvStoreServices.tvChannelsService)
         getChannelReleases(tvStoreServices.tvChannelsService)
-        favoriteChannels(tvStoreServices.favoriteChannelsService)
         channelReviews(tvStoreServices.tvChannelReviewsService)
+        useFavorite(tvStoreServices.favoriteChannelsService)
     }
 }
 
@@ -100,11 +101,4 @@ data class AllChannels(
             )
         }
     }
-
-    @Serializable
-    @Resource("favorites")
-    class Favorites (
-        val limit: Int? = null,
-        val offset: Int? = null
-    )
 }
