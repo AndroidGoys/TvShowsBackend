@@ -1,6 +1,7 @@
 package com.limelist.slices.tvStore.services.tvReviews
 
 import com.limelist.slices.shared.RequestResult
+import com.limelist.slices.tvStore.services.models.reviews.ReviewsDistribution
 import com.limelist.slices.tvStore.services.models.reviews.TvReview
 import com.limelist.slices.tvStore.services.models.reviews.TvReviews
 
@@ -31,4 +32,6 @@ interface TvReviewsService{
         parentId: Int,
         userId: Int
     ): RequestResult<Unit>
+
+    suspend fun reviewsDistribution(parentId: Int): RequestResult<ReviewsDistribution>
 }

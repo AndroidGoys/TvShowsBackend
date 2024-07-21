@@ -6,6 +6,7 @@ import com.limelist.slices.shared.getCurrentUnixUtc0TimeSeconds
 import com.limelist.slices.shared.normalizeUnixSecondsTime
 import com.limelist.slices.tvStore.dataAccess.interfaces.SingleIdRepository
 import com.limelist.slices.tvStore.dataAccess.interfaces.TvReviewsRepository
+import com.limelist.slices.tvStore.services.models.reviews.ReviewsDistribution
 import com.limelist.slices.tvStore.services.models.reviews.TvReview
 import com.limelist.slices.tvStore.services.models.reviews.TvReviews
 import com.limelist.slices.tvStore.services.tvChannels.reviews.TvChannelReviewsService
@@ -82,6 +83,17 @@ class TvReviewsCommonService(
 
         return RequestResult.SuccessResult(tvReview)
     }
+
+    override suspend fun reviewsDistribution(
+        parentId: Int
+    ): RequestResult<ReviewsDistribution>{
+        if (!parents.contains(parentId))
+            return parentNotFoundResult
+
+        val distribution = tvReviews.getDistribution(parentId)
+        return RequestResult.SuccessResult(distribution)
+    }
+
     override suspend fun getUserReview(
         parentId: Int,
         userId: Int,

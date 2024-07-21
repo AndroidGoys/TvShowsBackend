@@ -2,6 +2,7 @@ package com.limelist.slices.tvStore.dataAccess.sqlite.repositories.reviews
 
 import com.limelist.slices.tvStore.dataAccess.interfaces.TvReviewsRepository
 import com.limelist.slices.tvStore.dataAccess.sqlite.repositories.BaseSqliteTvRepository
+import com.limelist.slices.tvStore.services.models.reviews.ReviewsDistribution
 import com.limelist.slices.tvStore.services.models.reviews.TvReview
 import com.limelist.slices.tvStore.services.models.reviews.TvReviews
 import kotlinx.coroutines.sync.Mutex
@@ -140,12 +141,38 @@ abstract class BaseTvReviewsRepository(
         return@withLock reviews.firstOrNull()
     }
 
+    private val getDistributionStatement = connection.prepareStatement("""
+        SELECT assessment, COUNT(*)
+            FROM (
+                SELECT * FROM $targetTable
+                    WHERE parent_id = ?
+            ) as reviews 
+        GROUP BY assessment
+    """)
+
+    override suspend fun getDistribution(
+        parentId: Int
+    ): ReviewsDistribution = mutex.withLock{
+        val set = getForUserStatement.run {
+            setInt(1, parentId)
+            return@run executeQuery()
+        }
+
+        val distribution = buildMap {
+            while (set.next()) {
+                val assessment = set.getInt(1)
+                val count = set.getInt(2)
+                set(assessment, count)
+            }
+        }
+
+        return@withLock ReviewsDistribution(distribution)
+    }
 
     private val deleteStatement = connection.prepareStatement("""
         DELETE FROM $targetTable
             WHERE parent_id = ? AND user_id = ?
     """)
-
 
     override suspend fun delete(parentId: Int, userId: Int) {
         deleteStatement.run {
