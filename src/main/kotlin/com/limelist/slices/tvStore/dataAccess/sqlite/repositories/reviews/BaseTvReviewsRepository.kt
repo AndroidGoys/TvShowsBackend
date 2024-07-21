@@ -153,7 +153,7 @@ abstract class BaseTvReviewsRepository(
     override suspend fun getDistribution(
         parentId: Int
     ): ReviewsDistribution = mutex.withLock{
-        val set = getForUserStatement.run {
+        val set = getDistributionStatement.run {
             setInt(1, parentId)
             return@run executeQuery()
         }

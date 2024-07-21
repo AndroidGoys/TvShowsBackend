@@ -84,7 +84,7 @@ class TvReviewsCommonService(
         return RequestResult.SuccessResult(tvReview)
     }
 
-    override suspend fun reviewsDistribution(
+    override suspend fun getDistribution(
         parentId: Int
     ): RequestResult<ReviewsDistribution>{
         if (!parents.contains(parentId))

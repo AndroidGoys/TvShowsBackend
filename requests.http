@@ -110,6 +110,9 @@ Authorization: Bearer {{accessToken}}
 "id" : 105
 }
 
+###
+GET {{baseUrl}}/api/shows/1570553078/reviews/distribution
+Accept: application/json
 
 ###
 GET {{baseUrl}}/api/shows/1570553078/reviews?assessment=5
@@ -137,6 +140,10 @@ Authorization: Bearer {{accessToken}}
 
 ###
 GET {{baseUrl}}/api/channels/105/reviews
+Accept: application/json
+
+###
+GET {{baseUrl}}/api/channels/105/reviews/distribution
 Accept: application/json
 
 ### ИЗМЕНЯЕТ ИЛИ ДОБОВЛЯЕТ отзыв

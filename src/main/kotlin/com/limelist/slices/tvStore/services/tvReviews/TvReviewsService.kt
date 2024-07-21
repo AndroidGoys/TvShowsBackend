@@ -33,5 +33,7 @@ interface TvReviewsService{
         userId: Int
     ): RequestResult<Unit>
 
-    suspend fun reviewsDistribution(parentId: Int): RequestResult<ReviewsDistribution>
+    suspend fun getDistribution(
+        parentId: Int
+    ): RequestResult<ReviewsDistribution>
 }

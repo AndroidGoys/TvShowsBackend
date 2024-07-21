@@ -504,6 +504,18 @@ paths:
         "200":
           description: "OK"
 
+  /api/shows/{id}/distribution:
+    get:
+      summary: "Получение количества оценок"
+      parameters:
+        - name: "id"
+          required: true
+          in: path
+
+      responses:
+        "200":
+          description: "OK"
+
   /api/shows/{id}/reviews/@my:
     get:
       summary: "Получение отзыва пользователя"
@@ -619,6 +631,18 @@ paths:
                   type: number
                 text:
                   type: string
+      responses:
+        "200":
+          description: "OK"
+
+  /api/channels/{id}/distribution:
+    get:
+      summary: "Получение количества оценок"
+      parameters:
+        - name: "id"
+          required: true
+          in: path
+
       responses:
         "200":
           description: "OK"

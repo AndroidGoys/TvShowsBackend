@@ -19,6 +19,7 @@ import kotlinx.serialization.Serializable
 
 internal fun Route.useReviews(tvReviewsService: TvReviewsService) {
     getReviews(tvReviewsService)
+    getDistribution(tvReviewsService)
     authenticate("access-auth"){
         getUserReview(tvReviewsService)
         addOrUpdateReview(tvReviewsService)
@@ -37,6 +38,17 @@ private fun Route.getReviews(tvReviewsService: TvReviewsService) {
             args.assessment
         )
         call.respondResult(reviews)
+    }
+}
+
+private fun Route.getDistribution(
+    tvReviewsService: TvReviewsService
+){
+    get<Parent.Reviews.Distribution>{ args ->
+        val result = tvReviewsService.getDistribution(
+            args.parent.id
+        )
+        call.respondResult(result)
     }
 }
 
@@ -110,5 +122,11 @@ data class Parent(
             @SerialName("time-zone")
             val timeZone: Float? = null
         )
+
+        @Resource("/reviews/distribution")
+        data class Distribution(
+            val parent: Parent
+        )
+
     }
 }
