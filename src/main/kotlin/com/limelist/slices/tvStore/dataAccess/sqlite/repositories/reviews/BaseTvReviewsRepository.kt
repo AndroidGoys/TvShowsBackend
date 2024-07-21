@@ -24,6 +24,11 @@ abstract class BaseTvReviewsRepository(
         LIMIT ?
     """)
 
+    private val getReviewsCountStatement = connection.prepareStatement("""
+        SELECT COUNT(*) 
+            FROM $targetTable
+    """)
+
     override suspend fun get(
         parentId: Int,
         limit: Int,
@@ -37,7 +42,10 @@ abstract class BaseTvReviewsRepository(
         }
 
         val reviews = parseReviews(set)
-        return TvReviews(-1, reviews)
+        return TvReviews(
+            getParsedCount(getReviewsCountStatement),
+            reviews
+        )
     }
 
     private val getReviewsByAssessmentStatement = connection.prepareStatement("""
@@ -47,6 +55,13 @@ abstract class BaseTvReviewsRepository(
         ORDER BY date
         LIMIT ?
     """)
+
+    private val getReviewsCountByAssessmentStatement = connection.prepareStatement("""
+        SELECT COUNT(*) 
+            FROM $targetTable
+        WHERE parent_id = ? AND assessment = ?
+    """)
+
 
     override suspend fun getByAssessment(
         parentId: Int,
@@ -62,8 +77,15 @@ abstract class BaseTvReviewsRepository(
             return@run executeQuery()
         }
 
+        getReviewsCountByAssessmentStatement.run {
+            setInt(1,  parentId)
+            setInt(2, assessment)
+        }
+
         val reviews = parseReviews(set)
-        return TvReviews(-1, reviews)
+        return TvReviews(
+            getParsedCount(getReviewsCountByAssessmentStatement),
+            reviews)
     }
 
     private val updateReviews = connection.prepareStatement("""

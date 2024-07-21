@@ -55,12 +55,8 @@ class TvChannelsSqliteRepository(
 
         val channels = parseChannelPreviews(set)
 
-        set = getCountStatement.executeQuery()
-        if (!set.next())
-            throw UnknownError()
-
         return@withLock TvChannels(
-            set.getInt(1),
+            getParsedCount(getCountStatement),
             channels
         )
     }

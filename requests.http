@@ -112,7 +112,7 @@ Authorization: Bearer {{accessToken}}
 
 
 ###
-GET {{baseUrl}}/api/shows/1570553078/reviews
+GET {{baseUrl}}/api/shows/1570553078/reviews?assessment=5
 Accept: application/json
 
 ### ИЗМЕНЯЕТ ИЛИ ДОБОВЛЯЕТ отзыв

@@ -9,6 +9,7 @@ import io.ktor.server.plugins.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import java.sql.Connection
+import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 abstract class BaseSqliteTvRepository(
@@ -204,5 +205,16 @@ abstract class BaseSqliteTvRepository(
                 )
             )
         }
+    }
+
+    protected fun getParsedCount(
+        statement: PreparedStatement
+    ): Int{
+        val set = statement.executeQuery()
+
+        if (!set.next())
+            throw UnknownError()
+
+        return set.getInt(1)
     }
 }
