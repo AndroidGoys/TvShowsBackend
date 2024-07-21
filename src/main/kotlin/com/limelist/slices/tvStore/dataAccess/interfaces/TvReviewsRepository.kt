@@ -8,4 +8,5 @@ interface TvReviewsRepository {
     suspend fun update(parentId: Int, review: TvReview)
     suspend fun getForUser(userId: Int, parentId: Int): TvReview?
     suspend fun delete(showId: Int, userId: Int)
+    suspend fun getByAssessment(parentId: Int, assessment: Int, limit: Int, timeStart: Long): TvReviews
 }

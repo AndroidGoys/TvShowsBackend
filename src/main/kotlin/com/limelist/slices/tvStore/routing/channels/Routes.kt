@@ -88,7 +88,9 @@ data class AllChannels(
             val timeStart: Long? = null,
             @SerialName("time-zone")
             val timeZone: Float? = null,
+            val assessment: Int? = null
         ) {
+
             @Serializable
             @Resource("reviews/@my")
             class My (

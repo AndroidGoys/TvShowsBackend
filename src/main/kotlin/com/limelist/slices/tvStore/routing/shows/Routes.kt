@@ -99,6 +99,7 @@ data class AllShows(
             val timeStart: Long? = null,
             @SerialName("time-zone")
             val timeZone: Float? = null,
+            val assessment: Int? = null
         ) {
             @Serializable
             @Resource("@my")

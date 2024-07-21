@@ -40,6 +40,32 @@ abstract class BaseTvReviewsRepository(
         return TvReviews(-1, reviews)
     }
 
+    private val getReviewsByAssessmentStatement = connection.prepareStatement("""
+        SELECT * 
+            FROM $targetTable
+        WHERE parent_id = ? AND date > ? AND assessment = ?
+        ORDER BY date
+        LIMIT ?
+    """)
+
+    override suspend fun getByAssessment(
+        parentId: Int,
+        assessment: Int,
+        limit: Int,
+        timeStart: Long
+    ): TvReviews = mutex.withLock {
+        val set = getReviewsByAssessmentStatement.run {
+            setInt(1,  parentId)
+            setLong(2, timeStart)
+            setInt(3, assessment)
+            setInt(4, limit)
+            return@run executeQuery()
+        }
+
+        val reviews = parseReviews(set)
+        return TvReviews(-1, reviews)
+    }
+
     private val updateReviews = connection.prepareStatement("""
         INSERT INTO $targetTable (
             user_id,

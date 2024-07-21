@@ -10,6 +10,7 @@ interface TvReviewsService{
         limit: Int?,
         timeStart: Long?,
         timeZone: Float?,
+        assessment: Int?,
     ): RequestResult<TvReviews>
 
     suspend fun addOrUpdateReview(

@@ -37,7 +37,8 @@ class TvReviewsCommonService(
         parentId: Int,
         limit: Int?,
         timeStart: Long?,
-        timeZone: Float?
+        timeZone: Float?,
+        assessment: Int?
     ): RequestResult<TvReviews> {
         if (!parents.contains(parentId))
             return parentNotFoundResult
@@ -49,7 +50,11 @@ class TvReviewsCommonService(
             timeStart = timeStart.normalizeUnixSecondsTime(timeZone)
         }
 
-        val reviews = tvReviews.get(parentId, limit, timeStart)
+        val reviews =
+            if (assessment == null)
+                tvReviews.get(parentId, limit, timeStart)
+            else
+                tvReviews.getByAssessment(parentId, assessment, limit, timeStart)
 
         if (timeZone != null)
             reviews.changeTimeZone(timeZone)

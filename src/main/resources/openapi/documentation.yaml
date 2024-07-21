@@ -474,6 +474,9 @@ paths:
         - name: "time-zone"
           in: query
           required: false
+        - name: "assessment"
+          in: query
+          required: false
 
       responses:
         "200":
@@ -589,6 +592,9 @@ paths:
           in: query
           required: false
         - name: "time-zone"
+          in: query
+          required: false
+        - name: "assessment"
           in: query
           required: false
       responses:

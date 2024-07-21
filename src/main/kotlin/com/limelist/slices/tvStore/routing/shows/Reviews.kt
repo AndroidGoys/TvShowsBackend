@@ -27,7 +27,8 @@ private fun Route.getReviews(tvReviewsService: TvShowReviewsService) {
             args.parent.id,
             args.limit,
             args.timeStart,
-            args.timeZone
+            args.timeZone,
+            args.assessment
         )
         call.respondResult(reviews)
     }
