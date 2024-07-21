@@ -36,6 +36,12 @@ class FavoriteTvShowsSqliteRepository(
         GROUP BY shows.id
     """)
 
+    private val getTotalCountStatement = connection.prepareStatement("""
+       SELECT * 
+            FROM favorite_shows
+        WHERE user_id = ? 
+    """)
+
     override suspend fun getUserFavorites(
         userId: Int,
         limit: Int,
@@ -50,8 +56,11 @@ class FavoriteTvShowsSqliteRepository(
 
         val shows = parseShowPreviews(set)
 
+        getTotalCountStatement
+            .setInt(1, userId)
+
         return TvShows(
-            -1,
+            getParsedCount(getTotalCountStatement),
             shows
         )
     }

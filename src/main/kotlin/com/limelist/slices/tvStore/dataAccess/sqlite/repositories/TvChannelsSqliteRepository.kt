@@ -115,9 +115,10 @@ class TvChannelsSqliteRepository(
             executeQuery()
         }
 
-        val tags = mutableListOf<TvTagPreview>()
-        while (set.next()){
-            tags.add(parseTag(set))
+        val tags = buildList{
+            while (set.next()){
+                add(parseTag(set))
+            }
         }
 
         return TvChannelDetailsModel(

@@ -504,7 +504,7 @@ paths:
         "200":
           description: "OK"
 
-  /api/shows/{id}/distribution:
+  /api/shows/{id}/reviews/distribution:
     get:
       summary: "Получение количества оценок"
       parameters:
@@ -635,7 +635,7 @@ paths:
         "200":
           description: "OK"
 
-  /api/channels/{id}/distribution:
+  /api/channels/{id}/reviews/distribution:
     get:
       summary: "Получение количества оценок"
       parameters:

@@ -1,6 +1,6 @@
 ###
-@baseUrl=http://127.0.0.1:8080
-#@baseUrl=http://176.109.106.211:8080
+#@baseUrl=http://127.0.0.1:8080
+@baseUrl=http://176.109.106.211:8080
 @refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwibGFzdFVwZGF0ZSI6MTcyMTMxNjg2MiwiZXhwIjoxNzIyNTE2ODYyfQ.4Xf8iZnadcET1Sqef76HyeO65BQ7N8Y6l474auL42SA
 @accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzIyNTg2NDU0fQ.mxWpsZdcSszc8SRS641H3P6Y6cQNVenY1dTcGPCkDLk
 
