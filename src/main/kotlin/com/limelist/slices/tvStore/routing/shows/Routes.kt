@@ -3,6 +3,7 @@ package com.limelist.slices.tvStore.routing.shows
 import com.limelist.slices.shared.respondResult
 import com.limelist.slices.tvStore.TvStoreServices
 import com.limelist.slices.tvStore.routing.favorites.useFavorite
+import com.limelist.slices.tvStore.routing.reviews.useReviews
 import com.limelist.slices.tvStore.services.models.shows.TvShowsFilter
 import com.limelist.slices.tvStore.services.tvShows.TvShowsServiceInterface
 import io.ktor.resources.*
@@ -18,7 +19,7 @@ fun Route.shows(tvStoreServices: TvStoreServices) {
         getShow(tvStoreServices.tvShowsService)
         getShowChannels(tvStoreServices.tvShowsService)
         useFavorite(tvStoreServices.favoriteShowsService)
-        showReviews(tvStoreServices.tvShowReviewsService)
+        useReviews(tvStoreServices.tvShowReviewsService)
     }
 }
 
@@ -83,27 +84,5 @@ data class AllShows(
             @SerialName("time-zone")
             val timeZone: Float? = null
         )
-
-        @Serializable
-        @Resource("reviews")
-        data class Reviews (
-            val parent: Show,
-            val limit: Int? = null,
-            @SerialName("time-start")
-            val timeStart: Long? = null,
-            @SerialName("time-zone")
-            val timeZone: Float? = null,
-            val assessment: Int? = null
-        ) {
-            @Serializable
-            @Resource("@my")
-            class My (
-                val parent: Reviews,
-                @SerialName("time-zone")
-                val timeZone: Float? = null
-            ) {
-                val show get() = parent.parent
-            }
-        }
     }
 }

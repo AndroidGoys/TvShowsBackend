@@ -4,6 +4,7 @@ import com.limelist.slices.shared.respondJson
 import com.limelist.slices.shared.respondResult
 import com.limelist.slices.tvStore.TvStoreServices
 import com.limelist.slices.tvStore.routing.favorites.useFavorite
+import com.limelist.slices.tvStore.routing.reviews.useReviews
 import com.limelist.slices.tvStore.services.models.channels.TvChannelsFilter
 import com.limelist.slices.tvStore.services.tvChannels.TvChannelsServiceInterface
 import io.ktor.resources.*
@@ -20,7 +21,7 @@ fun Route.channels(
         getAll(tvStoreServices.tvChannelsService)
         getChannel(tvStoreServices.tvChannelsService)
         getChannelReleases(tvStoreServices.tvChannelsService)
-        channelReviews(tvStoreServices.tvChannelReviewsService)
+        useReviews(tvStoreServices.tvChannelReviewsService)
         useFavorite(tvStoreServices.favoriteChannelsService)
     }
 }
