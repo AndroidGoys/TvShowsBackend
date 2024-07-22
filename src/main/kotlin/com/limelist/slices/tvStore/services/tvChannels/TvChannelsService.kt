@@ -7,7 +7,6 @@ import com.limelist.slices.tvStore.services.models.channels.TvChannels
 import com.limelist.slices.tvStore.services.models.channels.TvChannelDetailsModel
 import com.limelist.slices.tvStore.services.models.channels.TvChannelPreviewModel
 import com.limelist.slices.tvStore.services.models.releases.TvChannelReleases
-import com.limelist.slices.shared.normalizeUnixSecondsTime
 import com.limelist.slices.tvStore.dataAccess.sqlite.repositories.reviews.TvChannelReviewsSqliteRepository
 import com.limelist.slices.tvStore.services.models.channels.TvChannelsFilter
 import com.limelist.slices.tvStore.services.models.reviews.TvReviews
@@ -66,9 +65,6 @@ class TvChannelsService(
         timeStart: Long?,
         timeZone: Float?
     ): RequestResult<TvChannelReleases<TvChannelShowRelease>> {
-        val normalizedTimeStart = timeStart?.normalizeUnixSecondsTime(
-            timeZone ?: 0.0f
-        )
 
         if(!tvChannels.contains(channelId)) {
             return channelNotFoundResult
@@ -77,11 +73,8 @@ class TvChannelsService(
         val releases = tvChannels.getChannelReleases(
             channelId,
             limit?: -1,
-            normalizedTimeStart ?: 0,
+            timeStart ?: 0,
         )
-
-        if (timeZone != null)
-            releases.changeTimeZone(timeZone)
 
         return RequestResult.SuccessResult(releases)
     }

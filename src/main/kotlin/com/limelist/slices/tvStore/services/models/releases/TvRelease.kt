@@ -1,8 +1,6 @@
 package com.limelist.slices.tvStore.services.models.releases
 
-import com.limelist.slices.tvStore.services.models.TimeZoneDependent
-
-interface TvRelease : TimeZoneDependent {
+interface TvRelease {
     val description: String
     val timeStart: Long
     val timeStop: Long

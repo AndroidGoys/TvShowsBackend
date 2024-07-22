@@ -2,7 +2,6 @@ package com.limelist.slices.tvStore.services.tvShows
 
 import com.limelist.slices.shared.RequestError
 import com.limelist.slices.shared.RequestResult
-import com.limelist.slices.shared.normalizeUnixSecondsTime
 import com.limelist.slices.tvStore.dataAccess.interfaces.TvShowsRepository
 import com.limelist.slices.tvStore.services.models.channels.TvChannels
 import com.limelist.slices.tvStore.services.models.shows.*
@@ -65,10 +64,6 @@ class TvShowsService(
         releasesTimeStart: Long?,
         timeZone: Float?
     ): RequestResult<TvChannels<TvShowChannelModel>> {
-        val normalizedReleasesTimeStart = releasesTimeStart
-            ?.normalizeUnixSecondsTime(
-                timeZone?: 0.0f
-            )
 
         if (!tvShows.contains(showId)){
             return showNotFoundResult
@@ -79,14 +74,8 @@ class TvShowsService(
             channelsLimit ?: -1,
             channelsOffset ?: 0,
             releasesLimit ?: -1,
-            normalizedReleasesTimeStart ?: 0,
+            releasesTimeStart ?: 0,
         )
-
-        if (timeZone != null) {
-            showChannels.channels.forEach {
-                it.releases.changeTimeZone(timeZone)
-            }
-        }
 
         return RequestResult.SuccessResult(showChannels)
     }

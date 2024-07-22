@@ -3,7 +3,6 @@ package com.limelist.slices.tvStore.services.tvReviews
 import com.limelist.slices.shared.RequestError
 import com.limelist.slices.shared.RequestResult
 import com.limelist.slices.shared.getCurrentUnixUtc0TimeSeconds
-import com.limelist.slices.shared.normalizeUnixSecondsTime
 import com.limelist.slices.tvStore.dataAccess.interfaces.SingleIdRepository
 import com.limelist.slices.tvStore.dataAccess.interfaces.TvReviewsRepository
 import com.limelist.slices.tvStore.services.models.reviews.ReviewsDistribution
@@ -45,20 +44,13 @@ class TvReviewsCommonService(
             return parentNotFoundResult
 
         val limit = limit?: -1
-        var timeStart = timeStart?: 0
-
-        if (timeZone != null) {
-            timeStart = timeStart.normalizeUnixSecondsTime(timeZone)
-        }
+        var timeStart = timeStart ?: 0
 
         val reviews =
             if (assessment == null)
                 tvReviews.get(parentId, limit, timeStart)
             else
                 tvReviews.getByAssessment(parentId, assessment, limit, timeStart)
-
-        if (timeZone != null)
-            reviews.changeTimeZone(timeZone)
 
         return RequestResult.SuccessResult(reviews)
     }
@@ -103,9 +95,6 @@ class TvReviewsCommonService(
         if (tvReview == null) {
             return reviewNotFoundResult
         }
-
-        if (timeZone != null)
-            tvReview.changeTimeZone(timeZone)
 
         return RequestResult.SuccessResult(tvReview)
     }
