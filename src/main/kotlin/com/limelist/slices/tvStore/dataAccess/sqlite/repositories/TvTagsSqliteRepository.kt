@@ -19,13 +19,13 @@ class TvTagsSqliteRepository(
     private val searchByNameStatement = connection.prepareStatement("""
         SELECT * 
             FROM tags
-        WHERE name LIKE ?
+        WHERE lower_name LIKE ?
     """)
 
     private val insertTagStatement = connection.prepareStatement("""
         INSERT INTO tags
-            (name, belong) 
-        VALUES (?, ?)
+            (name, lower_name, belong) 
+        VALUES (?, ?, ?)
     """, Statement.RETURN_GENERATED_KEYS)
 
     private val getByIdStatement = connection.prepareStatement("""
@@ -38,7 +38,7 @@ class TvTagsSqliteRepository(
         tvTag: TvTagCreateModel
     ): TvTagDetails = mutex.withLock {
         var set = searchByNameStatement.run {
-            setString(1, "%${tvTag.name}%");
+            setString(1, "%${tvTag.name.lowercase()}%");
             return@run executeQuery()
         }
 
@@ -48,7 +48,8 @@ class TvTagsSqliteRepository(
 
         insertTagStatement.run {
             setString(1, tvTag.name)
-            setInt(2, tvTag.belong)
+            setString(2, tvTag.name.lowercase())
+            setInt(3, tvTag.belong)
             return@run executeUpdate()
         }
         connection.commit()

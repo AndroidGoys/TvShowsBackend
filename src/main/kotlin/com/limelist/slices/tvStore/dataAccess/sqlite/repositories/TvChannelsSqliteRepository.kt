@@ -141,7 +141,7 @@ class TvChannelsSqliteRepository(
         FROM ( 
             SELECT channels.* 
             FROM channels
-            WHERE name LIKE ?
+            WHERE lower_name LIKE ?
         ) as channels
         LEFT JOIN channel_reviews
             ON channel_reviews.parent_id = channels.id
@@ -159,7 +159,7 @@ class TvChannelsSqliteRepository(
         offset: Int
     ): TvChannels<TvChannelPreviewModel> = mutex.withLock {
         var set = searchByNameStatement.run {
-            setString(1, "%${name}%")
+            setString(1, "%${name.lowercase()}%")
             setInt(2, limit)
             setInt(3, offset)
             return@run executeQuery()
@@ -259,11 +259,12 @@ class TvChannelsSqliteRepository(
 
     private val updateChannelStatement = connection.prepareStatement("""
         INSERT INTO channels
-          (id, name, image_url, description)
+          (id, name, lower_name, image_url, description)
         VALUES
-          (?, ?, ?, ?)
+          (?, ?, ?, ?, ?)
         ON CONFLICT(id) DO UPDATE
-            SET name = EXCLUDED.name, 
+            SET name = EXCLUDED.name,
+                lower_name = EXCLUDED.lower_name,
                 image_url = EXCLUDED.image_url, 
                 description = EXCLUDED.description
             
@@ -298,8 +299,9 @@ class TvChannelsSqliteRepository(
                 updateChannelStatement.run {
                     setInt(1, channel.id)
                     setString(2, channel.name)
-                    setString(3, channel.image)
-                    setString(4, channel.description)
+                    setString(3, channel.name.lowercase());
+                    setString(4, channel.image)
+                    setString(5, channel.description)
                     executeUpdate()
                 }
 

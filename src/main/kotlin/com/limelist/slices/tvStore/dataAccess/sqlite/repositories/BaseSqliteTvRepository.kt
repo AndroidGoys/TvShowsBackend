@@ -22,13 +22,10 @@ abstract class BaseSqliteTvRepository(
         val statement = connection.createStatement();
 
         statement.execute("""
-            PRAGMA case_sensitive_like=OFF;
-        """.trimIndent())
-
-        statement.execute("""
             CREATE TABLE IF NOT EXISTS channels (
                 id INTEGER PRIMARY KEY,
                 name VARCHAR(50) NOT NULL,
+                lower_name VARCHAR(50) NOT NULL,
                 image_url TEXT NOT NULL,
                 description TEXT NOT NULL
             );
@@ -49,6 +46,7 @@ abstract class BaseSqliteTvRepository(
             CREATE TABLE IF NOT EXISTS tags (
                 id INTEGER PRIMARY KEY  ,
                 name VARCHAR(50) NOT NULL,
+                lower_name VARCHAR(50) NOT NULL,
                 belong INTEGER
             );
         """)

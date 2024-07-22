@@ -156,7 +156,7 @@ class TvShowsSqliteRepository(
         FROM ( 
             SELECT shows.* 
             FROM shows
-            WHERE name LIKE ?
+            WHERE lower_name LIKE ?
         ) as shows
         LEFT JOIN show_reviews
             ON show_reviews.parent_id = shows.id
@@ -174,7 +174,7 @@ class TvShowsSqliteRepository(
         offset: Int
     ): TvShows<TvShowPreviewModel> = mutex.withLock {
         val set = searchByNameStatement.run {
-            setString(1, "%${name}%")
+            setString(1, "%${name.lowercase()}%")
             setInt(2, limit)
             setInt(3, offset)
             return@run executeQuery()
@@ -381,11 +381,12 @@ class TvShowsSqliteRepository(
 
     private val updateShowsStatementWithPreview = connection.prepareStatement("""
         INSERT INTO shows
-            (id, name, age_limit, preview_url, description)
+            (id, name, lower_name, age_limit, preview_url, description)
         VALUES
-          (?, ?, ?, ?, ?)
+          (?, ?, ?, ?, ?, ?)
         ON CONFLICT(id) DO UPDATE
             SET name = EXCLUDED.name, 
+                lower_name = EXCLUDED.lower_name,
                 age_limit = EXCLUDED.age_limit,
                 preview_url = EXCLUDED.preview_url, 
                 description = EXCLUDED.description
@@ -393,11 +394,12 @@ class TvShowsSqliteRepository(
 
     private val updateShowsStatementWithoutPreview = connection.prepareStatement("""
         INSERT INTO shows
-            (id, name, age_limit, description)
+            (id, name, lower_name, age_limit, description)
         VALUES
-          (?, ?, ?, ?)
+          (?, ?, ?, ?, ?)
         ON CONFLICT(id) DO UPDATE
-            SET name = EXCLUDED.name, 
+            SET name = EXCLUDED.name,
+                lower_name = EXCLUDED.lower_name,
                 age_limit = EXCLUDED.age_limit,
                 description = EXCLUDED.description
     """)
@@ -424,13 +426,14 @@ class TvShowsSqliteRepository(
                  statement.run {
                     setInt(1, show.id)
                     setString(2, show.name)
-                    setInt(3, show.ageLimit)
+                    setString(3, show.name.lowercase())
+                    setInt(4, show.ageLimit)
                     if (show.previewUrl != null ) {
-                        setString(4, show.previewUrl)
-                        setString(5, show.description)
+                        setString(5, show.previewUrl)
+                        setString(6, show.description)
                     }
                     else{
-                        setString(4, show.description)
+                        setString(5, show.description)
                     }
                     executeUpdate()
                 }

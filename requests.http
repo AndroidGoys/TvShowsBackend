@@ -1,19 +1,20 @@
 ###
-#@baseUrl=http://127.0.0.1:8080
-@baseUrl=http://176.109.106.211:8080
+@baseUrl=http://127.0.0.1:8080
+#@baseUrl=http://176.109.106.211:8080
 @refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwibGFzdFVwZGF0ZSI6MTcyMTMxNjg2MiwiZXhwIjoxNzIyNTE2ODYyfQ.4Xf8iZnadcET1Sqef76HyeO65BQ7N8Y6l474auL42SA
 @accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzIyNTg2NDU0fQ.mxWpsZdcSszc8SRS641H3P6Y6cQNVenY1dTcGPCkDLk
+@showId=592771865
+@channelId=3
 
-
-GET {{baseUrl}}/api/channels
+GET {{baseUrl}}/api/channels?name=пеРвый+канал
 Accept:application/json
 
 ###
-GET {{baseUrl}}/api/channels/105
+GET {{baseUrl}}/api/channels/{{channelId}}
 Accept:application/json
 
 ###
-GET {{baseUrl}}/api/channels/105/releases?time-start=1721453228&time-zone=3
+GET {{baseUrl}}/api/channels/{{channelId}}/releases
 Accept:application/json
 
 ###
@@ -21,11 +22,11 @@ GET {{baseUrl}}/api/shows
 Accept:application/json
 
 ###
-GET {{baseUrl}}/api/shows/1570553078
+GET {{baseUrl}}/api/shows/{{showId}}
 Accept:application/json
 
 ###
-GET {{baseUrl}}/api/shows/1570553078/channels
+GET {{baseUrl}}/api/shows/{{showId}}/channels
 Accept:application/json
 
 ###
@@ -75,7 +76,7 @@ Accept: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-"id" : 1570553078
+"id" : {{showId}}
 }
 
 ###
@@ -84,7 +85,7 @@ Accept: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-"id" : 1570553078
+"id" : {{showId}}
 }
 
 ###
@@ -98,7 +99,7 @@ Accept: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-"id" : 105
+"id" : {{channelId}}
 }
 
 ###
@@ -107,19 +108,19 @@ Accept: application/json
 Authorization: Bearer {{accessToken}}
 
 {
-"id" : 105
+"id" : {{channelId}}
 }
 
 ###
-GET {{baseUrl}}/api/shows/1570553078/reviews/distribution
+GET {{baseUrl}}/api/shows/{{showId}}/reviews/distribution
 Accept: application/json
 
 ###
-GET {{baseUrl}}/api/shows/1570553078/reviews?assessment=5
+GET {{baseUrl}}/api/shows/{{showId}}/reviews?assessment=5
 Accept: application/json
 
 ### ИЗМЕНЯЕТ ИЛИ ДОБОВЛЯЕТ отзыв
-POST {{baseUrl}}/api/shows/1570553078/reviews
+POST {{baseUrl}}/api/shows/{{showId}}/reviews
 Accept: application/json
 Authorization: Bearer {{accessToken}}
 
@@ -129,25 +130,25 @@ Authorization: Bearer {{accessToken}}
 }
 
 ###
-GET {{baseUrl}}/api/shows/1570553078/reviews/@my
+GET {{baseUrl}}/api/shows/{{showId}}/reviews/@my
 Accept: application/json
 Authorization: Bearer {{accessToken}}
 
 ###
-DELETE {{baseUrl}}/api/shows/1570553078/reviews/@my
+DELETE {{baseUrl}}/api/shows/{{showId}}/reviews/@my
 Accept: application/json
 Authorization: Bearer {{accessToken}}
 
 ###
-GET {{baseUrl}}/api/channels/105/reviews
+GET {{baseUrl}}/api/channels/{{channelId}}/reviews
 Accept: application/json
 
 ###
-GET {{baseUrl}}/api/channels/105/reviews/distribution
+GET {{baseUrl}}/api/channels/{{channelId}}/reviews/distribution
 Accept: application/json
 
 ### ИЗМЕНЯЕТ ИЛИ ДОБОВЛЯЕТ отзыв
-POST {{baseUrl}}/api/channels/105/reviews
+POST {{baseUrl}}/api/channels/{{channelId}}/reviews
 Accept: application/json
 Authorization: Bearer {{accessToken}}
 
@@ -157,12 +158,12 @@ Authorization: Bearer {{accessToken}}
 }
 
 ###
-GET {{baseUrl}}/api/channels/1570553078/reviews/@my
+GET {{baseUrl}}/api/channels/{{showId}}/reviews/@my
 Accept: application/json
 Authorization: Bearer {{accessToken}}
 
 ###
-DELETE {{baseUrl}}/api/channels/1570553078/reviews/@my
+DELETE {{baseUrl}}/api/channels/{{showId}}/reviews/@my
 Accept: application/json
 Authorization: Bearer {{accessToken}}
 
