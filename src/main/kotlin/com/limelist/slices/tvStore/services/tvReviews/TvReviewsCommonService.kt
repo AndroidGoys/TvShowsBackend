@@ -91,6 +91,9 @@ class TvReviewsCommonService(
         userId: Int,
         timeZone: Float?
     ): RequestResult<TvReview> {
+        if (!parents.contains(parentId))
+            return parentNotFoundResult
+
         val tvReview = tvReviews.getForUser(userId, parentId)
         if (tvReview == null) {
             return reviewNotFoundResult

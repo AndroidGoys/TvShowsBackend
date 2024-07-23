@@ -12,16 +12,16 @@ public class TokensFactory (
     val config: AuthConfig
 ) {
 
-    private val accessTokenLifetimeMS = // 20 минут * коеф
-        (20 * 60 * 1000 * config.tokensLifeTimeCoefficient).toLong()
-    private val refreshTokenLifetimeMS = // 20 дней * коеф
-        (20 * 24 * 60 * 60 * 1000 * config.tokensLifeTimeCoefficient).toLong()
+    private val accessTokenLifetimeSeconds = // 20 минут * коеф
+        (1 * 60 * config.tokensLifeTimeCoefficient).toLong()
+    private val refreshTokenLifetimeSeconds = // 20 дней * коеф
+        (20 * 24 * 60 * 60 * config.tokensLifeTimeCoefficient).toLong()
 
     private val accessTokenExpirationDateSeconds
-        get() = accessTokenLifetimeMS + getCurrentUnixUtc0TimeSeconds()
+        get() = accessTokenLifetimeSeconds + getCurrentUnixUtc0TimeSeconds()
 
     private val refreshTokenExpirationDateSeconds
-        get() = accessTokenLifetimeMS + getCurrentUnixUtc0TimeSeconds()
+        get() = accessTokenLifetimeSeconds + getCurrentUnixUtc0TimeSeconds()
 
 
     private fun createAccessTokenPrivate(

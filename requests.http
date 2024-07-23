@@ -1,8 +1,9 @@
 ###
 @baseUrl=http://127.0.0.1:8080
-#@baseUrl=http://176.109.106.211:8080
-@refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwibGFzdFVwZGF0ZSI6MTcyMTMxNjg2MiwiZXhwIjoxNzIyNTE2ODYyfQ.4Xf8iZnadcET1Sqef76HyeO65BQ7N8Y6l474auL42SA
-@accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzIyNTg2NDU0fQ.mxWpsZdcSszc8SRS641H3P6Y6cQNVenY1dTcGPCkDLk
+//@baseUrl=http://176.109.106.211:8080
+@refreshToken="YOUR_TOKEN"
+@accessToken="YOUR_TOKEN"
+
 @showId=592771865
 @channelId=3
 
@@ -34,8 +35,8 @@ POST {{baseUrl}}/api/auth/register
 Accept:application/json
 
 {
-"username":"androidbot",
-"email":"and@yandex.ru",
+"username":"androedbot",
+"email":"and@yaades.ru",
 "password":"qwerty"
 }
 
@@ -52,8 +53,8 @@ POST {{baseUrl}}/api/auth/login
 Accept:application/json
 
 {
-"login":"and@yandex.ru",
-"password":"qwerty"
+"login":"string",
+"password":"string"
 }
 
 ###
@@ -126,7 +127,7 @@ Authorization: Bearer {{accessToken}}
 
 {
 "assessment": 5,
-"text": "Отличное шоу, смотрели всей семьёй"
+"text": "Отличное шоу, смотрели всей семьёй 3333"
 }
 
 ###
@@ -154,16 +155,16 @@ Authorization: Bearer {{accessToken}}
 
 {
 "assessment": 5,
-"text": "Отличный канал, рекомендую для семейного просмотра"
+"text": "Мышь мышь мышь"
 }
 
 ###
-GET {{baseUrl}}/api/channels/{{showId}}/reviews/@my
+GET {{baseUrl}}/api/channels/{{channelId}}/reviews/@my
 Accept: application/json
 Authorization: Bearer {{accessToken}}
 
 ###
-DELETE {{baseUrl}}/api/channels/{{showId}}/reviews/@my
+DELETE {{baseUrl}}/api/channels/{{channelId}}/reviews/@my
 Accept: application/json
 Authorization: Bearer {{accessToken}}
 

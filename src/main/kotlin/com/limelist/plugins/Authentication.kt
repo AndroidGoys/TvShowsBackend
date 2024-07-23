@@ -3,6 +3,7 @@ package com.limelist.plugins
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.limelist.ApplicationConfig
+import com.limelist.slices.shared.getCurrentUnixUtc0TimeSeconds
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.auth.jwt.*
@@ -19,6 +20,7 @@ fun Application.configureAuthentication(config: ApplicationConfig) {
 
             validate { credential ->
                 val subject = credential.subject
+
                 if (subject == null)
                     return@validate null
 
