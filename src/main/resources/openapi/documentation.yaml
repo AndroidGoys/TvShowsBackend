@@ -4,7 +4,7 @@ info:
   summary: "Управление каналами и списком телепередачь"
   version: "1.0.0"
 servers:
-  - url: "http://176.109.106.211:8080"
+  - url: "https://damntv.ru"
   - url: "http://127.0.0.1:8080"
 
 components:
