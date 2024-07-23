@@ -1,6 +1,6 @@
 ###
-@baseUrl=http://127.0.0.1:8080
-//@baseUrl=http://176.109.106.211:8080
+//@baseUrl=http://127.0.0.1:8080
+@baseUrl=http://176.109.106.211
 @refreshToken="YOUR_TOKEN"
 @accessToken="YOUR_TOKEN"
 
