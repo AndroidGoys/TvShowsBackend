@@ -13,7 +13,7 @@ public class TokensFactory (
 ) {
 
     private val accessTokenLifetimeSeconds = // 20 минут * коеф
-        (1 * 60 * config.tokensLifeTimeCoefficient).toLong()
+        (20 * 60 * config.tokensLifeTimeCoefficient).toLong()
     private val refreshTokenLifetimeSeconds = // 20 дней * коеф
         (20 * 24 * 60 * 60 * config.tokensLifeTimeCoefficient).toLong()
 

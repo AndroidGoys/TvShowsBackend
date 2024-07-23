@@ -11,7 +11,6 @@
   <component name="ChangeListManager">
     <list default="true" id="90c853c6-c64c-4142-9064-ff9deb980f22" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/limelist/plugins/HTTP.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/limelist/plugins/HTTP.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,7 +94,7 @@
     &quot;HTTP Request.requests | ИЗМЕНЯЕТ ИЛИ ДОБОВЛЯЕТ отзыв#1.executor&quot;: &quot;Run&quot;,
     &quot;HTTP Request.requests | ИЗМЕНЯЕТ ИЛИ ДОБОВЛЯЕТ отзыв#2.executor&quot;: &quot;Run&quot;,
     &quot;JAR Application.tvshows.jar.executor&quot;: &quot;Debug&quot;,
-    &quot;Kotlin.ApplicationKt.executor&quot;: &quot;Run&quot;,
+    &quot;Kotlin.ApplicationKt.executor&quot;: &quot;Debug&quot;,
     &quot;Maven.tvshows [-v].executor&quot;: &quot;Run&quot;,
     &quot;Maven.tvshows [package].executor&quot;: &quot;Run&quot;,
     &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
@@ -263,7 +262,8 @@
       <workItem from="1721713643289" duration="2201000" />
       <workItem from="1721727160747" duration="1509000" />
       <workItem from="1721736504236" duration="1956000" />
-      <workItem from="1721760270147" duration="33000" />
+      <workItem from="1721760270147" duration="431000" />
+      <workItem from="1721760787533" duration="242000" />
     </task>
     <task id="LOCAL-00001" summary="Fixing sql queries">
       <option name="closed" value="true" />
