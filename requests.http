@@ -1,7 +1,7 @@
 ###
-@baseUrl=http://127.0.0.1:8080
-//@baseUrl=http://176.109.106.211
-@refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyIiwibGFzdFVwZGF0ZSI6MTcyMTQ4NjAyNywiZXhwIjoxNzIxNzYyMzUyfQ.emWdW-pBv0kamKTZONKdqXrIQRCAOCZD2n1jSorR06k
+//@baseUrl=http://127.0.0.1:8080
+@baseUrl=https://damntv.ru
+@refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMyIsImxhc3RVcGRhdGUiOjE3MjE3NjMzMzUsImV4cCI6MTcyMTc2NDUzNn0.YllZTsygIowhGbg7xg6BidPn7H03nvydsXLYV4ygius
 @accessToken="YOUR_TOKEN"
 
 @showId=592771865

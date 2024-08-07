@@ -9,7 +9,7 @@ data class TvShowChannelsDataModel (
     val channelName: String,
     val channelAssessment: Float,
     val channelImageUrl: String,
-    val releaseId: Int,
+    val showId: Int,
     val releaseDescription: String,
     val releaseStart: Long,
     val releaseStop: Long
@@ -19,7 +19,7 @@ data class TvShowChannelsDataModel (
         set.getString("channel_name"),
         set.getFloat("channel_assessment"),
         set.getString("channel_image_url"),
-        set.getInt("release_id"),
+        set.getInt("show_id"),
         set.getString("release_description"),
         set.getLong("release_start"),
         set.getLong("release_stop")

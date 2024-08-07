@@ -194,7 +194,7 @@ class TvShowsSqliteRepository(
             channels.name as channel_name,
             channels.assessment as channel_assessment,
             channels.image_url as channel_image_url,
-            releases.id as release_id,
+            releases.show_id as show_id,
             releases.description as release_description,
             releases.time_start as release_start,
             releases.time_stop as release_stop

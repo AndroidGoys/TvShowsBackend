@@ -91,15 +91,14 @@ abstract class BaseSqliteTvRepository(
 
         statement.execute("""
             CREATE TABLE IF NOT EXISTS releases (
-                id INTEGER PRIMARY KEY,
                 show_id INTEGER REFERENCES shows,
                 channel_id INTEGER REFERENCES channels,
                 description TEXT NOT NULL,
                 time_start REAL,
-                time_stop REAL
+                time_stop REAL,
+                CONSTRAINT id PRIMARY KEY (show_id, channel_id, time_start)
             );
         """)
-
 
         statement.execute("""
             CREATE TABLE IF NOT EXISTS channel_view_urls (
