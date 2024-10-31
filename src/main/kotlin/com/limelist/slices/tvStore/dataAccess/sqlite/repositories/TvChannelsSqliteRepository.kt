@@ -87,7 +87,10 @@ class TvChannelsSqliteRepository(
         WHERE channel_id = ?
     """)
 
-    override suspend fun getChannelDetails(id: Int): TvChannelDetailsModel? {
+    override suspend fun getChannelDetails(
+        id: Int
+    ): TvChannelDetailsModel? = mutex.withLock {
+        
         var set = getChannelDetailsStatement.run{
             setInt(1, id)
             executeQuery()

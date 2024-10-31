@@ -1,6 +1,7 @@
 ###
-//@baseUrl=http://127.0.0.1:8080
-@baseUrl=https://damntv.ru
+@baseUrl=http://176.124.209.69
+#@baseUrl=http://0.0.0.0:8080
+//@baseUrl=https://damntv.ru
 @refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMyIsImxhc3RVcGRhdGUiOjE3MjE3NjMzMzUsImV4cCI6MTcyMTc2NDUzNn0.YllZTsygIowhGbg7xg6BidPn7H03nvydsXLYV4ygius
 @accessToken="YOUR_TOKEN"
 

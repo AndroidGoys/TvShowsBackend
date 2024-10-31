@@ -1,7 +1,7 @@
 openapi: "3.0.3"
 info:
   title: "TvHistoryApi"
-  summary: "Управление каналами и списком телепередачь"
+  summary: "Управление каналами и списком телепередач"
   version: "1.0.0"
 servers:
   - url: "https://damntv.ru"
@@ -216,7 +216,7 @@ paths:
 
   /api/channels/{id}/releases:
     get:
-      summary: "Получение списка выпусков телепередачь на канале"
+      summary: "Получение списка выпусков телепередач на канале"
       parameters:
         - name: "id"
           required: true
@@ -290,7 +290,7 @@ paths:
 #                      ]
   /api/shows:
     get:
-      summary: "Получение списка телепередачь"
+      summary: "Получение списка телепередач"
       parameters:
         - name: "limit"
           required: false
@@ -352,7 +352,7 @@ paths:
 
   /api/shows/{id}/channels:
     get:
-      summary: "Получение списка телепередачь на канале"
+      summary: "Получение списка телепередач на канале"
       parameters:
         - name: "id"
           required: true
